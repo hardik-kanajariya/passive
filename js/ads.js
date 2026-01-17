@@ -5,6 +5,28 @@
 
 const AdManager = {
     loaded: {},
+    errors: [],
+
+    // Log ad loading errors
+    logError(adType, error) {
+        console.warn(`[AdManager] Failed to load ${adType}:`, error);
+        this.errors.push({ type: adType, error: error.message || error, time: new Date() });
+    },
+
+    // Load script with error handling
+    loadScript(src, onLoad, onError) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.onerror = () => {
+            this.logError(src, 'Script failed to load (blocked or network error)');
+            if (onError) onError();
+        };
+        script.onload = () => {
+            if (onLoad) onLoad();
+        };
+        return script;
+    },
 
     // Check if popunder should load (1x per 24 hours)
     shouldLoadPopunder() {
@@ -29,8 +51,11 @@ const AdManager = {
     loadAntiAdblockPopunder() {
         if (this.loaded['antiAdblockPopunder']) return;
 
-        const script = document.createElement('script');
-        script.src = 'https://biographygridetelegram.com/06/6f/ef/066fefb2005b66dd6bb910cac5faa9ff.js';
+        const script = this.loadScript(
+            'https://biographygridetelegram.com/06/6f/ef/066fefb2005b66dd6bb910cac5faa9ff.js',
+            null,
+            () => this.logError('AntiAdblockPopunder', 'Blocked')
+        );
         document.body.appendChild(script);
         this.loaded['antiAdblockPopunder'] = true;
     },
@@ -43,10 +68,14 @@ const AdManager = {
         const randomUrl = this.popunderUrls[Math.floor(Math.random() * this.popunderUrls.length)];
 
         // Open popunder
-        const popunder = window.open(randomUrl, '_blank');
-        if (popunder) {
-            popunder.blur();
-            window.focus();
+        try {
+            const popunder = window.open(randomUrl, '_blank');
+            if (popunder) {
+                popunder.blur();
+                window.focus();
+            }
+        } catch (e) {
+            this.logError('Popunder', e);
         }
     },
 
@@ -54,8 +83,9 @@ const AdManager = {
     setupPopunderTrigger() {
         if (this.loaded['popunderTrigger']) return;
 
+        const self = this;
         const triggerPopunder = () => {
-            this.triggerPopunder();
+            self.triggerPopunder();
             document.removeEventListener('click', triggerPopunder);
         };
 
@@ -271,6 +301,44 @@ const AdManager = {
         if (pageType === 'processing') {
             this.loadAdsterraInterstitial();
         }
+
+        // Log initialization
+        console.log('[AdManager] Initialized for page type:', pageType, 'Mobile:', window.innerWidth < 768);
+
+        // Check ad loading status after 5 seconds
+        setTimeout(() => this.checkAdStatus(), 5000);
+    },
+
+    // Check if ads loaded and show fallback if blocked
+    checkAdStatus() {
+        const adContainers = ['ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer'];
+        let adsBlocked = true;
+
+        adContainers.forEach(id => {
+            const container = document.getElementById(id);
+            if (container && container.children.length > 0) {
+                adsBlocked = false;
+            }
+        });
+
+        if (adsBlocked && this.errors.length > 0) {
+            console.log('[AdManager] Ads appear to be blocked. Popunders will still work on click.');
+        }
+    },
+
+    // Debug function - call AdManager.debug() in console
+    debug() {
+        console.log('=== AdManager Debug Info ===');
+        console.log('Loaded scripts:', this.loaded);
+        console.log('Errors:', this.errors);
+        console.log('Ad containers found:');
+        ['ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer',
+            'ad-mobile-top', 'ad-mobile-content', 'ad-mobile-sticky', 'ad-native', 'ad-juicy-banner']
+            .forEach(id => {
+                const el = document.getElementById(id);
+                console.log(`  ${id}:`, el ? `Found (${el.children.length} children)` : 'Not found');
+            });
+        return { loaded: this.loaded, errors: this.errors };
     }
 };
 
