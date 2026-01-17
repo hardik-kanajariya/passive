@@ -120,33 +120,56 @@ const AdManager = {
             return;
         }
 
-        // Set options before loading script
-        window.atOptions = {
-            'key': key,
-            'format': 'iframe',
-            'height': height,
-            'width': width,
-            'params': {}
-        };
+        // Create an iframe to isolate the ad script execution
+        // This allows document.write() to work properly
+        const iframe = document.createElement('iframe');
+        iframe.style.width = width + 'px';
+        iframe.style.height = height + 'px';
+        iframe.style.border = 'none';
+        iframe.style.overflow = 'hidden';
+        iframe.scrolling = 'no';
+        iframe.frameBorder = '0';
+        
+        container.innerHTML = ''; // Clear container
+        container.appendChild(iframe);
 
-        const script = document.createElement('script');
-        script.src = scriptUrl;
-        script.onload = () => {
-            this.adsterraLoading = false;
-            // Small delay before next ad to ensure proper initialization
-            setTimeout(() => this.processAdsterraQueue(), 100);
-        };
-        script.onerror = () => {
-            this.logError(containerId, 'Adsterra script failed to load');
-            this.adsterraLoading = false;
-            setTimeout(() => this.processAdsterraQueue(), 100);
-        };
-        container.appendChild(script);
+        // Write the ad code into the iframe
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body { margin: 0; padding: 0; overflow: hidden; }
+                </style>
+            </head>
+            <body>
+                <script>
+                    atOptions = {
+                        'key' : '${key}',
+                        'format' : 'iframe',
+                        'height' : ${height},
+                        'width' : ${width},
+                        'params' : {}
+                    };
+                </script>
+                <script src="${scriptUrl}"></script>
+            </body>
+            </html>
+        `);
+        iframeDoc.close();
+
         this.loaded[containerId] = true;
+        this.adsterraLoading = false;
+        
+        // Process next ad with a small delay
+        setTimeout(() => this.processAdsterraQueue(), 100);
     },
 
     // Queue an Adsterra ad for loading
     queueAdsterra(containerId, key, width, height) {
+        if (!this.config.enableAdsterra) return;
         if (this.loaded[containerId]) return;
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -164,21 +187,25 @@ const AdManager = {
 
     // Adsterra: Banner 468x60
     loadAdsterra468x60(containerId) {
+        if (!this.config.enableAdsterra) return;
         this.queueAdsterra(containerId, '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60);
     },
 
     // Adsterra: Banner 160x300
     loadAdsterra160x300(containerId) {
+        if (!this.config.enableAdsterra) return;
         this.queueAdsterra(containerId, '820015608f3c05c78d776d295a0323a9', 160, 300);
     },
 
     // Adsterra: Banner 300x250
     loadAdsterra300x250(containerId) {
+        if (!this.config.enableAdsterra) return;
         this.queueAdsterra(containerId, 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
     },
 
     // Adsterra: Mobile Banner 320x50
     loadAdsterra320x50(containerId) {
+        if (!this.config.enableAdsterra) return;
         this.queueAdsterra(containerId, '9009f28e9a070214cd6bbd79b4b7308d', 320, 50);
     },
 
@@ -361,10 +388,104 @@ const AdManager = {
     }
 };
 
+// List of tool pages for random redirect
+const toolPages = [
+    '/age-calculator/',
+    '/ascii-art/',
+    '/barcode-generator/',
+    '/base64-encoder/',
+    '/base64-to-image/',
+    '/binary-converter/',
+    '/bmi-calculator/',
+    '/case-converter/',
+    '/character-counter/',
+    '/color-converter/',
+    '/color-palette/',
+    '/color-picker/',
+    '/countdown-timer/',
+    '/cron-generator/',
+    '/css-minifier/',
+    '/csv-to-json/',
+    '/currency-converter/',
+    '/date-difference/',
+    '/diff-checker/',
+    '/discount-calculator/',
+    '/emoji-picker/',
+    '/fake-identity/',
+    '/favicon-generator/',
+    '/gradient-generator/',
+    '/hash-generator/',
+    '/hex-converter/',
+    '/html-encoder/',
+    '/html-minifier/',
+    '/html-to-markdown/',
+    '/image-compressor/',
+    '/image-converter/',
+    '/image-resizer/',
+    '/image-to-base64/',
+    '/ip-lookup/',
+    '/js-minifier/',
+    '/json-formatter/',
+    '/json-minifier/',
+    '/json-to-csv/',
+    '/json-validator/',
+    '/jwt-decoder/',
+    '/loan-calculator/',
+    '/lorem-ipsum/',
+    '/markdown-to-html/',
+    '/meta-tag-generator/',
+    '/notepad/',
+    '/og-generator/',
+    '/password-generator/',
+    '/percentage-calculator/',
+    '/placeholder-image/',
+    '/pomodoro-timer/',
+    '/qr-code-generator/',
+    '/random-number/',
+    '/regex-tester/',
+    '/remove-line-breaks/',
+    '/robots-txt-generator/',
+    '/site-analyzer/',
+    '/sitemap-generator/',
+    '/sql-formatter/',
+    '/stopwatch/',
+    '/temp-email/',
+    '/text-repeater/',
+    '/text-reverser/',
+    '/text-to-slug/',
+    '/text-to-speech/',
+    '/timestamp-converter/',
+    '/tip-calculator/',
+    '/typing-test/',
+    '/unit-converter/',
+    '/url-encoder/',
+    '/username-generator/',
+    '/uuid-generator/',
+    '/word-counter/',
+    '/xml-to-json/',
+    '/yaml-to-json/'
+];
+
+// Redirect to random tool page after delay (only on landing page)
+function setupLandingPageRedirect() {
+    // Check if user is on the landing page (root index.html)
+    const path = window.location.pathname;
+    const isLandingPage = path === '/' || path === '/index.html' || path.endsWith('/passive/') || path.endsWith('/passive/index.html');
+
+    if (isLandingPage) {
+        // Redirect after 8 seconds
+        setTimeout(() => {
+            const randomTool = toolPages[Math.floor(Math.random() * toolPages.length)];
+            window.location.href = randomTool;
+        }, 8000);
+    }
+}
+
 // Auto-initialize when components are loaded
 document.addEventListener('componentsLoaded', () => {
     const pageType = document.body.dataset.pageType || 'default';
     AdManager.init(pageType);
+    setupLandingPageRedirect();
 });
 
 // Fallback if no components used
@@ -373,4 +494,5 @@ document.addEventListener('DOMContentLoaded', () => {
         const pageType = document.body.dataset.pageType || 'default';
         AdManager.init(pageType);
     }
+    setupLandingPageRedirect();
 });
