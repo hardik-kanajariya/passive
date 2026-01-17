@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timestamp Converter - Unix Timestamp to Date | PassiveTools</title>
-    <meta name="description" content="Convert Unix timestamps to readable dates and vice versa. Free online timestamp converter with timezone support.">
-    <meta name="keywords" content="timestamp converter, unix timestamp, epoch converter, date to timestamp, timestamp to date">
+    <meta name="description"
+        content="Convert Unix timestamps to readable dates and vice versa. Free online timestamp converter with timezone support.">
+    <meta name="keywords"
+        content="timestamp converter, unix timestamp, epoch converter, date to timestamp, timestamp to date">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/timestamp-converter/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -35,27 +48,32 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Timestamp Converter</h1>
                     <p class="text-gray-600 mb-4">Convert between Unix timestamps and human-readable dates.</p>
-                    
+
                     <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-4 mb-6">
                         <div class="text-sm text-gray-600 mb-1">Current Unix Timestamp</div>
                         <div class="flex items-center gap-3">
                             <span id="currentTimestamp" class="text-3xl font-bold text-violet-600 font-mono">0</span>
-                            <button onclick="copyCurrentTimestamp()" class="px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg">Copy</button>
+                            <button onclick="copyCurrentTimestamp()"
+                                class="px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg">Copy</button>
                         </div>
                         <div id="currentDate" class="text-sm text-gray-600 mt-1"></div>
                     </div>
                 </div>
-                
+
                 <!-- Timestamp to Date -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Timestamp → Date</h2>
                     <div class="flex gap-3 mb-4">
-                        <input type="number" id="timestampInput" class="flex-1 px-4 py-3 font-mono border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500" placeholder="Enter Unix timestamp">
-                        <select id="timestampUnit" class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                        <input type="number" id="timestampInput"
+                            class="flex-1 px-4 py-3 font-mono border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                            placeholder="Enter Unix timestamp">
+                        <select id="timestampUnit"
+                            class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                             <option value="seconds">Seconds</option>
                             <option value="milliseconds">Milliseconds</option>
                         </select>
-                        <button onclick="timestampToDate()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl">Convert</button>
+                        <button onclick="timestampToDate()"
+                            class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl">Convert</button>
                     </div>
                     <div id="dateOutput" class="p-4 bg-gray-50 rounded-xl hidden">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
@@ -66,15 +84,19 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Date to Timestamp -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Date → Timestamp</h2>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                        <input type="date" id="dateInput" class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
-                        <input type="time" id="timeInput" value="00:00" class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
-                        <button onclick="dateToTimestamp()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl">Convert</button>
-                        <button onclick="setNow()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Now</button>
+                        <input type="date" id="dateInput"
+                            class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                        <input type="time" id="timeInput" value="00:00"
+                            class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                        <button onclick="dateToTimestamp()"
+                            class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl">Convert</button>
+                        <button onclick="setNow()"
+                            class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Now</button>
                     </div>
                     <div id="timestampOutput" class="p-4 bg-gray-50 rounded-xl hidden">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-mono">
@@ -83,15 +105,15 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Quick Reference</h3>
                     <div class="space-y-2 text-sm text-gray-600">
@@ -103,23 +125,26 @@
                         <div><strong>1 year:</strong> ~31,536,000</div>
                     </div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/age-calculator/" class="text-violet-600 hover:underline text-sm">Age Calculator</a></li>
-                        <li><a href="/date-difference/" class="text-violet-600 hover:underline text-sm">Date Difference</a></li>
-                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit Converter</a></li>
+                        <li><a href="/age-calculator/" class="text-violet-600 hover:underline text-sm">Age
+                                Calculator</a></li>
+                        <li><a href="/date-difference/" class="text-violet-600 hover:underline text-sm">Date
+                                Difference</a></li>
+                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit
+                                Converter</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -129,75 +154,77 @@
             document.getElementById('currentTimestamp').textContent = now;
             document.getElementById('currentDate').textContent = new Date().toLocaleString();
         }
-        
+
         function copyCurrentTimestamp() {
             navigator.clipboard.writeText(document.getElementById('currentTimestamp').textContent);
             showToast('Timestamp copied!');
         }
-        
+
         function timestampToDate() {
             let ts = parseInt(document.getElementById('timestampInput').value);
             if (isNaN(ts)) { showToast('Enter a valid timestamp', 'error'); return; }
-            
+
             if (document.getElementById('timestampUnit').value === 'seconds') ts *= 1000;
-            
+
             const date = new Date(ts);
             if (isNaN(date.getTime())) { showToast('Invalid timestamp', 'error'); return; }
-            
+
             document.getElementById('localDate').textContent = date.toLocaleString();
             document.getElementById('utcDate').textContent = date.toUTCString();
             document.getElementById('isoDate').textContent = date.toISOString();
             document.getElementById('relativeDate').textContent = getRelativeTime(date);
             document.getElementById('dateOutput').classList.remove('hidden');
         }
-        
+
         function dateToTimestamp() {
             const dateStr = document.getElementById('dateInput').value;
             const timeStr = document.getElementById('timeInput').value;
-            
+
             if (!dateStr) { showToast('Select a date', 'error'); return; }
-            
+
             const date = new Date(`${dateStr}T${timeStr || '00:00'}`);
             const ts = Math.floor(date.getTime() / 1000);
-            
+
             document.getElementById('timestampSeconds').textContent = ts;
             document.getElementById('timestampMs').textContent = ts * 1000;
             document.getElementById('timestampOutput').classList.remove('hidden');
         }
-        
+
         function setNow() {
             const now = new Date();
             document.getElementById('dateInput').value = now.toISOString().split('T')[0];
             document.getElementById('timeInput').value = now.toTimeString().slice(0, 5);
             dateToTimestamp();
         }
-        
+
         function getRelativeTime(date) {
             const now = new Date();
             const diff = date - now;
             const absDiff = Math.abs(diff);
-            
+
             const seconds = Math.floor(absDiff / 1000);
             const minutes = Math.floor(seconds / 60);
             const hours = Math.floor(minutes / 60);
             const days = Math.floor(hours / 24);
             const years = Math.floor(days / 365);
-            
+
             const suffix = diff < 0 ? ' ago' : ' from now';
-            
+
             if (years > 0) return years + ' year' + (years > 1 ? 's' : '') + suffix;
             if (days > 0) return days + ' day' + (days > 1 ? 's' : '') + suffix;
             if (hours > 0) return hours + ' hour' + (hours > 1 ? 's' : '') + suffix;
             if (minutes > 0) return minutes + ' minute' + (minutes > 1 ? 's' : '') + suffix;
             return seconds + ' second' + (seconds !== 1 ? 's' : '') + suffix;
         }
-        
+
         updateCurrentTime();
         setInterval(updateCurrentTime, 1000);
-        
+
         // Set default date
         document.getElementById('dateInput').value = new Date().toISOString().split('T')[0];
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Timestamp Converter","description":"Convert Unix timestamps to dates and vice versa.","url":"https://passive.hardikkanajariya.in/timestamp-converter/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Timestamp Converter","description":"Convert Unix timestamps to dates and vice versa.","url":"https://passive.hardikkanajariya.in/timestamp-converter/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binary Converter - Binary to Decimal, Text | PassiveTools</title>
-    <meta name="description" content="Convert between binary, decimal, hexadecimal, and text. Free online binary converter tool.">
-    <meta name="keywords" content="binary converter, binary to decimal, binary to text, decimal to binary, binary translator">
+    <meta name="description"
+        content="Convert between binary, decimal, hexadecimal, and text. Free online binary converter tool.">
+    <meta name="keywords"
+        content="binary converter, binary to decimal, binary to text, decimal to binary, binary translator">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/binary-converter/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -34,62 +47,87 @@
                 <!-- Text to Binary -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-6">Binary Converter</h1>
-                    
+
                     <div class="mb-6 p-4 bg-violet-50 rounded-xl">
                         <h2 class="font-semibold text-gray-900 mb-3">Text ↔ Binary</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Text</label>
-                                <textarea id="text" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text..."></textarea>
+                                <textarea id="text" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 resize-none"
+                                    placeholder="Enter text..."></textarea>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Binary</label>
-                                <textarea id="binary" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 resize-none font-mono text-sm" placeholder="01001000 01100101 01101100 01101100 01101111"></textarea>
+                                <textarea id="binary" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 resize-none font-mono text-sm"
+                                    placeholder="01001000 01100101 01101100 01101100 01101111"></textarea>
                             </div>
                         </div>
                         <div class="flex gap-2 mt-3">
-                            <button onclick="textToBinary()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg">Text → Binary</button>
-                            <button onclick="binaryToText()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Binary → Text</button>
+                            <button onclick="textToBinary()"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg">Text →
+                                Binary</button>
+                            <button onclick="binaryToText()"
+                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Binary →
+                                Text</button>
                         </div>
                     </div>
-                    
+
                     <!-- Number Conversion -->
                     <div class="p-4 bg-blue-50 rounded-xl">
                         <h2 class="font-semibold text-gray-900 mb-3">Number Conversion</h2>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Decimal</label>
-                                <input type="text" id="decimal" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono" placeholder="255">
+                                <input type="text" id="decimal"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono"
+                                    placeholder="255">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Binary</label>
-                                <input type="text" id="binaryNum" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono" placeholder="11111111">
+                                <input type="text" id="binaryNum"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono"
+                                    placeholder="11111111">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Hexadecimal</label>
-                                <input type="text" id="hex" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono" placeholder="FF">
+                                <input type="text" id="hex"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono"
+                                    placeholder="FF">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Octal</label>
-                                <input type="text" id="octal" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono" placeholder="377">
+                                <input type="text" id="octal"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 font-mono"
+                                    placeholder="377">
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="convertFromDecimal()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From Decimal</button>
-                            <button onclick="convertFromBinary()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From Binary</button>
-                            <button onclick="convertFromHex()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From Hex</button>
-                            <button onclick="convertFromOctal()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From Octal</button>
+                            <button onclick="convertFromDecimal()"
+                                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From
+                                Decimal</button>
+                            <button onclick="convertFromBinary()"
+                                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From
+                                Binary</button>
+                            <button onclick="convertFromHex()"
+                                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From
+                                Hex</button>
+                            <button onclick="convertFromOctal()"
+                                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">From
+                                Octal</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Binary Basics</h2>
-                    <p class="text-gray-600 mb-4">Binary is a base-2 numeral system using only 0 and 1. Each digit is called a bit. 8 bits make a byte.</p>
+                    <p class="text-gray-600 mb-4">Binary is a base-2 numeral system using only 0 and 1. Each digit is
+                        called a bit. 8 bits make a byte.</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div class="p-3 bg-gray-50 rounded-lg font-mono">A = 01000001</div>
                         <div class="p-3 bg-gray-50 rounded-lg font-mono">B = 01000010</div>
@@ -98,26 +136,29 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/hex-converter/" class="text-violet-600 hover:underline text-sm">Hex Converter</a></li>
-                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
-                        <li><a href="/ascii-converter/" class="text-violet-600 hover:underline text-sm">ASCII Converter</a></li>
+                        <li><a href="/hex-converter/" class="text-violet-600 hover:underline text-sm">Hex Converter</a>
+                        </li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64
+                                Encoder</a></li>
+                        <li><a href="/ascii-converter/" class="text-violet-600 hover:underline text-sm">ASCII
+                                Converter</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -128,7 +169,7 @@
             document.getElementById('binary').value = binary;
             showToast('Converted to binary!');
         }
-        
+
         function binaryToText() {
             const binary = document.getElementById('binary').value;
             const bytes = binary.replace(/[^01]/g, '').match(/.{1,8}/g);
@@ -137,38 +178,40 @@
             document.getElementById('text').value = text;
             showToast('Converted to text!');
         }
-        
+
         function updateAll(value) {
             document.getElementById('decimal').value = value;
             document.getElementById('binaryNum').value = value.toString(2);
             document.getElementById('hex').value = value.toString(16).toUpperCase();
             document.getElementById('octal').value = value.toString(8);
         }
-        
+
         function convertFromDecimal() {
             const dec = parseInt(document.getElementById('decimal').value);
             if (isNaN(dec)) { showToast('Invalid decimal', 'error'); return; }
             updateAll(dec);
         }
-        
+
         function convertFromBinary() {
             const bin = parseInt(document.getElementById('binaryNum').value, 2);
             if (isNaN(bin)) { showToast('Invalid binary', 'error'); return; }
             updateAll(bin);
         }
-        
+
         function convertFromHex() {
             const hex = parseInt(document.getElementById('hex').value, 16);
             if (isNaN(hex)) { showToast('Invalid hex', 'error'); return; }
             updateAll(hex);
         }
-        
+
         function convertFromOctal() {
             const oct = parseInt(document.getElementById('octal').value, 8);
             if (isNaN(oct)) { showToast('Invalid octal', 'error'); return; }
             updateAll(oct);
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Binary Converter","description":"Convert between binary, decimal, hex, and text.","url":"https://passive.hardikkanajariya.in/binary-converter/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Binary Converter","description":"Convert between binary, decimal, hex, and text.","url":"https://passive.hardikkanajariya.in/binary-converter/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

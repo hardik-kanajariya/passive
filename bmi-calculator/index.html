@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BMI Calculator - Free Body Mass Index Calculator | PassiveTools</title>
-    <meta name="description" content="Calculate your Body Mass Index (BMI) instantly. Free online BMI calculator with health recommendations and weight categories.">
-    <meta name="keywords" content="bmi calculator, body mass index, calculate bmi, weight calculator, health calculator">
+    <meta name="description"
+        content="Calculate your Body Mass Index (BMI) instantly. Free online BMI calculator with health recommendations and weight categories.">
+    <meta name="keywords"
+        content="bmi calculator, body mass index, calculate bmi, weight calculator, health calculator">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/bmi-calculator/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -34,45 +47,55 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">BMI Calculator</h1>
                     <p class="text-gray-600 mb-6">Calculate your Body Mass Index and see your health category.</p>
-                    
+
                     <!-- Unit Toggle -->
                     <div class="flex gap-2 mb-6">
-                        <button onclick="setUnit('metric')" id="btn-metric" class="px-4 py-2 bg-violet-600 text-white font-medium rounded-lg transition-colors">Metric (kg/cm)</button>
-                        <button onclick="setUnit('imperial')" id="btn-imperial" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg transition-colors">Imperial (lb/ft)</button>
+                        <button onclick="setUnit('metric')" id="btn-metric"
+                            class="px-4 py-2 bg-violet-600 text-white font-medium rounded-lg transition-colors">Metric
+                            (kg/cm)</button>
+                        <button onclick="setUnit('imperial')" id="btn-imperial"
+                            class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg transition-colors">Imperial
+                            (lb/ft)</button>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <!-- Metric Inputs -->
                         <div id="input-metric">
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
-                                <input type="number" id="heightCm" placeholder="170" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <input type="number" id="heightCm" placeholder="170"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
-                                <input type="number" id="weightKg" placeholder="70" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <input type="number" id="weightKg" placeholder="70"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                             </div>
                         </div>
-                        
+
                         <!-- Imperial Inputs -->
                         <div id="input-imperial" class="hidden">
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Height</label>
                                 <div class="flex gap-2">
-                                    <input type="number" id="heightFt" placeholder="5" class="w-1/2 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
-                                    <input type="number" id="heightIn" placeholder="10" class="w-1/2 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                    <input type="number" id="heightFt" placeholder="5"
+                                        class="w-1/2 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                    <input type="number" id="heightIn" placeholder="10"
+                                        class="w-1/2 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">feet / inches</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Weight (lbs)</label>
-                                <input type="number" id="weightLb" placeholder="154" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <input type="number" id="weightLb" placeholder="154"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                             </div>
                         </div>
-                        
+
                         <!-- Result -->
                         <div id="result" class="hidden">
-                            <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 text-center h-full flex flex-col justify-center">
+                            <div
+                                class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 text-center h-full flex flex-col justify-center">
                                 <div class="text-sm text-gray-600 mb-1">Your BMI</div>
                                 <div id="bmiValue" class="text-5xl font-bold text-violet-600 mb-2">0</div>
                                 <div id="bmiCategory" class="text-lg font-medium text-gray-800 mb-2">-</div>
@@ -80,18 +103,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <button onclick="calculateBMI()" class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">
+
+                    <button onclick="calculateBMI()"
+                        class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">
                         Calculate BMI
                     </button>
-                    
+
                     <!-- BMI Scale -->
                     <div class="mt-6 p-4 bg-gray-50 rounded-xl">
                         <h3 class="font-semibold text-gray-900 mb-3">BMI Categories</h3>
                         <div class="space-y-2">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-blue-400 mr-3"></div>
-                                <span class="text-sm text-gray-600"><strong>Underweight:</strong> BMI less than 18.5</span>
+                                <span class="text-sm text-gray-600"><strong>Underweight:</strong> BMI less than
+                                    18.5</span>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-green-500 mr-3"></div>
@@ -108,43 +133,48 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">About BMI</h2>
-                    <p class="text-gray-600 mb-4">Body Mass Index (BMI) is a simple calculation using height and weight to estimate body fat. While useful as a general indicator, BMI doesn't account for factors like muscle mass, bone density, or body composition.</p>
+                    <p class="text-gray-600 mb-4">Body Mass Index (BMI) is a simple calculation using height and weight
+                        to estimate body fat. While useful as a general indicator, BMI doesn't account for factors like
+                        muscle mass, bone density, or body composition.</p>
                     <p class="text-gray-600"><strong>Formula:</strong> BMI = weight (kg) / height² (m²)</p>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/age-calculator/" class="text-violet-600 hover:underline text-sm">Age Calculator</a></li>
-                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage Calculator</a></li>
-                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit Converter</a></li>
+                        <li><a href="/age-calculator/" class="text-violet-600 hover:underline text-sm">Age
+                                Calculator</a></li>
+                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage
+                                Calculator</a></li>
+                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit
+                                Converter</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
     <script>
         let currentUnit = 'metric';
-        
+
         function setUnit(unit) {
             currentUnit = unit;
             document.getElementById('btn-metric').className = unit === 'metric' ? 'px-4 py-2 bg-violet-600 text-white font-medium rounded-lg transition-colors' : 'px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg transition-colors';
@@ -152,10 +182,10 @@
             document.getElementById('input-metric').classList.toggle('hidden', unit !== 'metric');
             document.getElementById('input-imperial').classList.toggle('hidden', unit !== 'imperial');
         }
-        
+
         function calculateBMI() {
             let heightM, weightKg;
-            
+
             if (currentUnit === 'metric') {
                 heightM = parseFloat(document.getElementById('heightCm').value) / 100;
                 weightKg = parseFloat(document.getElementById('weightKg').value);
@@ -166,15 +196,15 @@
                 heightM = totalInches * 0.0254;
                 weightKg = parseFloat(document.getElementById('weightLb').value) * 0.453592;
             }
-            
+
             if (!heightM || !weightKg || heightM <= 0 || weightKg <= 0) {
                 showToast('Please enter valid height and weight', 'error');
                 return;
             }
-            
+
             const bmi = weightKg / (heightM * heightM);
             document.getElementById('bmiValue').textContent = bmi.toFixed(1);
-            
+
             let category, message, color;
             if (bmi < 18.5) {
                 category = 'Underweight';
@@ -193,13 +223,15 @@
                 message = 'Please consult a healthcare provider for weight management advice.';
                 color = 'text-red-600';
             }
-            
+
             document.getElementById('bmiCategory').textContent = category;
             document.getElementById('bmiCategory').className = `text-lg font-medium ${color}`;
             document.getElementById('bmiMessage').textContent = message;
             document.getElementById('result').classList.remove('hidden');
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","description":"Calculate your Body Mass Index and see your health category.","url":"https://passive.hardikkanajariya.in/bmi-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","description":"Calculate your Body Mass Index and see your health category.","url":"https://passive.hardikkanajariya.in/bmi-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

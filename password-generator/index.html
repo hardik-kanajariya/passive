@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator - Free Secure Password Generator | PassiveTools</title>
-    <meta name="description" content="Generate strong, secure passwords instantly. Customize length, include uppercase, lowercase, numbers, and symbols. Free online password generator tool.">
-    <meta name="keywords" content="password generator, secure password, random password, strong password generator, free password generator">
+    <meta name="description"
+        content="Generate strong, secure passwords instantly. Customize length, include uppercase, lowercase, numbers, and symbols. Free online password generator tool.">
+    <meta name="keywords"
+        content="password generator, secure password, random password, strong password generator, free password generator">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/password-generator/">
     <meta property="og:title" content="Password Generator - Free Secure Password Tool">
-    <meta property="og:description" content="Generate strong, secure passwords instantly. Free online password generator.">
+    <meta property="og:description"
+        content="Generate strong, secure passwords instantly. Free online password generator.">
     <meta property="og:url" content="https://passive.hardikkanajariya.in/password-generator/">
     <meta property="og:type" content="website">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -38,13 +52,16 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Password Generator</h1>
                     <p class="text-gray-600 mb-6">Generate strong, secure passwords with customizable options.</p>
-                    
+
                     <!-- Generated Password Display -->
                     <div class="relative mb-6">
-                        <input type="text" id="password" readonly class="w-full px-4 py-4 pr-24 text-xl font-mono bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500" value="">
-                        <button onclick="copyPassword()" class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors text-sm font-medium">Copy</button>
+                        <input type="text" id="password" readonly
+                            class="w-full px-4 py-4 pr-24 text-xl font-mono bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                            value="">
+                        <button onclick="copyPassword()"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors text-sm font-medium">Copy</button>
                     </div>
-                    
+
                     <!-- Password Strength -->
                     <div class="mb-6">
                         <div class="flex justify-between mb-2">
@@ -52,10 +69,11 @@
                             <span id="strengthText" class="text-sm font-medium">Strong</span>
                         </div>
                         <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div id="strengthBar" class="h-full bg-green-500 transition-all duration-300" style="width: 100%"></div>
+                            <div id="strengthBar" class="h-full bg-green-500 transition-all duration-300"
+                                style="width: 100%"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Options -->
                     <div class="space-y-4 mb-6">
                         <div>
@@ -63,59 +81,75 @@
                                 <span class="text-gray-700 font-medium">Password Length</span>
                                 <span id="lengthValue" class="text-violet-600 font-semibold">16</span>
                             </label>
-                            <input type="range" id="length" min="4" max="64" value="16" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-violet-600">
+                            <input type="range" id="length" min="4" max="64" value="16"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-violet-600">
                         </div>
-                        
+
                         <div class="grid grid-cols-2 gap-4">
                             <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                                <input type="checkbox" id="uppercase" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
+                                <input type="checkbox" id="uppercase" checked
+                                    class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
                                 <span class="ml-3 text-gray-700">Uppercase (A-Z)</span>
                             </label>
                             <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                                <input type="checkbox" id="lowercase" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
+                                <input type="checkbox" id="lowercase" checked
+                                    class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
                                 <span class="ml-3 text-gray-700">Lowercase (a-z)</span>
                             </label>
                             <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                                <input type="checkbox" id="numbers" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
+                                <input type="checkbox" id="numbers" checked
+                                    class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
                                 <span class="ml-3 text-gray-700">Numbers (0-9)</span>
                             </label>
                             <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                                <input type="checkbox" id="symbols" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
+                                <input type="checkbox" id="symbols" checked
+                                    class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
                                 <span class="ml-3 text-gray-700">Symbols (!@#$)</span>
                             </label>
                         </div>
-                        
+
                         <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                            <input type="checkbox" id="excludeAmbiguous" class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
+                            <input type="checkbox" id="excludeAmbiguous"
+                                class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500">
                             <span class="ml-3 text-gray-700">Exclude ambiguous characters (l, 1, I, O, 0)</span>
                         </label>
                     </div>
-                    
-                    <button onclick="generatePassword()" class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+
+                    <button onclick="generatePassword()"
+                        class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
                         Generate New Password
                     </button>
                 </div>
-                
+
                 <!-- Multiple Passwords -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Generate Multiple Passwords</h2>
                     <div class="flex gap-3 mb-4">
-                        <input type="number" id="bulkCount" min="1" max="20" value="5" class="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
-                        <button onclick="generateBulk()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Generate</button>
-                        <button onclick="copyBulk()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors">Copy All</button>
+                        <input type="number" id="bulkCount" min="1" max="20" value="5"
+                            class="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                        <button onclick="generateBulk()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Generate</button>
+                        <button onclick="copyBulk()"
+                            class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors">Copy
+                            All</button>
                     </div>
-                    <div id="bulkPasswords" class="font-mono text-sm bg-gray-50 rounded-lg p-4 max-h-48 overflow-y-auto"></div>
+                    <div id="bulkPasswords"
+                        class="font-mono text-sm bg-gray-50 rounded-lg p-4 max-h-48 overflow-y-auto"></div>
                 </div>
-                
+
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Why Use Strong Passwords?</h2>
                     <div class="space-y-3 text-gray-600">
-                        <p>Strong passwords are your first line of defense against unauthorized access to your accounts. A secure password should be:</p>
+                        <p>Strong passwords are your first line of defense against unauthorized access to your accounts.
+                            A secure password should be:</p>
                         <ul class="list-disc list-inside space-y-2 mt-3">
                             <li>At least 12-16 characters long</li>
                             <li>Include a mix of uppercase and lowercase letters</li>
@@ -126,27 +160,31 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/hash-generator/" class="text-violet-600 hover:underline text-sm">Hash Generator</a></li>
-                        <li><a href="/uuid-generator/" class="text-violet-600 hover:underline text-sm">UUID Generator</a></li>
-                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
-                        <li><a href="/adult-tools/secure-password/" class="text-pink-500 hover:underline text-sm">18+ Secure Password</a></li>
+                        <li><a href="/hash-generator/" class="text-violet-600 hover:underline text-sm">Hash
+                                Generator</a></li>
+                        <li><a href="/uuid-generator/" class="text-violet-600 hover:underline text-sm">UUID
+                                Generator</a></li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64
+                                Encoder</a></li>
+                        <li><a href="/adult-tools/secure-password/" class="text-pink-500 hover:underline text-sm">18+
+                                Secure Password</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -158,32 +196,32 @@
             symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?'
         };
         const ambiguous = 'lI1O0';
-        
-        document.getElementById('length').addEventListener('input', function() {
+
+        document.getElementById('length').addEventListener('input', function () {
             document.getElementById('lengthValue').textContent = this.value;
             generatePassword();
         });
-        
+
         ['uppercase', 'lowercase', 'numbers', 'symbols', 'excludeAmbiguous'].forEach(id => {
             document.getElementById(id).addEventListener('change', generatePassword);
         });
-        
+
         function generatePassword() {
             let charset = '';
             if (document.getElementById('uppercase').checked) charset += chars.uppercase;
             if (document.getElementById('lowercase').checked) charset += chars.lowercase;
             if (document.getElementById('numbers').checked) charset += chars.numbers;
             if (document.getElementById('symbols').checked) charset += chars.symbols;
-            
+
             if (document.getElementById('excludeAmbiguous').checked) {
                 charset = charset.split('').filter(c => !ambiguous.includes(c)).join('');
             }
-            
+
             if (charset === '') {
                 document.getElementById('password').value = 'Select at least one option';
                 return;
             }
-            
+
             const length = parseInt(document.getElementById('length').value);
             let password = '';
             const array = new Uint32Array(length);
@@ -191,11 +229,11 @@
             for (let i = 0; i < length; i++) {
                 password += charset[array[i] % charset.length];
             }
-            
+
             document.getElementById('password').value = password;
             updateStrength(password);
         }
-        
+
         function updateStrength(password) {
             let score = 0;
             if (password.length >= 8) score += 25;
@@ -205,21 +243,21 @@
             if (/[A-Z]/.test(password)) score += 10;
             if (/[0-9]/.test(password)) score += 10;
             if (/[^a-zA-Z0-9]/.test(password)) score += 20;
-            
+
             const bar = document.getElementById('strengthBar');
             const text = document.getElementById('strengthText');
-            
+
             if (score >= 80) { bar.style.width = '100%'; bar.className = 'h-full bg-green-500 transition-all duration-300'; text.textContent = 'Very Strong'; text.className = 'text-sm font-medium text-green-600'; }
             else if (score >= 60) { bar.style.width = '75%'; bar.className = 'h-full bg-green-400 transition-all duration-300'; text.textContent = 'Strong'; text.className = 'text-sm font-medium text-green-500'; }
             else if (score >= 40) { bar.style.width = '50%'; bar.className = 'h-full bg-yellow-400 transition-all duration-300'; text.textContent = 'Medium'; text.className = 'text-sm font-medium text-yellow-600'; }
             else { bar.style.width = '25%'; bar.className = 'h-full bg-red-500 transition-all duration-300'; text.textContent = 'Weak'; text.className = 'text-sm font-medium text-red-600'; }
         }
-        
+
         function copyPassword() {
             navigator.clipboard.writeText(document.getElementById('password').value);
             showToast('Password copied!');
         }
-        
+
         function generateBulk() {
             const count = Math.min(20, parseInt(document.getElementById('bulkCount').value) || 5);
             const passwords = [];
@@ -229,15 +267,17 @@
             }
             document.getElementById('bulkPasswords').innerHTML = passwords.map(p => `<div class="py-1 border-b border-gray-200 last:border-0">${p}</div>`).join('');
         }
-        
+
         function copyBulk() {
             const passwords = Array.from(document.getElementById('bulkPasswords').querySelectorAll('div')).map(d => d.textContent).join('\n');
             navigator.clipboard.writeText(passwords);
             showToast('All passwords copied!');
         }
-        
+
         generatePassword();
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Password Generator","description":"Generate strong, secure passwords with customizable options.","url":"https://passive.hardikkanajariya.in/password-generator/","applicationCategory":"SecurityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Password Generator","description":"Generate strong, secure passwords with customizable options.","url":"https://passive.hardikkanajariya.in/password-generator/","applicationCategory":"SecurityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

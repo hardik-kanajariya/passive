@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Base64 Encoder/Decoder - Free Online Tool | PassiveTools</title>
-    <meta name="description" content="Encode or decode Base64 text and files online. Free Base64 converter for text, images, and files. No registration required.">
-    <meta name="keywords" content="base64 encoder, base64 decoder, base64 converter, encode base64, decode base64, base64 online">
+    <meta name="description"
+        content="Encode or decode Base64 text and files online. Free Base64 converter for text, images, and files. No registration required.">
+    <meta name="keywords"
+        content="base64 encoder, base64 decoder, base64 converter, encode base64, decode base64, base64 online">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/base64-encoder/">
     <meta property="og:title" content="Base64 Encoder/Decoder - Free Online Tool">
     <meta property="og:description" content="Encode or decode Base64 text and files online.">
     <meta property="og:url" content="https://passive.hardikkanajariya.in/base64-encoder/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}.tab-btn.active{background:#7c3aed;color:white}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+
+        .tab-btn.active {
+            background: #7c3aed;
+            color: white
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -37,40 +55,54 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Base64 Encoder / Decoder</h1>
                     <p class="text-gray-600 mb-6">Convert text or files to and from Base64 encoding.</p>
-                    
+
                     <!-- Tabs -->
                     <div class="flex gap-2 mb-6">
-                        <button onclick="setTab('text')" class="tab-btn active px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-tab="text">Text</button>
-                        <button onclick="setTab('file')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-tab="file">File / Image</button>
+                        <button onclick="setTab('text')"
+                            class="tab-btn active px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700"
+                            data-tab="text">Text</button>
+                        <button onclick="setTab('file')"
+                            class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700"
+                            data-tab="file">File / Image</button>
                     </div>
-                    
+
                     <!-- Text Tab -->
                     <div id="tab-text">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Input</label>
-                                <textarea id="textInput" rows="10" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text to encode or Base64 to decode..."></textarea>
+                                <textarea id="textInput" rows="10"
+                                    class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none"
+                                    placeholder="Enter text to encode or Base64 to decode..."></textarea>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Output</label>
-                                <textarea id="textOutput" rows="10" readonly class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                                <textarea id="textOutput" rows="10" readonly
+                                    class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <button onclick="encodeText()" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors">Encode</button>
-                            <button onclick="decodeText()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">Decode</button>
-                            <button onclick="copyOutput()" class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Copy Output</button>
-                            <button onclick="clearAll()" class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Clear</button>
+                            <button onclick="encodeText()"
+                                class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors">Encode</button>
+                            <button onclick="decodeText()"
+                                class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">Decode</button>
+                            <button onclick="copyOutput()"
+                                class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Copy
+                                Output</button>
+                            <button onclick="clearAll()"
+                                class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Clear</button>
                         </div>
                     </div>
-                    
+
                     <!-- File Tab -->
                     <div id="tab-file" class="hidden">
                         <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center mb-4">
                             <input type="file" id="fileInput" class="hidden" onchange="handleFile(event)">
                             <label for="fileInput" class="cursor-pointer">
-                                <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                 </svg>
                                 <p class="text-gray-600 mb-2">Click to upload or drag and drop</p>
                                 <p class="text-sm text-gray-400">Any file type supported</p>
@@ -83,22 +115,29 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Base64 Output</label>
-                            <textarea id="fileOutput" rows="8" readonly class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none" placeholder="Base64 encoded file will appear here..."></textarea>
+                            <textarea id="fileOutput" rows="8" readonly
+                                class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"
+                                placeholder="Base64 encoded file will appear here..."></textarea>
                         </div>
                         <div class="flex flex-wrap gap-3 mt-4">
-                            <button onclick="copyFileOutput()" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors">Copy Base64</button>
-                            <button onclick="copyDataUri()" class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Copy Data URI</button>
+                            <button onclick="copyFileOutput()"
+                                class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors">Copy
+                                Base64</button>
+                            <button onclick="copyDataUri()"
+                                class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Copy
+                                Data URI</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">What is Base64?</h2>
-                    <p class="text-gray-600 mb-4">Base64 is a binary-to-text encoding scheme that represents binary data in ASCII string format. It's commonly used for:</p>
+                    <p class="text-gray-600 mb-4">Base64 is a binary-to-text encoding scheme that represents binary data
+                        in ASCII string format. It's commonly used for:</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1">
                         <li>Embedding images in HTML/CSS (data URIs)</li>
                         <li>Encoding email attachments</li>
@@ -107,33 +146,36 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
                         <li><a href="/url-encoder/" class="text-violet-600 hover:underline text-sm">URL Encoder</a></li>
-                        <li><a href="/html-encoder/" class="text-violet-600 hover:underline text-sm">HTML Encoder</a></li>
-                        <li><a href="/hash-generator/" class="text-violet-600 hover:underline text-sm">Hash Generator</a></li>
-                        <li><a href="/image-to-base64/" class="text-violet-600 hover:underline text-sm">Image to Base64</a></li>
+                        <li><a href="/html-encoder/" class="text-violet-600 hover:underline text-sm">HTML Encoder</a>
+                        </li>
+                        <li><a href="/hash-generator/" class="text-violet-600 hover:underline text-sm">Hash
+                                Generator</a></li>
+                        <li><a href="/image-to-base64/" class="text-violet-600 hover:underline text-sm">Image to
+                                Base64</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
     <script>
         let currentMimeType = '';
-        
+
         function setTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-violet-600', 'text-white');
@@ -141,61 +183,61 @@
             });
             document.querySelector(`[data-tab="${tab}"]`).classList.add('active', 'bg-violet-600', 'text-white');
             document.querySelector(`[data-tab="${tab}"]`).classList.remove('bg-gray-100', 'text-gray-700');
-            
+
             document.getElementById('tab-text').classList.toggle('hidden', tab !== 'text');
             document.getElementById('tab-file').classList.toggle('hidden', tab !== 'file');
         }
-        
+
         function encodeText() {
             const input = document.getElementById('textInput').value;
             try {
                 const encoded = btoa(unescape(encodeURIComponent(input)));
                 document.getElementById('textOutput').value = encoded;
                 showToast('Encoded successfully!');
-            } catch(e) {
+            } catch (e) {
                 showToast('Error encoding text', 'error');
             }
         }
-        
+
         function decodeText() {
             const input = document.getElementById('textInput').value;
             try {
                 const decoded = decodeURIComponent(escape(atob(input)));
                 document.getElementById('textOutput').value = decoded;
                 showToast('Decoded successfully!');
-            } catch(e) {
+            } catch (e) {
                 showToast('Invalid Base64 string', 'error');
             }
         }
-        
+
         function copyOutput() {
             navigator.clipboard.writeText(document.getElementById('textOutput').value);
             showToast('Copied to clipboard!');
         }
-        
+
         function clearAll() {
             document.getElementById('textInput').value = '';
             document.getElementById('textOutput').value = '';
         }
-        
+
         function handleFile(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
+
             document.getElementById('fileName').textContent = file.name;
             document.getElementById('fileSize').textContent = formatFileSize(file.size);
             document.getElementById('fileType').textContent = file.type || 'unknown';
             document.getElementById('fileInfo').classList.remove('hidden');
             currentMimeType = file.type;
-            
+
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 const base64 = e.target.result.split(',')[1];
                 document.getElementById('fileOutput').value = base64;
             };
             reader.readAsDataURL(file);
         }
-        
+
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -203,12 +245,12 @@
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
-        
+
         function copyFileOutput() {
             navigator.clipboard.writeText(document.getElementById('fileOutput').value);
             showToast('Base64 copied!');
         }
-        
+
         function copyDataUri() {
             const base64 = document.getElementById('fileOutput').value;
             const dataUri = `data:${currentMimeType || 'application/octet-stream'};base64,${base64}`;
@@ -216,6 +258,8 @@
             showToast('Data URI copied!');
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Base64 Encoder/Decoder","description":"Encode or decode Base64 text and files online.","url":"https://passive.hardikkanajariya.in/base64-encoder/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Base64 Encoder/Decoder","description":"Encode or decode Base64 text and files online.","url":"https://passive.hardikkanajariya.in/base64-encoder/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

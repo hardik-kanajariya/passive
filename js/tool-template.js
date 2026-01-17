@@ -71,14 +71,13 @@ function debounce(func, wait) {
 // Show toast notification
 function showToast(message, type = 'success') {
     const toast = document.createElement('div');
-    toast.className = `fixed bottom-20 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 ${
-        type === 'success' ? 'bg-green-600 text-white' : 
-        type === 'error' ? 'bg-red-600 text-white' : 
-        'bg-gray-800 text-white'
-    }`;
+    toast.className = `fixed bottom-20 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 ${type === 'success' ? 'bg-green-600 text-white' :
+            type === 'error' ? 'bg-red-600 text-white' :
+                'bg-gray-800 text-white'
+        }`;
     toast.textContent = message;
     document.body.appendChild(toast);
-    
+
     setTimeout(() => {
         toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 300);

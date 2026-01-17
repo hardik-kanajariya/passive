@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Difference Calculator - Days Between Dates | PassiveTools</title>
-    <meta name="description" content="Calculate the difference between two dates. Find days, weeks, months, and years between dates. Free date calculator.">
-    <meta name="keywords" content="date difference calculator, days between dates, date calculator, time between dates, date duration">
+    <meta name="description"
+        content="Calculate the difference between two dates. Find days, weeks, months, and years between dates. Free date calculator.">
+    <meta name="keywords"
+        content="date difference calculator, days between dates, date calculator, time between dates, date duration">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/date-difference/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -34,24 +47,30 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Date Difference Calculator</h1>
                     <p class="text-gray-600 mb-6">Calculate the time between two dates.</p>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
-                            <input type="date" id="startDate" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            <input type="date" id="startDate"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
-                            <input type="date" id="endDate" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            <input type="date" id="endDate"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
                         </div>
                     </div>
-                    
+
                     <div class="flex gap-3 mb-6">
-                        <button onclick="calculate()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Calculate</button>
-                        <button onclick="setToday()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Set End to Today</button>
-                        <button onclick="swapDates()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Swap</button>
+                        <button onclick="calculate()"
+                            class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Calculate</button>
+                        <button onclick="setToday()"
+                            class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Set
+                            End to Today</button>
+                        <button onclick="swapDates()"
+                            class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Swap</button>
                     </div>
-                    
+
                     <!-- Results -->
                     <div id="results" class="hidden">
                         <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 mb-6">
@@ -61,7 +80,7 @@
                                 <div id="exactDays" class="text-lg text-gray-700"></div>
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
                                 <div id="totalYears" class="text-3xl font-bold text-violet-600">0</div>
@@ -80,7 +99,7 @@
                                 <div class="text-sm text-gray-600">Days</div>
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-3 gap-4 mt-4 text-center text-sm">
                             <div class="p-3 bg-gray-50 rounded-lg">
                                 <div id="totalHours" class="font-bold text-gray-900">0</div>
@@ -97,57 +116,65 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <!-- Add/Subtract Days -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Add/Subtract Days from Date</h2>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">Start Date</label>
-                            <input type="date" id="addDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                            <input type="date" id="addDate"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                         </div>
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">Days</label>
-                            <input type="number" id="addDays" value="30" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                            <input type="number" id="addDays" value="30"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                         </div>
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">&nbsp;</label>
                             <div class="flex gap-2">
-                                <button onclick="addDaysCalc(1)" class="flex-1 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">Add</button>
-                                <button onclick="addDaysCalc(-1)" class="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">Subtract</button>
+                                <button onclick="addDaysCalc(1)"
+                                    class="flex-1 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">Add</button>
+                                <button onclick="addDaysCalc(-1)"
+                                    class="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">Subtract</button>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">Result</label>
-                            <input type="text" id="addResult" readonly class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                            <input type="text" id="addResult" readonly
+                                class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/age-calculator/" class="text-violet-600 hover:underline text-sm">Age Calculator</a></li>
-                        <li><a href="/timestamp-converter/" class="text-violet-600 hover:underline text-sm">Timestamp Converter</a></li>
-                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit Converter</a></li>
+                        <li><a href="/age-calculator/" class="text-violet-600 hover:underline text-sm">Age
+                                Calculator</a></li>
+                        <li><a href="/timestamp-converter/" class="text-violet-600 hover:underline text-sm">Timestamp
+                                Converter</a></li>
+                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit
+                                Converter</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -155,26 +182,26 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('endDate').value = today;
         document.getElementById('addDate').value = today;
-        
+
         function calculate() {
             const start = new Date(document.getElementById('startDate').value);
             const end = new Date(document.getElementById('endDate').value);
-            
+
             if (isNaN(start.getTime()) || isNaN(end.getTime())) {
                 showToast('Please select both dates', 'error');
                 return;
             }
-            
+
             let diff = Math.abs(end - start);
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            
+
             // Calculate years, months, days
             let years = 0, months = 0, remainingDays = 0;
             let tempDate = new Date(start < end ? start : end);
             const endDate = new Date(start < end ? end : start);
-            
-            while (tempDate.getFullYear() < endDate.getFullYear() || 
-                   (tempDate.getFullYear() === endDate.getFullYear() && tempDate.getMonth() < endDate.getMonth())) {
+
+            while (tempDate.getFullYear() < endDate.getFullYear() ||
+                (tempDate.getFullYear() === endDate.getFullYear() && tempDate.getMonth() < endDate.getMonth())) {
                 if (tempDate.getMonth() === 11) {
                     tempDate.setFullYear(tempDate.getFullYear() + 1);
                     tempDate.setMonth(0);
@@ -191,17 +218,17 @@
                 tempDate.setMonth(tempDate.getMonth() - 1);
                 remainingDays = Math.floor((endDate - tempDate) / (1000 * 60 * 60 * 24));
             }
-            
+
             const totalMonths = years * 12 + months;
-            
+
             let mainResult = '';
             if (years > 0) mainResult += years + ' year' + (years > 1 ? 's' : '') + ' ';
             if (months > 0) mainResult += months + ' month' + (months > 1 ? 's' : '') + ' ';
             if (remainingDays > 0 || mainResult === '') mainResult += remainingDays + ' day' + (remainingDays !== 1 ? 's' : '');
-            
+
             document.getElementById('mainResult').textContent = mainResult.trim();
             document.getElementById('exactDays').textContent = `(${days.toLocaleString()} days total)`;
-            
+
             document.getElementById('totalYears').textContent = (days / 365.25).toFixed(2);
             document.getElementById('totalMonths').textContent = (days / 30.44).toFixed(1);
             document.getElementById('totalWeeks').textContent = Math.floor(days / 7);
@@ -209,15 +236,15 @@
             document.getElementById('totalHours').textContent = (days * 24).toLocaleString();
             document.getElementById('totalMinutes').textContent = (days * 24 * 60).toLocaleString();
             document.getElementById('totalSeconds').textContent = (days * 24 * 60 * 60).toLocaleString();
-            
+
             document.getElementById('results').classList.remove('hidden');
         }
-        
+
         function setToday() {
             document.getElementById('endDate').value = today;
             calculate();
         }
-        
+
         function swapDates() {
             const start = document.getElementById('startDate').value;
             const end = document.getElementById('endDate').value;
@@ -225,20 +252,22 @@
             document.getElementById('endDate').value = start;
             calculate();
         }
-        
+
         function addDaysCalc(multiplier) {
             const date = new Date(document.getElementById('addDate').value);
             const days = parseInt(document.getElementById('addDays').value) * multiplier;
-            
+
             if (isNaN(date.getTime()) || isNaN(days)) {
                 showToast('Enter valid values', 'error');
                 return;
             }
-            
+
             date.setDate(date.getDate() + days);
             document.getElementById('addResult').value = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Date Difference Calculator","description":"Calculate the time between two dates.","url":"https://passive.hardikkanajariya.in/date-difference/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Date Difference Calculator","description":"Calculate the time between two dates.","url":"https://passive.hardikkanajariya.in/date-difference/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

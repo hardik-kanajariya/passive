@@ -1,23 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image to Base64 Converter - Encode Images Online | PassiveTools</title>
-    <meta name="description" content="Convert images to Base64 encoding online. Generate Base64 string, data URI, CSS background, and HTML img tag. Free image encoder.">
+    <meta name="description"
+        content="Convert images to Base64 encoding online. Generate Base64 string, data URI, CSS background, and HTML img tag. Free image encoder.">
     <meta name="keywords" content="image to base64, base64 encoder, data uri generator, image encoder, base64 image">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/image-to-base64/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}.drop-zone{border:2px dashed #d1d5db;transition:all 0.3s}.drop-zone.active{border-color:#8b5cf6;background:#f5f3ff}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+
+        .drop-zone {
+            border: 2px dashed #d1d5db;
+            transition: all 0.3s
+        }
+
+        .drop-zone.active {
+            border-color: #8b5cf6;
+            background: #f5f3ff
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -34,16 +56,18 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Image to Base64 Converter</h1>
                     <p class="text-gray-600 mb-6">Convert images to Base64 encoding for web use.</p>
-                    
+
                     <div id="dropZone" class="drop-zone rounded-xl p-8 text-center cursor-pointer mb-6">
                         <input type="file" id="fileInput" accept="image/*" class="hidden">
-                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         <p class="text-gray-600 mb-2">Drag and drop an image here or click to upload</p>
                         <p class="text-sm text-gray-400">Supports PNG, JPG, GIF, WebP, SVG</p>
                     </div>
-                    
+
                     <!-- Preview -->
                     <div id="preview" class="hidden mb-6">
                         <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
@@ -56,40 +80,53 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Output Tabs -->
                     <div id="output" class="hidden">
                         <div class="flex border-b border-gray-200 mb-4">
-                            <button onclick="showTab('base64')" id="tab-base64" class="px-4 py-2 border-b-2 border-violet-600 text-violet-600 font-medium">Base64</button>
-                            <button onclick="showTab('datauri')" id="tab-datauri" class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Data URI</button>
-                            <button onclick="showTab('css')" id="tab-css" class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">CSS</button>
-                            <button onclick="showTab('html')" id="tab-html" class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">HTML</button>
+                            <button onclick="showTab('base64')" id="tab-base64"
+                                class="px-4 py-2 border-b-2 border-violet-600 text-violet-600 font-medium">Base64</button>
+                            <button onclick="showTab('datauri')" id="tab-datauri"
+                                class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Data
+                                URI</button>
+                            <button onclick="showTab('css')" id="tab-css"
+                                class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">CSS</button>
+                            <button onclick="showTab('html')" id="tab-html"
+                                class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">HTML</button>
                         </div>
-                        
+
                         <div id="content-base64" class="tab-content">
-                            <textarea id="base64Output" rows="6" readonly class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                            <textarea id="base64Output" rows="6" readonly
+                                class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
                         </div>
                         <div id="content-datauri" class="tab-content hidden">
-                            <textarea id="datauriOutput" rows="6" readonly class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                            <textarea id="datauriOutput" rows="6" readonly
+                                class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
                         </div>
                         <div id="content-css" class="tab-content hidden">
-                            <textarea id="cssOutput" rows="6" readonly class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                            <textarea id="cssOutput" rows="6" readonly
+                                class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
                         </div>
                         <div id="content-html" class="tab-content hidden">
-                            <textarea id="htmlOutput" rows="6" readonly class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                            <textarea id="htmlOutput" rows="6" readonly
+                                class="w-full px-4 py-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
                         </div>
-                        
-                        <button onclick="copyActive()" class="mt-4 px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Copy to Clipboard</button>
+
+                        <button onclick="copyActive()"
+                            class="mt-4 px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Copy
+                            to Clipboard</button>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">What is Base64?</h2>
-                    <p class="text-gray-600 mb-4">Base64 is a encoding scheme that converts binary data into ASCII text. It's commonly used to embed images directly in HTML, CSS, or JavaScript without requiring external files.</p>
+                    <p class="text-gray-600 mb-4">Base64 is a encoding scheme that converts binary data into ASCII text.
+                        It's commonly used to embed images directly in HTML, CSS, or JavaScript without requiring
+                        external files.</p>
                     <h3 class="font-semibold text-gray-900 mb-2">Benefits:</h3>
                     <ul class="list-disc list-inside text-gray-600 space-y-1">
                         <li>Reduces HTTP requests</li>
@@ -98,26 +135,29 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/base64-to-image/" class="text-violet-600 hover:underline text-sm">Base64 to Image</a></li>
-                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
-                        <li><a href="/image-compressor/" class="text-violet-600 hover:underline text-sm">Image Compressor</a></li>
+                        <li><a href="/base64-to-image/" class="text-violet-600 hover:underline text-sm">Base64 to
+                                Image</a></li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64
+                                Encoder</a></li>
+                        <li><a href="/image-compressor/" class="text-violet-600 hover:underline text-sm">Image
+                                Compressor</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -128,7 +168,7 @@
         let currentFile = null;
         let base64Data = '';
         let dataUri = '';
-        
+
         dropZone.addEventListener('click', () => fileInput.click());
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
         dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
@@ -138,39 +178,39 @@
             if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
         });
         fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
-        
+
         function handleFile(file) {
             if (!file.type.startsWith('image/')) {
                 showToast('Please select an image file', 'error');
                 return;
             }
-            
+
             currentFile = file;
             const reader = new FileReader();
-            
+
             reader.onload = (e) => {
                 dataUri = e.target.result;
                 base64Data = dataUri.split(',')[1];
-                
+
                 document.getElementById('previewImg').src = dataUri;
                 document.getElementById('fileName').textContent = file.name;
                 document.getElementById('fileType').textContent = file.type;
                 document.getElementById('fileSize').textContent = formatSize(file.size);
                 document.getElementById('base64Size').textContent = formatSize(base64Data.length);
-                
+
                 document.getElementById('base64Output').value = base64Data;
                 document.getElementById('datauriOutput').value = dataUri;
                 document.getElementById('cssOutput').value = `.element {\n  background-image: url(${dataUri});\n}`;
                 document.getElementById('htmlOutput').value = `<img src="${dataUri}" alt="${file.name}">`;
-                
+
                 document.getElementById('preview').classList.remove('hidden');
                 document.getElementById('output').classList.remove('hidden');
                 showToast('Image converted!');
             };
-            
+
             reader.readAsDataURL(file);
         }
-        
+
         function showTab(tab) {
             currentTab = tab;
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -182,7 +222,7 @@
             document.getElementById('tab-' + tab).classList.remove('border-transparent', 'text-gray-500');
             document.getElementById('tab-' + tab).classList.add('border-violet-600', 'text-violet-600');
         }
-        
+
         function copyActive() {
             const outputs = {
                 base64: document.getElementById('base64Output').value,
@@ -193,13 +233,15 @@
             navigator.clipboard.writeText(outputs[currentTab]);
             showToast('Copied!');
         }
-        
+
         function formatSize(bytes) {
             if (bytes < 1024) return bytes + ' B';
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Image to Base64 Converter","description":"Convert images to Base64 encoding.","url":"https://passive.hardikkanajariya.in/image-to-base64/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Image to Base64 Converter","description":"Convert images to Base64 encoding.","url":"https://passive.hardikkanajariya.in/image-to-base64/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

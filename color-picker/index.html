@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color Picker - Pick Colors from Image | PassiveTools</title>
-    <meta name="description" content="Pick colors from images or screen. Get HEX, RGB, HSL color codes. Free online color picker tool with eyedropper.">
-    <meta name="keywords" content="color picker, eyedropper, pick color, color from image, hex color, rgb color, hsl color">
+    <meta name="description"
+        content="Pick colors from images or screen. Get HEX, RGB, HSL color codes. Free online color picker tool with eyedropper.">
+    <meta name="keywords"
+        content="color picker, eyedropper, pick color, color from image, hex color, rgb color, hsl color">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/color-picker/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -33,69 +46,87 @@
             <div class="lg:col-span-3">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-6">Color Picker</h1>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Pick a Color</label>
                             <div class="flex gap-4 items-center">
-                                <input type="color" id="colorPicker" value="#8b5cf6" class="w-24 h-24 rounded-xl cursor-pointer border-0">
+                                <input type="color" id="colorPicker" value="#8b5cf6"
+                                    class="w-24 h-24 rounded-xl cursor-pointer border-0">
                                 <div class="flex-1">
-                                    <button onclick="useEyedropper()" id="eyedropperBtn" class="w-full px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg mb-2 flex items-center justify-center gap-2">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                                    <button onclick="useEyedropper()" id="eyedropperBtn"
+                                        class="w-full px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg mb-2 flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                        </svg>
                                         Pick from Screen
                                     </button>
-                                    <p id="eyedropperNote" class="text-xs text-gray-500 hidden">Your browser supports EyeDropper API!</p>
+                                    <p id="eyedropperNote" class="text-xs text-gray-500 hidden">Your browser supports
+                                        EyeDropper API!</p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Selected Color</label>
-                            <div id="colorPreview" class="w-full h-24 rounded-xl shadow-inner" style="background: #8b5cf6"></div>
+                            <div id="colorPreview" class="w-full h-24 rounded-xl shadow-inner"
+                                style="background: #8b5cf6"></div>
                         </div>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">HEX</label>
                             <div class="flex gap-2">
-                                <input type="text" id="hexValue" value="#8b5cf6" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-center" onchange="updateFromHex()">
-                                <button onclick="copy('hex')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">📋</button>
+                                <input type="text" id="hexValue" value="#8b5cf6"
+                                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-center"
+                                    onchange="updateFromHex()">
+                                <button onclick="copy('hex')"
+                                    class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">📋</button>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">RGB</label>
                             <div class="flex gap-2">
-                                <input type="text" id="rgbValue" value="rgb(139, 92, 246)" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-center" onchange="updateFromRgb()">
-                                <button onclick="copy('rgb')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">📋</button>
+                                <input type="text" id="rgbValue" value="rgb(139, 92, 246)"
+                                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-center"
+                                    onchange="updateFromRgb()">
+                                <button onclick="copy('rgb')"
+                                    class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">📋</button>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">HSL</label>
                             <div class="flex gap-2">
-                                <input type="text" id="hslValue" value="hsl(258, 90%, 66%)" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-center" onchange="updateFromHsl()">
-                                <button onclick="copy('hsl')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">📋</button>
+                                <input type="text" id="hslValue" value="hsl(258, 90%, 66%)"
+                                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-center"
+                                    onchange="updateFromHsl()">
+                                <button onclick="copy('hsl')"
+                                    class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">📋</button>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Upload Image to Pick Color</label>
                         <div class="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center">
-                            <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="loadImage(event)">
+                            <input type="file" id="imageInput" accept="image/*" class="hidden"
+                                onchange="loadImage(event)">
                             <label for="imageInput" class="cursor-pointer">
                                 <div class="text-gray-500">Click to upload or drag an image</div>
                             </label>
                         </div>
                     </div>
-                    
+
                     <div id="imageContainer" class="hidden mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Click on the image to pick a color</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Click on the image to pick a
+                            color</label>
                         <div class="relative overflow-auto max-h-[400px] border border-gray-200 rounded-xl">
                             <canvas id="canvas" class="cursor-crosshair"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Picked Colors History</label>
                         <div id="history" class="flex flex-wrap gap-2">
@@ -103,15 +134,15 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Tips</h3>
                     <ul class="text-sm text-gray-600 space-y-2">
@@ -120,23 +151,26 @@
                         <li>• Click history colors to reselect</li>
                     </ul>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/color-converter/" class="text-violet-600 hover:underline text-sm">Color Converter</a></li>
-                        <li><a href="/color-palette/" class="text-violet-600 hover:underline text-sm">Color Palette</a></li>
-                        <li><a href="/gradient-generator/" class="text-violet-600 hover:underline text-sm">Gradient Generator</a></li>
+                        <li><a href="/color-converter/" class="text-violet-600 hover:underline text-sm">Color
+                                Converter</a></li>
+                        <li><a href="/color-palette/" class="text-violet-600 hover:underline text-sm">Color Palette</a>
+                        </li>
+                        <li><a href="/gradient-generator/" class="text-violet-600 hover:underline text-sm">Gradient
+                                Generator</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -145,24 +179,24 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         let history = [];
-        
+
         // Check for EyeDropper API support
         if ('EyeDropper' in window) {
             document.getElementById('eyedropperNote').classList.remove('hidden');
         } else {
             document.getElementById('eyedropperBtn').classList.add('opacity-50');
         }
-        
+
         colorPicker.addEventListener('input', (e) => {
             updateColor(e.target.value);
         });
-        
+
         async function useEyedropper() {
             if (!('EyeDropper' in window)) {
                 showToast('EyeDropper not supported in this browser. Try Chrome or Edge.');
                 return;
             }
-            
+
             try {
                 const eyeDropper = new EyeDropper();
                 const result = await eyeDropper.open();
@@ -172,20 +206,20 @@
                 // User cancelled
             }
         }
-        
+
         function updateColor(hex) {
             document.getElementById('colorPreview').style.background = hex;
             document.getElementById('hexValue').value = hex;
-            
+
             const rgb = hexToRgb(hex);
             document.getElementById('rgbValue').value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-            
+
             const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
             document.getElementById('hslValue').value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
-            
+
             addToHistory(hex);
         }
-        
+
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return result ? {
@@ -194,16 +228,16 @@
                 b: parseInt(result[3], 16)
             } : null;
         }
-        
+
         function rgbToHex(r, g, b) {
             return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
         }
-        
+
         function rgbToHsl(r, g, b) {
             r /= 255; g /= 255; b /= 255;
             const max = Math.max(r, g, b), min = Math.min(r, g, b);
             let h, s, l = (max + min) / 2;
-            
+
             if (max === min) {
                 h = s = 0;
             } else {
@@ -215,10 +249,10 @@
                     case b: h = ((r - g) / d + 4) / 6; break;
                 }
             }
-            
+
             return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
         }
-        
+
         function updateFromHex() {
             const hex = document.getElementById('hexValue').value;
             if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
@@ -226,7 +260,7 @@
                 updateColor(hex);
             }
         }
-        
+
         function updateFromRgb() {
             const match = document.getElementById('rgbValue').value.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
             if (match) {
@@ -235,12 +269,12 @@
                 updateColor(hex);
             }
         }
-        
+
         function updateFromHsl() {
             // HSL to RGB conversion would go here
             showToast('Update from HSL input coming soon');
         }
-        
+
         function copy(format) {
             let value;
             switch (format) {
@@ -251,11 +285,11 @@
             navigator.clipboard.writeText(value);
             showToast('Copied!');
         }
-        
+
         function loadImage(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
+
             const img = new Image();
             img.onload = () => {
                 canvas.width = img.width;
@@ -265,20 +299,20 @@
             };
             img.src = URL.createObjectURL(file);
         }
-        
+
         canvas.addEventListener('click', (e) => {
             const rect = canvas.getBoundingClientRect();
             const scaleX = canvas.width / rect.width;
             const scaleY = canvas.height / rect.height;
             const x = (e.clientX - rect.left) * scaleX;
             const y = (e.clientY - rect.top) * scaleY;
-            
+
             const pixel = ctx.getImageData(x, y, 1, 1).data;
             const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
             colorPicker.value = hex;
             updateColor(hex);
         });
-        
+
         function addToHistory(hex) {
             if (!history.includes(hex)) {
                 history.unshift(hex);
@@ -286,22 +320,24 @@
                 renderHistory();
             }
         }
-        
+
         function renderHistory() {
             const container = document.getElementById('history');
             container.innerHTML = history.map(color => `
                 <button onclick="selectHistoryColor('${color}')" class="w-8 h-8 rounded-lg shadow-sm border border-gray-200" style="background: ${color}" title="${color}"></button>
             `).join('');
         }
-        
+
         function selectHistoryColor(hex) {
             colorPicker.value = hex;
             updateColor(hex);
         }
-        
+
         // Initialize with default color
         updateColor('#8b5cf6');
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Color Picker","description":"Pick colors from images or screen with eyedropper.","url":"https://passive.hardikkanajariya.in/color-picker/","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Color Picker","description":"Pick colors from images or screen with eyedropper.","url":"https://passive.hardikkanajariya.in/color-picker/","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

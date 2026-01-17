@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Converter - Convert Currencies | PassiveTools</title>
-    <meta name="description" content="Convert between currencies with live exchange rates. Free online currency converter supporting 150+ currencies.">
-    <meta name="keywords" content="currency converter, exchange rate, convert currency, forex, money converter, usd to eur">
+    <meta name="description"
+        content="Convert between currencies with live exchange rates. Free online currency converter supporting 150+ currencies.">
+    <meta name="keywords"
+        content="currency converter, exchange rate, convert currency, forex, money converter, usd to eur">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/currency-converter/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -33,88 +46,112 @@
             <div class="lg:col-span-3">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-6">Currency Converter</h1>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
-                            <input type="number" id="amount" value="100" class="w-full px-4 py-3 text-xl border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500" oninput="convert()">
+                            <input type="number" id="amount" value="100"
+                                class="w-full px-4 py-3 text-xl border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="convert()">
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">From</label>
-                                <select id="from" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500" onchange="convert()"></select>
+                                <select id="from"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                    onchange="convert()"></select>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">To</label>
-                                <select id="to" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500" onchange="convert()"></select>
+                                <select id="to"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                    onchange="convert()"></select>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="flex justify-center mb-6">
                         <button onclick="swap()" class="p-3 bg-gray-100 hover:bg-gray-200 rounded-full">
-                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
                         </button>
                     </div>
-                    
+
                     <div class="text-center p-6 bg-violet-50 rounded-xl mb-6">
                         <p class="text-gray-600 mb-2">Result</p>
                         <p id="result" class="text-4xl font-bold text-violet-600">-</p>
                         <p id="rate" class="text-sm text-gray-500 mt-2"></p>
                     </div>
-                    
+
                     <div id="loading" class="hidden text-center py-4">
-                        <div class="animate-spin w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full mx-auto"></div>
+                        <div
+                            class="animate-spin w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full mx-auto">
+                        </div>
                         <p class="text-gray-600 mt-2">Fetching exchange rates...</p>
                     </div>
-                    
-                    <div id="error" class="hidden p-4 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl text-sm">
-                        <p><strong>Note:</strong> Live exchange rates require an external API. This demo uses sample rates.</p>
+
+                    <div id="error"
+                        class="hidden p-4 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl text-sm">
+                        <p><strong>Note:</strong> Live exchange rates require an external API. This demo uses sample
+                            rates.</p>
                     </div>
-                    
+
                     <div class="mt-6">
                         <h3 class="font-semibold text-gray-900 mb-3">Popular Conversions</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                            <button onclick="setConversion('USD', 'EUR')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → EUR</button>
-                            <button onclick="setConversion('EUR', 'GBP')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">EUR → GBP</button>
-                            <button onclick="setConversion('USD', 'INR')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → INR</button>
-                            <button onclick="setConversion('GBP', 'USD')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">GBP → USD</button>
-                            <button onclick="setConversion('USD', 'JPY')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → JPY</button>
-                            <button onclick="setConversion('EUR', 'USD')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">EUR → USD</button>
-                            <button onclick="setConversion('USD', 'CAD')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → CAD</button>
-                            <button onclick="setConversion('USD', 'AUD')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → AUD</button>
+                            <button onclick="setConversion('USD', 'EUR')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → EUR</button>
+                            <button onclick="setConversion('EUR', 'GBP')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">EUR → GBP</button>
+                            <button onclick="setConversion('USD', 'INR')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → INR</button>
+                            <button onclick="setConversion('GBP', 'USD')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">GBP → USD</button>
+                            <button onclick="setConversion('USD', 'JPY')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → JPY</button>
+                            <button onclick="setConversion('EUR', 'USD')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">EUR → USD</button>
+                            <button onclick="setConversion('USD', 'CAD')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → CAD</button>
+                            <button onclick="setConversion('USD', 'AUD')"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">USD → AUD</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">About Rates</h3>
-                    <p class="text-sm text-gray-600">Exchange rates are provided for informational purposes. Actual rates may vary from banks and services.</p>
+                    <p class="text-sm text-gray-600">Exchange rates are provided for informational purposes. Actual
+                        rates may vary from banks and services.</p>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage Calculator</a></li>
-                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit Converter</a></li>
+                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage
+                                Calculator</a></li>
+                        <li><a href="/unit-converter/" class="text-violet-600 hover:underline text-sm">Unit
+                                Converter</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -142,39 +179,39 @@
             AED: { rate: 3.67, name: 'UAE Dirham', symbol: 'د.إ' },
             SAR: { rate: 3.75, name: 'Saudi Riyal', symbol: '﷼' }
         };
-        
+
         // Populate currency dropdowns
         function populateDropdowns() {
             const fromSelect = document.getElementById('from');
             const toSelect = document.getElementById('to');
-            
+
             for (const [code, data] of Object.entries(rates)) {
                 fromSelect.innerHTML += `<option value="${code}">${code} - ${data.name}</option>`;
                 toSelect.innerHTML += `<option value="${code}">${code} - ${data.name}</option>`;
             }
-            
+
             fromSelect.value = 'USD';
             toSelect.value = 'EUR';
         }
-        
+
         function convert() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const from = document.getElementById('from').value;
             const to = document.getElementById('to').value;
-            
+
             if (!from || !to) return;
-            
+
             // Convert to USD first, then to target currency
             const inUSD = amount / rates[from].rate;
             const result = inUSD * rates[to].rate;
-            
+
             const exchangeRate = rates[to].rate / rates[from].rate;
-            
+
             document.getElementById('result').textContent = `${rates[to].symbol}${result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
             document.getElementById('rate').textContent = `1 ${from} = ${exchangeRate.toFixed(4)} ${to}`;
             document.getElementById('error').classList.remove('hidden');
         }
-        
+
         function swap() {
             const from = document.getElementById('from');
             const to = document.getElementById('to');
@@ -183,17 +220,19 @@
             to.value = temp;
             convert();
         }
-        
+
         function setConversion(fromCurrency, toCurrency) {
             document.getElementById('from').value = fromCurrency;
             document.getElementById('to').value = toCurrency;
             convert();
         }
-        
+
         // Initialize
         populateDropdowns();
         convert();
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Converter","description":"Convert between currencies with exchange rates.","url":"https://passive.hardikkanajariya.in/currency-converter/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Converter","description":"Convert between currencies with exchange rates.","url":"https://passive.hardikkanajariya.in/currency-converter/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

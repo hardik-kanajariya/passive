@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Counter - Free Online Word & Character Counter | PassiveTools</title>
-    <meta name="description" content="Free online word counter tool. Count words, characters, sentences, and paragraphs instantly. Track reading time and keyword density. No registration required.">
-    <meta name="keywords" content="word counter, character counter, word count, character count, text counter, online word counter">
+    <meta name="description"
+        content="Free online word counter tool. Count words, characters, sentences, and paragraphs instantly. Track reading time and keyword density. No registration required.">
+    <meta name="keywords"
+        content="word counter, character counter, word count, character count, text counter, online word counter">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/word-counter/">
     <meta property="og:title" content="Word Counter - Free Online Tool">
-    <meta property="og:description" content="Count words, characters, sentences, and paragraphs instantly. Free online word counter tool.">
+    <meta property="og:description"
+        content="Count words, characters, sentences, and paragraphs instantly. Free online word counter tool.">
     <meta property="og:url" content="https://passive.hardikkanajariya.in/word-counter/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.tool-card{transition:all .3s ease}.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .tool-card {
+            transition: all .3s ease
+        }
+
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Breadcrumb -->
         <nav class="text-sm mb-6">
@@ -40,8 +58,9 @@
             <div class="lg:col-span-3">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Word Counter</h1>
-                    <p class="text-gray-600 mb-6">Count words, characters, sentences, and paragraphs in your text instantly.</p>
-                    
+                    <p class="text-gray-600 mb-6">Count words, characters, sentences, and paragraphs in your text
+                        instantly.</p>
+
                     <!-- Stats Grid -->
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
                         <div class="bg-violet-50 rounded-xl p-4 text-center">
@@ -61,7 +80,7 @@
                             <div class="text-sm text-gray-600">Paragraphs</div>
                         </div>
                     </div>
-                    
+
                     <!-- Additional Stats -->
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
                         <div class="bg-gray-50 rounded-xl p-3 text-center">
@@ -81,18 +100,25 @@
                             <div class="text-xs text-gray-500">Lines</div>
                         </div>
                     </div>
-                    
+
                     <!-- Textarea -->
-                    <textarea id="inputText" rows="12" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent resize-none" placeholder="Start typing or paste your text here..."></textarea>
-                    
+                    <textarea id="inputText" rows="12"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent resize-none"
+                        placeholder="Start typing or paste your text here..."></textarea>
+
                     <!-- Action Buttons -->
                     <div class="flex flex-wrap gap-3 mt-4">
-                        <button onclick="clearText()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Clear</button>
-                        <button onclick="copyText()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors">Copy Text</button>
-                        <button onclick="copyStats()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Copy Stats</button>
+                        <button onclick="clearText()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Clear</button>
+                        <button onclick="copyText()"
+                            class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors">Copy
+                            Text</button>
+                        <button onclick="copyStats()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Copy
+                            Stats</button>
                     </div>
                 </div>
-                
+
                 <!-- Keyword Density -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Top Keywords</h2>
@@ -100,22 +126,23 @@
                         <p class="text-gray-500 col-span-full text-center py-4">Enter text to see keyword density</p>
                     </div>
                 </div>
-                
+
                 <!-- Ad Container -->
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <!-- How to Use -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">How to Use Word Counter</h2>
                     <div class="space-y-3 text-gray-600">
                         <p>1. <strong>Type or paste</strong> your text into the text area above.</p>
                         <p>2. <strong>View instant results</strong> - all counts update in real-time as you type.</p>
-                        <p>3. <strong>Check reading time</strong> - based on average reading speed of 200 words per minute.</p>
+                        <p>3. <strong>Check reading time</strong> - based on average reading speed of 200 words per
+                            minute.</p>
                         <p>4. <strong>Analyze keywords</strong> - see the most frequently used words in your text.</p>
                     </div>
-                    
+
                     <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Features</h3>
                     <ul class="list-disc list-inside space-y-2 text-gray-600">
                         <li>Real-time word and character counting</li>
@@ -126,81 +153,86 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Sidebar -->
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/character-counter/" class="text-violet-600 hover:underline text-sm">Character Counter</a></li>
-                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case Converter</a></li>
-                        <li><a href="/text-reverser/" class="text-violet-600 hover:underline text-sm">Text Reverser</a></li>
-                        <li><a href="/remove-line-breaks/" class="text-violet-600 hover:underline text-sm">Remove Line Breaks</a></li>
-                        <li><a href="/lorem-ipsum/" class="text-violet-600 hover:underline text-sm">Lorem Ipsum Generator</a></li>
+                        <li><a href="/character-counter/" class="text-violet-600 hover:underline text-sm">Character
+                                Counter</a></li>
+                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case
+                                Converter</a></li>
+                        <li><a href="/text-reverser/" class="text-violet-600 hover:underline text-sm">Text Reverser</a>
+                        </li>
+                        <li><a href="/remove-line-breaks/" class="text-violet-600 hover:underline text-sm">Remove Line
+                                Breaks</a></li>
+                        <li><a href="/lorem-ipsum/" class="text-violet-600 hover:underline text-sm">Lorem Ipsum
+                                Generator</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
     <script>
         const inputText = document.getElementById('inputText');
-        
+
         inputText.addEventListener('input', updateCounts);
-        
+
         function updateCounts() {
             const text = inputText.value;
-            
+
             // Word count
             const words = text.trim() ? text.trim().split(/\s+/).filter(w => w.length > 0) : [];
             document.getElementById('wordCount').textContent = words.length;
-            
+
             // Character counts
             document.getElementById('charCount').textContent = text.length;
             document.getElementById('charNoSpace').textContent = text.replace(/\s/g, '').length;
-            
+
             // Sentence count
             const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
             document.getElementById('sentenceCount').textContent = sentences.length;
-            
+
             // Paragraph count
             const paragraphs = text.split(/\n\n+/).filter(p => p.trim().length > 0);
             document.getElementById('paragraphCount').textContent = text.trim() ? paragraphs.length : 0;
-            
+
             // Line count
             const lines = text.split(/\n/).filter(l => l.trim().length > 0);
             document.getElementById('lineCount').textContent = lines.length;
-            
+
             // Reading time (200 wpm)
             const readMins = Math.ceil(words.length / 200);
             document.getElementById('readTime').textContent = readMins + ' min';
-            
+
             // Speaking time (150 wpm)
             const speakMins = Math.ceil(words.length / 150);
             document.getElementById('speakTime').textContent = speakMins + ' min';
-            
+
             // Keyword density
             updateKeywords(words);
         }
-        
+
         function updateKeywords(words) {
             const keywordList = document.getElementById('keywordList');
             if (words.length === 0) {
                 keywordList.innerHTML = '<p class="text-gray-500 col-span-full text-center py-4">Enter text to see keyword density</p>';
                 return;
             }
-            
-            const stopWords = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','must','shall','can','this','that','these','those','it','its']);
-            
+
+            const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'shall', 'can', 'this', 'that', 'these', 'those', 'it', 'its']);
+
             const wordFreq = {};
             words.forEach(word => {
                 const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -208,14 +240,14 @@
                     wordFreq[clean] = (wordFreq[clean] || 0) + 1;
                 }
             });
-            
+
             const sorted = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]).slice(0, 9);
-            
+
             if (sorted.length === 0) {
                 keywordList.innerHTML = '<p class="text-gray-500 col-span-full text-center py-4">No significant keywords found</p>';
                 return;
             }
-            
+
             keywordList.innerHTML = sorted.map(([word, count]) => {
                 const percent = ((count / words.length) * 100).toFixed(1);
                 return `<div class="bg-gray-50 rounded-lg p-2">
@@ -224,17 +256,17 @@
                 </div>`;
             }).join('');
         }
-        
+
         function clearText() {
             inputText.value = '';
             updateCounts();
         }
-        
+
         function copyText() {
             navigator.clipboard.writeText(inputText.value);
             showToast('Text copied!');
         }
-        
+
         function copyStats() {
             const stats = `Words: ${document.getElementById('wordCount').textContent}
 Characters: ${document.getElementById('charCount').textContent}
@@ -252,4 +284,5 @@ Speaking Time: ${document.getElementById('speakTime').textContent}`;
     {"@context":"https://schema.org","@type":"WebApplication","name":"Word Counter","description":"Free online word counter tool. Count words, characters, sentences, and paragraphs instantly.","url":"https://passive.hardikkanajariya.in/word-counter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
     </script>
 </body>
+
 </html>

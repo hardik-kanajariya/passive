@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Converter - Free Text Case Changer | PassiveTools</title>
-    <meta name="description" content="Convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more. Free online text case converter tool.">
-    <meta name="keywords" content="case converter, text case changer, uppercase converter, lowercase converter, title case, sentence case">
+    <meta name="description"
+        content="Convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more. Free online text case converter tool.">
+    <meta name="keywords"
+        content="case converter, text case changer, uppercase converter, lowercase converter, title case, sentence case">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/case-converter/">
     <meta property="og:title" content="Case Converter - Change Text Case Online">
     <meta property="og:description" content="Convert text to different cases instantly. Free online tool.">
     <meta property="og:url" content="https://passive.hardikkanajariya.in/case-converter/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -37,35 +50,57 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Case Converter</h1>
                     <p class="text-gray-600 mb-6">Transform your text to different cases instantly.</p>
-                    
-                    <textarea id="inputText" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none mb-4" placeholder="Enter or paste your text here..."></textarea>
-                    
+
+                    <textarea id="inputText" rows="8"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none mb-4"
+                        placeholder="Enter or paste your text here..."></textarea>
+
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
-                        <button onclick="convert('upper')" class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">UPPERCASE</button>
-                        <button onclick="convert('lower')" class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">lowercase</button>
-                        <button onclick="convert('title')" class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">Title Case</button>
-                        <button onclick="convert('sentence')" class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">Sentence case</button>
-                        <button onclick="convert('capitalize')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">Capitalize Each Word</button>
-                        <button onclick="convert('inverse')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">iNVERSE cASE</button>
-                        <button onclick="convert('alternating')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">aLtErNaTiNg</button>
-                        <button onclick="convert('snake')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">snake_case</button>
-                        <button onclick="convert('kebab')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">kebab-case</button>
-                        <button onclick="convert('camel')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">camelCase</button>
-                        <button onclick="convert('pascal')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">PascalCase</button>
-                        <button onclick="convert('dot')" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">dot.case</button>
+                        <button onclick="convert('upper')"
+                            class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">UPPERCASE</button>
+                        <button onclick="convert('lower')"
+                            class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">lowercase</button>
+                        <button onclick="convert('title')"
+                            class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">Title
+                            Case</button>
+                        <button onclick="convert('sentence')"
+                            class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors text-sm">Sentence
+                            case</button>
+                        <button onclick="convert('capitalize')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">Capitalize
+                            Each Word</button>
+                        <button onclick="convert('inverse')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">iNVERSE
+                            cASE</button>
+                        <button onclick="convert('alternating')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">aLtErNaTiNg</button>
+                        <button onclick="convert('snake')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">snake_case</button>
+                        <button onclick="convert('kebab')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">kebab-case</button>
+                        <button onclick="convert('camel')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">camelCase</button>
+                        <button onclick="convert('pascal')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">PascalCase</button>
+                        <button onclick="convert('dot')"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors text-sm">dot.case</button>
                     </div>
-                    
+
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="copyText()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">Copy Text</button>
-                        <button onclick="clearText()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Clear</button>
-                        <button onclick="downloadText()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Download</button>
+                        <button onclick="copyText()"
+                            class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">Copy
+                            Text</button>
+                        <button onclick="clearText()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Clear</button>
+                        <button onclick="downloadText()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">Download</button>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block mb-6">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">Case Types Explained</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
@@ -96,38 +131,42 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a></li>
-                        <li><a href="/character-counter/" class="text-violet-600 hover:underline text-sm">Character Counter</a></li>
-                        <li><a href="/text-reverser/" class="text-violet-600 hover:underline text-sm">Text Reverser</a></li>
-                        <li><a href="/remove-line-breaks/" class="text-violet-600 hover:underline text-sm">Remove Line Breaks</a></li>
+                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a>
+                        </li>
+                        <li><a href="/character-counter/" class="text-violet-600 hover:underline text-sm">Character
+                                Counter</a></li>
+                        <li><a href="/text-reverser/" class="text-violet-600 hover:underline text-sm">Text Reverser</a>
+                        </li>
+                        <li><a href="/remove-line-breaks/" class="text-violet-600 hover:underline text-sm">Remove Line
+                                Breaks</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
     <script>
         const input = document.getElementById('inputText');
-        
+
         function convert(type) {
             let text = input.value;
             if (!text) { showToast('Please enter some text', 'error'); return; }
-            
-            switch(type) {
+
+            switch (type) {
                 case 'upper': text = text.toUpperCase(); break;
                 case 'lower': text = text.toLowerCase(); break;
                 case 'title': text = text.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()); break;
@@ -144,18 +183,18 @@
             input.value = text;
             showToast('Converted!');
         }
-        
+
         function copyText() {
             navigator.clipboard.writeText(input.value);
             showToast('Text copied!');
         }
-        
+
         function clearText() {
             input.value = '';
         }
-        
+
         function downloadText() {
-            const blob = new Blob([input.value], {type: 'text/plain'});
+            const blob = new Blob([input.value], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -164,6 +203,8 @@
             URL.revokeObjectURL(url);
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Case Converter","description":"Convert text to UPPERCASE, lowercase, Title Case, and more.","url":"https://passive.hardikkanajariya.in/case-converter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Case Converter","description":"Convert text to UPPERCASE, lowercase, Title Case, and more.","url":"https://passive.hardikkanajariya.in/case-converter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

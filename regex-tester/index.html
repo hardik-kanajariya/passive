@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regex Tester - Test Regular Expressions Online | PassiveTools</title>
-    <meta name="description" content="Test regular expressions online with real-time matching. Free regex tester with match highlighting and flags support.">
-    <meta name="keywords" content="regex tester, regular expression, regex, pattern matching, regex validator, regex checker">
+    <meta name="description"
+        content="Test regular expressions online with real-time matching. Free regex tester with match highlighting and flags support.">
+    <meta name="keywords"
+        content="regex tester, regular expression, regex, pattern matching, regex validator, regex checker">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/regex-tester/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}.match{background:#c4b5fd;border-radius:2px}.group-0{background:#c4b5fd}.group-1{background:#a5f3fc}.group-2{background:#fde68a}.group-3{background:#fca5a1}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+
+        .match {
+            background: #c4b5fd;
+            border-radius: 2px
+        }
+
+        .group-0 {
+            background: #c4b5fd
+        }
+
+        .group-1 {
+            background: #a5f3fc
+        }
+
+        .group-2 {
+            background: #fde68a
+        }
+
+        .group-3 {
+            background: #fca5a1
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -33,72 +67,90 @@
             <div class="lg:col-span-3">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-6">Regex Tester</h1>
-                    
+
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Regular Expression</label>
                         <div class="flex gap-2">
-                            <div class="flex-1 flex items-center border border-gray-300 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-violet-500">
+                            <div
+                                class="flex-1 flex items-center border border-gray-300 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-violet-500">
                                 <span class="px-3 text-gray-500">/</span>
-                                <input type="text" id="pattern" class="flex-1 py-3 outline-none font-mono" placeholder="[a-z]+">
+                                <input type="text" id="pattern" class="flex-1 py-3 outline-none font-mono"
+                                    placeholder="[a-z]+">
                                 <span class="px-3 text-gray-500">/</span>
-                                <input type="text" id="flags" value="gm" class="w-16 py-3 font-mono text-center border-l border-gray-300 outline-none" placeholder="gmi">
+                                <input type="text" id="flags" value="gm"
+                                    class="w-16 py-3 font-mono text-center border-l border-gray-300 outline-none"
+                                    placeholder="gmi">
                             </div>
                         </div>
                         <div id="error" class="hidden mt-2 text-sm text-red-600"></div>
                     </div>
-                    
+
                     <div class="flex flex-wrap gap-3 mb-4">
                         <label class="flex items-center gap-2 cursor-pointer bg-gray-100 px-3 py-1.5 rounded-lg">
-                            <input type="checkbox" id="flagG" checked class="w-4 h-4 text-violet-600 rounded" onchange="updateFlags()">
+                            <input type="checkbox" id="flagG" checked class="w-4 h-4 text-violet-600 rounded"
+                                onchange="updateFlags()">
                             <span class="text-sm text-gray-700">Global (g)</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer bg-gray-100 px-3 py-1.5 rounded-lg">
-                            <input type="checkbox" id="flagM" checked class="w-4 h-4 text-violet-600 rounded" onchange="updateFlags()">
+                            <input type="checkbox" id="flagM" checked class="w-4 h-4 text-violet-600 rounded"
+                                onchange="updateFlags()">
                             <span class="text-sm text-gray-700">Multiline (m)</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer bg-gray-100 px-3 py-1.5 rounded-lg">
-                            <input type="checkbox" id="flagI" class="w-4 h-4 text-violet-600 rounded" onchange="updateFlags()">
+                            <input type="checkbox" id="flagI" class="w-4 h-4 text-violet-600 rounded"
+                                onchange="updateFlags()">
                             <span class="text-sm text-gray-700">Case Insensitive (i)</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer bg-gray-100 px-3 py-1.5 rounded-lg">
-                            <input type="checkbox" id="flagS" class="w-4 h-4 text-violet-600 rounded" onchange="updateFlags()">
+                            <input type="checkbox" id="flagS" class="w-4 h-4 text-violet-600 rounded"
+                                onchange="updateFlags()">
                             <span class="text-sm text-gray-700">Dotall (s)</span>
                         </label>
                     </div>
-                    
+
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Test String</label>
-                        <textarea id="text" rows="8" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text to test against the regex..."></textarea>
+                        <textarea id="text" rows="8"
+                            class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none"
+                            placeholder="Enter text to test against the regex..."></textarea>
                     </div>
-                    
+
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Result (Matches Highlighted)</label>
-                        <div id="result" class="w-full min-h-[100px] px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl whitespace-pre-wrap"></div>
+                        <div id="result"
+                            class="w-full min-h-[100px] px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl whitespace-pre-wrap">
+                        </div>
                     </div>
-                    
+
                     <div id="matchInfo" class="hidden mb-4 p-4 bg-violet-50 rounded-xl">
                         <h3 class="font-semibold text-gray-900 mb-2">Match Information</h3>
                         <div id="matchDetails" class="text-sm text-gray-600 space-y-1"></div>
                     </div>
-                    
+
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="testRegex()" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Test</button>
-                        <button onclick="loadExample('email')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Email</button>
-                        <button onclick="loadExample('url')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">URL</button>
-                        <button onclick="loadExample('phone')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Phone</button>
-                        <button onclick="loadExample('date')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Date</button>
-                        <button onclick="clearAll()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Clear</button>
+                        <button onclick="testRegex()"
+                            class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Test</button>
+                        <button onclick="loadExample('email')"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Email</button>
+                        <button onclick="loadExample('url')"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">URL</button>
+                        <button onclick="loadExample('phone')"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Phone</button>
+                        <button onclick="loadExample('date')"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Date</button>
+                        <button onclick="clearAll()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Clear</button>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Quick Reference</h3>
                     <div class="text-sm text-gray-600 space-y-1 font-mono">
@@ -116,22 +168,24 @@
                         <p><code>()</code> - Group</p>
                     </div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/diff-checker/" class="text-violet-600 hover:underline text-sm">Diff Checker</a></li>
-                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case Converter</a></li>
+                        <li><a href="/diff-checker/" class="text-violet-600 hover:underline text-sm">Diff Checker</a>
+                        </li>
+                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case
+                                Converter</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -142,11 +196,11 @@
             phone: { pattern: '\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}', flags: 'g', text: 'Call us at (555) 123-4567 or 555.987.6543 today!' },
             date: { pattern: '\\d{2}/\\d{2}/\\d{4}|\\d{4}-\\d{2}-\\d{2}', flags: 'g', text: 'Events on 12/25/2024 and 2024-01-15 are scheduled.' }
         };
-        
+
         document.getElementById('pattern').addEventListener('input', testRegex);
         document.getElementById('flags').addEventListener('input', testRegex);
         document.getElementById('text').addEventListener('input', testRegex);
-        
+
         function updateFlags() {
             let flags = '';
             if (document.getElementById('flagG').checked) flags += 'g';
@@ -156,7 +210,7 @@
             document.getElementById('flags').value = flags;
             testRegex();
         }
-        
+
         function testRegex() {
             const pattern = document.getElementById('pattern').value;
             const flags = document.getElementById('flags').value;
@@ -165,20 +219,20 @@
             const resultDiv = document.getElementById('result');
             const matchInfo = document.getElementById('matchInfo');
             const matchDetails = document.getElementById('matchDetails');
-            
+
             errorDiv.classList.add('hidden');
             matchInfo.classList.add('hidden');
-            
+
             if (!pattern || !text) {
                 resultDiv.innerHTML = escapeHtml(text);
                 return;
             }
-            
+
             try {
                 const regex = new RegExp(pattern, flags);
                 const matches = [];
                 let match;
-                
+
                 if (flags.includes('g')) {
                     while ((match = regex.exec(text)) !== null) {
                         matches.push({
@@ -197,25 +251,25 @@
                         });
                     }
                 }
-                
+
                 // Highlight matches
                 let highlighted = '';
                 let lastIndex = 0;
-                
+
                 for (const m of matches) {
                     highlighted += escapeHtml(text.slice(lastIndex, m.index));
                     highlighted += '<span class="match">' + escapeHtml(m.match) + '</span>';
                     lastIndex = m.index + m.match.length;
                 }
                 highlighted += escapeHtml(text.slice(lastIndex));
-                
+
                 resultDiv.innerHTML = highlighted || escapeHtml(text);
-                
+
                 // Show match details
                 if (matches.length > 0) {
                     matchInfo.classList.remove('hidden');
                     let details = `<p><strong>${matches.length}</strong> match${matches.length > 1 ? 'es' : ''} found</p>`;
-                    
+
                     matches.slice(0, 10).forEach((m, i) => {
                         details += `<p><span class="font-medium">Match ${i + 1}:</span> "${m.match}" at index ${m.index}`;
                         if (m.groups.length > 0) {
@@ -223,42 +277,42 @@
                         }
                         details += '</p>';
                     });
-                    
+
                     if (matches.length > 10) {
                         details += `<p class="text-gray-500">... and ${matches.length - 10} more matches</p>`;
                     }
-                    
+
                     matchDetails.innerHTML = details;
                 }
-                
+
             } catch (e) {
                 errorDiv.textContent = 'Invalid regex: ' + e.message;
                 errorDiv.classList.remove('hidden');
                 resultDiv.innerHTML = escapeHtml(text);
             }
         }
-        
+
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
-        
+
         function loadExample(type) {
             const ex = examples[type];
             document.getElementById('pattern').value = ex.pattern;
             document.getElementById('flags').value = ex.flags;
             document.getElementById('text').value = ex.text;
-            
+
             // Update checkboxes
             document.getElementById('flagG').checked = ex.flags.includes('g');
             document.getElementById('flagM').checked = ex.flags.includes('m');
             document.getElementById('flagI').checked = ex.flags.includes('i');
             document.getElementById('flagS').checked = ex.flags.includes('s');
-            
+
             testRegex();
         }
-        
+
         function clearAll() {
             document.getElementById('pattern').value = '';
             document.getElementById('text').value = '';
@@ -267,6 +321,8 @@
             document.getElementById('matchInfo').classList.add('hidden');
         }
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Regex Tester","description":"Test regular expressions online with real-time matching.","url":"https://passive.hardikkanajariya.in/regex-tester/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Regex Tester","description":"Test regular expressions online with real-time matching.","url":"https://passive.hardikkanajariya.in/regex-tester/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>

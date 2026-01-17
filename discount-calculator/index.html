@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discount Calculator - Calculate Savings | PassiveTools</title>
-    <meta name="description" content="Calculate discounts and savings instantly. Find final price after discount, original price, or discount percentage.">
-    <meta name="keywords" content="discount calculator, sale calculator, percentage off, savings calculator, price calculator">
+    <meta name="description"
+        content="Calculate discounts and savings instantly. Find final price after discount, original price, or discount percentage.">
+    <meta name="keywords"
+        content="discount calculator, sale calculator, percentage off, savings calculator, price calculator">
     <link rel="canonical" href="https://passive.hardikkanajariya.in/discount-calculator/">
     <meta name="robots" content="index, follow">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
     <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
-    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900" data-page-type="tool">
     <div data-component="header"></div>
-    
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <nav class="text-sm mb-6">
             <ol class="flex items-center space-x-2">
@@ -33,7 +46,7 @@
             <div class="lg:col-span-3 space-y-6">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-6">Discount Calculator</h1>
-                    
+
                     <!-- Calculator 1: Price after discount -->
                     <div class="mb-8 p-6 bg-violet-50 rounded-xl">
                         <h2 class="font-semibold text-gray-900 mb-4">Calculate Price After Discount</h2>
@@ -42,19 +55,22 @@
                                 <label class="block text-sm text-gray-600 mb-1">Original Price</label>
                                 <div class="relative">
                                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-                                    <input type="number" id="original" value="100" class="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                    <input type="number" id="original" value="100"
+                                        class="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm text-gray-600 mb-1">Discount</label>
                                 <div class="relative">
-                                    <input type="number" id="discount" value="20" class="w-full pl-3 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                    <input type="number" id="discount" value="20"
+                                        class="w-full pl-3 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                                     <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm text-gray-600 mb-1">&nbsp;</label>
-                                <button onclick="calcDiscount()" class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-lg">Calculate</button>
+                                <button onclick="calcDiscount()"
+                                    class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-lg">Calculate</button>
                             </div>
                         </div>
                         <div id="result1" class="grid grid-cols-3 gap-4 text-center hidden">
@@ -72,43 +88,57 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Quick Discount Buttons -->
                     <div class="mb-8">
                         <h3 class="font-medium text-gray-900 mb-3">Quick Discounts</h3>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="setDiscount(5)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">5%</button>
-                            <button onclick="setDiscount(10)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">10%</button>
-                            <button onclick="setDiscount(15)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">15%</button>
-                            <button onclick="setDiscount(20)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">20%</button>
-                            <button onclick="setDiscount(25)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">25%</button>
-                            <button onclick="setDiscount(30)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">30%</button>
-                            <button onclick="setDiscount(40)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">40%</button>
-                            <button onclick="setDiscount(50)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">50%</button>
-                            <button onclick="setDiscount(70)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">70%</button>
+                            <button onclick="setDiscount(5)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">5%</button>
+                            <button onclick="setDiscount(10)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">10%</button>
+                            <button onclick="setDiscount(15)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">15%</button>
+                            <button onclick="setDiscount(20)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">20%</button>
+                            <button onclick="setDiscount(25)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">25%</button>
+                            <button onclick="setDiscount(30)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">30%</button>
+                            <button onclick="setDiscount(40)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">40%</button>
+                            <button onclick="setDiscount(50)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">50%</button>
+                            <button onclick="setDiscount(70)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">70%</button>
                         </div>
                     </div>
-                    
+
                     <!-- Double Discount -->
                     <div class="p-6 bg-blue-50 rounded-xl">
                         <h2 class="font-semibold text-gray-900 mb-4">Double Discount Calculator</h2>
-                        <p class="text-sm text-gray-600 mb-4">Calculate final price after applying two consecutive discounts</p>
+                        <p class="text-sm text-gray-600 mb-4">Calculate final price after applying two consecutive
+                            discounts</p>
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                             <div>
                                 <label class="block text-sm text-gray-600 mb-1">Original Price</label>
-                                <input type="number" id="dOriginal" value="100" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <input type="number" id="dOriginal" value="100"
+                                    class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                             </div>
                             <div>
                                 <label class="block text-sm text-gray-600 mb-1">1st Discount %</label>
-                                <input type="number" id="discount1" value="20" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <input type="number" id="discount1" value="20"
+                                    class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                             </div>
                             <div>
                                 <label class="block text-sm text-gray-600 mb-1">2nd Discount %</label>
-                                <input type="number" id="discount2" value="10" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <input type="number" id="discount2" value="10"
+                                    class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
                             </div>
                             <div>
                                 <label class="block text-sm text-gray-600 mb-1">&nbsp;</label>
-                                <button onclick="calcDouble()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+                                <button onclick="calcDouble()"
+                                    class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
                             </div>
                         </div>
                         <div id="result2" class="bg-white p-4 rounded-lg text-center hidden">
@@ -119,31 +149,34 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block">
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
                 </div>
             </div>
-            
+
             <div class="lg:col-span-1 space-y-6">
                 <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
                     <ul class="space-y-2">
-                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage Calculator</a></li>
-                        <li><a href="/tip-calculator/" class="text-violet-600 hover:underline text-sm">Tip Calculator</a></li>
-                        <li><a href="/loan-calculator/" class="text-violet-600 hover:underline text-sm">Loan Calculator</a></li>
+                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage
+                                Calculator</a></li>
+                        <li><a href="/tip-calculator/" class="text-violet-600 hover:underline text-sm">Tip
+                                Calculator</a></li>
+                        <li><a href="/loan-calculator/" class="text-violet-600 hover:underline text-sm">Loan
+                                Calculator</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
             </div>
         </div>
     </main>
-    
+
     <div data-component="footer"></div>
-    
+
     <script src="/js/components.js"></script>
     <script src="/js/ads.js"></script>
     <script src="/js/tool-template.js"></script>
@@ -151,41 +184,43 @@
         function calcDiscount() {
             const original = parseFloat(document.getElementById('original').value);
             const discount = parseFloat(document.getElementById('discount').value);
-            
+
             if (isNaN(original) || isNaN(discount)) { showToast('Enter valid numbers', 'error'); return; }
-            
+
             const savings = original * (discount / 100);
             const final = original - savings;
-            
+
             document.getElementById('savings').textContent = '$' + savings.toFixed(2);
             document.getElementById('finalPrice').textContent = '$' + final.toFixed(2);
             document.getElementById('payPercent').textContent = (100 - discount).toFixed(0) + '%';
             document.getElementById('result1').classList.remove('hidden');
         }
-        
+
         function setDiscount(value) {
             document.getElementById('discount').value = value;
             calcDiscount();
         }
-        
+
         function calcDouble() {
             const original = parseFloat(document.getElementById('dOriginal').value);
             const d1 = parseFloat(document.getElementById('discount1').value);
             const d2 = parseFloat(document.getElementById('discount2').value);
-            
+
             if (isNaN(original) || isNaN(d1) || isNaN(d2)) { showToast('Enter valid numbers', 'error'); return; }
-            
+
             const afterFirst = original * (1 - d1 / 100);
             const final = afterFirst * (1 - d2 / 100);
             const totalDiscountPercent = ((original - final) / original) * 100;
-            
+
             document.getElementById('doubleFinal').textContent = '$' + final.toFixed(2);
             document.getElementById('totalDiscount').textContent = totalDiscountPercent.toFixed(1) + '%';
             document.getElementById('result2').classList.remove('hidden');
         }
-        
+
         calcDiscount();
     </script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Discount Calculator","description":"Calculate discounts and savings instantly.","url":"https://passive.hardikkanajariya.in/discount-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Discount Calculator","description":"Calculate discounts and savings instantly.","url":"https://passive.hardikkanajariya.in/discount-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </body>
+
 </html>
