@@ -25,6 +25,60 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Check existing configuration
+        id: check_config
+        run: |
+          CONFIG_STATUS=$(ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+          
+          NGINX_CONFIGURED="false"
+          SSL_CONFIGURED="false"
+          SITE_DIR_EXISTS="false"
+          
+          # Check if nginx config exists and is enabled
+          if [ -f /etc/nginx/sites-available/passive.hardikkanajariya.in ] && [ -L /etc/nginx/sites-enabled/passive.hardikkanajariya.in ]; then
+            NGINX_CONFIGURED="true"
+          fi
+          
+          # Check if SSL certificate exists
+          if [ -f /etc/letsencrypt/live/passive.hardikkanajariya.in/fullchain.pem ]; then
+            SSL_CONFIGURED="true"
+          fi
+          
+          # Check if site directory exists
+          if [ -d /var/www/passive.hardikkanajariya.in ]; then
+            SITE_DIR_EXISTS="true"
+          fi
+          
+          echo "nginx=$NGINX_CONFIGURED"
+          echo "ssl=$SSL_CONFIGURED"
+          echo "sitedir=$SITE_DIR_EXISTS"
+          
+          ENDSSH
+          )
+          
+          # Parse the output and set GitHub outputs
+          echo "$CONFIG_STATUS"
+          NGINX_CONFIGURED=$(echo "$CONFIG_STATUS" | grep "^nginx=" | cut -d'=' -f2)
+          SSL_CONFIGURED=$(echo "$CONFIG_STATUS" | grep "^ssl=" | cut -d'=' -f2)
+          SITE_DIR_EXISTS=$(echo "$CONFIG_STATUS" | grep "^sitedir=" | cut -d'=' -f2)
+          
+          echo "nginx_configured=$NGINX_CONFIGURED" >> $GITHUB_OUTPUT
+          echo "ssl_configured=$SSL_CONFIGURED" >> $GITHUB_OUTPUT
+          echo "site_dir_exists=$SITE_DIR_EXISTS" >> $GITHUB_OUTPUT
+          
+          echo "::notice::Nginx configured: $NGINX_CONFIGURED, SSL configured: $SSL_CONFIGURED, Site dir exists: $SITE_DIR_EXISTS"
+
+      - name: Create site directory (if needed)
+        if: steps.check_config.outputs.site_dir_exists != 'true'
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+          
+          echo "Creating site directory..."
+          sudo mkdir -p /var/www/passive.hardikkanajariya.in
+          sudo chown -R $USER:$USER /var/www/passive.hardikkanajariya.in
+          
+          ENDSSH
+
       - name: Deploy site files
         run: |
           rsync -avz --delete \
@@ -35,27 +89,17 @@ jobs:
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
             ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.DEPLOY_PATH }}/
 
-      - name: Deploy nginx config
+      - name: Configure Nginx (if not already configured)
+        if: steps.check_config.outputs.nginx_configured != 'true'
         run: |
+          echo "Nginx not configured. Setting up..."
+          
           # Copy nginx config file to VPS
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
             ./nginx/${{ env.DOMAIN }}.conf \
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/${{ env.DOMAIN }}.conf
-
-      - name: Deploy setup script
-        run: |
-          # Copy setup script to VPS
-          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
-            ./scripts/setup-nginx.sh \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/setup-nginx.sh
-
-      - name: Configure Nginx
-        run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
           
-          # Create site directory if it doesn't exist
-          sudo mkdir -p /var/www/passive.hardikkanajariya.in
-          sudo chown -R $USER:$USER /var/www/passive.hardikkanajariya.in
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
           
           # Install nginx config using cat with sudo tee
           cat /tmp/passive.hardikkanajariya.in.conf | sudo tee /etc/nginx/sites-available/passive.hardikkanajariya.in > /dev/null
@@ -70,27 +114,36 @@ jobs:
           sudo systemctl reload nginx
           
           # Cleanup temp files
-          rm -f /tmp/passive.hardikkanajariya.in.conf /tmp/setup-nginx.sh
+          rm -f /tmp/passive.hardikkanajariya.in.conf
+          
+          echo "Nginx configuration completed!"
           
           ENDSSH
 
-      - name: Setup SSL with Certbot (optional)
+      - name: Skip Nginx configuration
+        if: steps.check_config.outputs.nginx_configured == 'true'
+        run: echo "::notice::Nginx already configured. Skipping configuration step."
+
+      - name: Setup SSL with Certbot (if not already configured)
+        if: steps.check_config.outputs.ssl_configured != 'true'
         run: |
+          echo "SSL not configured. Attempting setup..."
+          
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
           
-          # Check if certbot is installed and SSL cert doesn't exist
           if command -v certbot &> /dev/null; then
-            if [ ! -f /etc/letsencrypt/live/passive.hardikkanajariya.in/fullchain.pem ]; then
-              echo "Setting up SSL certificate..."
-              sudo certbot --nginx -d passive.hardikkanajariya.in --non-interactive --agree-tos --email ${{ secrets.SSL_EMAIL }} || echo "SSL setup skipped or failed"
-            else
-              echo "SSL certificate already exists"
-            fi
+            echo "Setting up SSL certificate..."
+            sudo certbot --nginx -d passive.hardikkanajariya.in --non-interactive --agree-tos --email ${{ secrets.SSL_EMAIL }} || echo "SSL setup skipped or failed"
           else
             echo "Certbot not installed, skipping SSL setup"
+            echo "To install: sudo apt install certbot python3-certbot-nginx"
           fi
           
           ENDSSH
+
+      - name: Skip SSL configuration
+        if: steps.check_config.outputs.ssl_configured == 'true'
+        run: echo "::notice::SSL already configured. Skipping SSL setup."
 
       - name: Cleanup SSH
         if: always()
