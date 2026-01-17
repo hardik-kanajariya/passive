@@ -604,11 +604,18 @@
         </div>
     </section>
 
-    <!-- JuicyAds Banner -->
+    <!-- Banner Ad Section -->
     <section class="py-8 bg-white">
-        <div class="max-w-3xl mx-auto px-4">
-            <div id="ad-juicy-banner" class="ad-container rounded-xl overflow-hidden mx-auto"
-                style="max-width: 632px; min-height: 190px;"></div>
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-2">
+                <span class="text-xs text-gray-400 uppercase tracking-wider">Advertisement</span>
+            </div>
+            <!-- Desktop: 468x60 Banner -->
+            <div id="ad-banner-middle" class="hidden md:flex ad-container rounded-xl overflow-hidden mx-auto justify-center"
+                style="max-width: 468px; min-height: 60px;"></div>
+            <!-- Mobile: 300x250 Banner -->
+            <div id="ad-banner-middle-mobile" class="md:hidden ad-container rounded-xl overflow-hidden mx-auto flex justify-center"
+                style="max-width: 300px; min-height: 250px;"></div>
         </div>
     </section>
 

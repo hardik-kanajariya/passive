@@ -115,55 +115,98 @@ const AdManager = {
         const container = document.getElementById(containerId);
         if (!container) {
             this.adsterraLoading = false;
-            this.processAdsterraQueue();
+            setTimeout(() => this.processAdsterraQueue(), 50);
             return;
         }
 
-        // Create an iframe to isolate the ad script execution
-        // This allows document.write() to work properly
+        // Method 1: Direct script injection (preferred for Adsterra)
+        // Clear container and set dimensions
+        container.innerHTML = '';
+        container.style.minWidth = width + 'px';
+        container.style.minHeight = height + 'px';
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+
+        // Set atOptions globally before loading the script
+        window.atOptions = {
+            'key': key,
+            'format': 'iframe',
+            'height': height,
+            'width': width,
+            'params': {}
+        };
+
+        // Create and load the invoke script
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = scriptUrl;
+
+        script.onload = () => {
+            this.loaded[containerId] = true;
+            this.adsterraLoading = false;
+            // Process next ad after a delay to ensure proper initialization
+            setTimeout(() => this.processAdsterraQueue(), 300);
+        };
+
+        script.onerror = () => {
+            this.logError(containerId, 'Script failed to load');
+            this.adsterraLoading = false;
+            setTimeout(() => this.processAdsterraQueue(), 100);
+        };
+
+        container.appendChild(script);
+    },
+
+    // Alternative method using iframe for better isolation
+    loadAdsterraViaIframe(containerId, key, width, height) {
+        if (this.loaded[containerId]) return;
+
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.warn(`[AdManager] Container #${containerId} not found for iframe ad`);
+            return;
+        }
+
+        container.innerHTML = '';
+        container.style.minWidth = width + 'px';
+        container.style.minHeight = height + 'px';
+
         const iframe = document.createElement('iframe');
         iframe.style.width = width + 'px';
         iframe.style.height = height + 'px';
         iframe.style.border = 'none';
         iframe.style.overflow = 'hidden';
+        iframe.style.display = 'block';
+        iframe.style.margin = '0 auto';
         iframe.scrolling = 'no';
         iframe.frameBorder = '0';
+        iframe.allowTransparency = 'true';
 
-        container.innerHTML = ''; // Clear container
         container.appendChild(iframe);
 
-        // Write the ad code into the iframe
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-        iframeDoc.open();
-        iframeDoc.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    body { margin: 0; padding: 0; overflow: hidden; }
-                </style>
-            </head>
-            <body>
-                <script>
-                    atOptions = {
-                        'key' : '${key}',
-                        'format' : 'iframe',
-                        'height' : ${height},
-                        'width' : ${width},
-                        'params' : {}
-                    };
-                </script>
-                <script src="${scriptUrl}"></script>
-            </body>
-            </html>
-        `);
-        iframeDoc.close();
+        // Write ad code to iframe after it's added to DOM
+        const writeAdCode = () => {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(`<!DOCTYPE html>
+<html><head>
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{overflow:hidden;display:flex;justify-content:center;align-items:center;min-height:${height}px;}</style>
+</head><body>
+<script>atOptions={'key':'${key}','format':'iframe','height':${height},'width':${width},'params':{}};<\/script>
+<script src="https://biographygridetelegram.com/${key}/invoke.js"><\/script>
+</body></html>`);
+                iframeDoc.close();
+                this.loaded[containerId] = true;
+                console.log(`[AdManager] Loaded ad in #${containerId}`);
+            } catch (e) {
+                this.logError(containerId, e);
+            }
+        };
 
-        this.loaded[containerId] = true;
-        this.adsterraLoading = false;
-
-        // Process next ad with a small delay
-        setTimeout(() => this.processAdsterraQueue(), 100);
+        // Small delay to ensure iframe is ready
+        setTimeout(writeAdCode, 100);
     },
 
     // Queue an Adsterra ad for loading
@@ -171,17 +214,13 @@ const AdManager = {
         if (!this.config.enableAdsterra) return;
         if (this.loaded[containerId]) return;
         const container = document.getElementById(containerId);
-        if (!container) return;
+        if (!container) {
+            console.warn(`[AdManager] Container #${containerId} not found`);
+            return;
+        }
 
-        this.adsterraQueue.push({
-            containerId,
-            key,
-            width,
-            height,
-            scriptUrl: `https://biographygridetelegram.com/${key}/invoke.js`
-        });
-
-        this.processAdsterraQueue();
+        // Use iframe method directly - more reliable for Adsterra
+        this.loadAdsterraViaIframe(containerId, key, width, height);
     },
 
     // Adsterra: Banner 468x60
@@ -228,6 +267,34 @@ const AdManager = {
         container.appendChild(script);
 
         this.loaded[containerId] = true;
+    },
+
+    // Adsterra: Native Banner for Footer (4 cards)
+    loadAdsterraNativeFooter() {
+        if (!this.config.enableAdsterra) return;
+        if (this.loaded['native-footer']) return;
+
+        // The container div is already in footer.html with id="container-3fecabf66e493c7e25b0b3150e5b5adb"
+        const container = document.getElementById('ad-native-footer');
+        if (!container) {
+            console.warn('[AdManager] Native footer container not found');
+            return;
+        }
+
+        // Load the native ad script
+        const script = document.createElement('script');
+        script.async = true;
+        script.setAttribute('data-cfasync', 'false');
+        script.src = 'https://biographygridetelegram.com/3fecabf66e493c7e25b0b3150e5b5adb/invoke.js';
+        script.onload = () => {
+            console.log('[AdManager] Native footer ad loaded');
+        };
+        script.onerror = () => {
+            this.logError('native-footer', 'Script failed to load');
+        };
+        container.appendChild(script);
+
+        this.loaded['native-footer'] = true;
     },
 
     // Adsterra: Social Bar
@@ -323,6 +390,16 @@ const AdManager = {
         this.loadAdsterra300x250('ad-sidebar');
         this.loadAdsterra300x250('ad-sidebar-2');
 
+        // Always load Native Banner in footer (4 cards style)
+        this.loadAdsterraNativeFooter();
+
+        // Middle page banner ads (homepage)
+        if (!isMobile) {
+            this.loadAdsterra468x60('ad-banner-middle');
+        } else {
+            this.loadAdsterra300x250('ad-banner-middle-mobile');
+        }
+
         // Desktop-specific ads
         if (!isMobile) {
             this.loadAdsterra468x60('ad-header');
@@ -359,18 +436,58 @@ const AdManager = {
     // Check if ads loaded and show fallback if blocked
     checkAdStatus() {
         const adContainers = ['ad-sidebar', 'ad-sidebar-2', 'ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer'];
-        let adsBlocked = true;
+        let loadedCount = 0;
+        let totalFound = 0;
 
         adContainers.forEach(id => {
             const container = document.getElementById(id);
-            if (container && container.children.length > 0) {
-                adsBlocked = false;
+            if (container) {
+                totalFound++;
+                if (container.children.length > 0) {
+                    loadedCount++;
+                }
             }
         });
 
-        if (adsBlocked && this.errors.length > 0) {
+        console.log(`[AdManager] Ad status: ${loadedCount}/${totalFound} containers have content`);
+
+        if (loadedCount === 0 && this.errors.length > 0) {
             console.log('[AdManager] Ads appear to be blocked. Popunders will still work on click.');
         }
+
+        // Retry failed ads once
+        if (loadedCount < totalFound && !this.retried) {
+            this.retried = true;
+            console.log('[AdManager] Retrying failed ads...');
+            setTimeout(() => this.retryFailedAds(), 2000);
+        }
+    },
+
+    // Retry loading ads that failed
+    retryFailedAds() {
+        const isMobile = window.innerWidth < 768;
+
+        // Check each container and retry if empty
+        const retryMap = {
+            'ad-sidebar': () => this.loadAdsterraViaIframe('ad-sidebar', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-sidebar-2': () => this.loadAdsterraViaIframe('ad-sidebar-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-header': () => this.loadAdsterraViaIframe('ad-header', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
+            'ad-footer': () => this.loadAdsterraViaIframe('ad-footer', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
+            'ad-sidebar-skyscraper': () => this.loadAdsterraViaIframe('ad-sidebar-skyscraper', '820015608f3c05c78d776d295a0323a9', 160, 300),
+            'ad-sidebar-rectangle': () => this.loadAdsterraViaIframe('ad-sidebar-rectangle', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-mobile-top': () => this.loadAdsterraViaIframe('ad-mobile-top', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
+            'ad-mobile-content': () => this.loadAdsterraViaIframe('ad-mobile-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-mobile-sticky': () => this.loadAdsterraViaIframe('ad-mobile-sticky', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50)
+        };
+
+        Object.keys(retryMap).forEach(id => {
+            const container = document.getElementById(id);
+            if (container && container.children.length === 0) {
+                // Reset loaded state and retry with iframe method
+                this.loaded[id] = false;
+                retryMap[id]();
+            }
+        });
     },
 
     // Debug function - call AdManager.debug() in console
@@ -392,13 +509,21 @@ const AdManager = {
 // Track if AdManager has been initialized
 let adManagerInitialized = false;
 
-// Auto-initialize when components are loaded
-document.addEventListener('componentsLoaded', () => {
+// Safe initialization function
+function initAdManager() {
     if (adManagerInitialized) return;
     adManagerInitialized = true;
 
-    const pageType = document.body.dataset.pageType || 'default';
-    AdManager.init(pageType);
+    // Small delay to ensure DOM is fully ready
+    setTimeout(() => {
+        const pageType = document.body.dataset.pageType || 'default';
+        AdManager.init(pageType);
+    }, 100);
+}
+
+// Auto-initialize when components are loaded
+document.addEventListener('componentsLoaded', () => {
+    initAdManager();
 });
 
 // Fallback if no components used or componentsLoaded doesn't fire
@@ -409,17 +534,21 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             if (!adManagerInitialized) {
                 console.warn('[AdManager] componentsLoaded event not received, initializing anyway');
-                adManagerInitialized = true;
-                const pageType = document.body.dataset.pageType || 'default';
-                AdManager.init(pageType);
+                initAdManager();
             }
-        }, 3000);
+        }, 2000);
     } else {
         // No components, initialize immediately
-        if (!adManagerInitialized) {
-            adManagerInitialized = true;
-            const pageType = document.body.dataset.pageType || 'default';
-            AdManager.init(pageType);
-        }
+        initAdManager();
     }
 });
+
+// Additional fallback: if page is already loaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(() => {
+        if (!adManagerInitialized) {
+            console.warn('[AdManager] Late initialization triggered');
+            initAdManager();
+        }
+    }, 500);
+}
