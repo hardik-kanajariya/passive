@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 to Image Converter - Decode Base64 Online | PassiveTools</title>
+    <meta name="description" content="Convert Base64 string to image online. Decode Base64 encoded images and download them. Free Base64 decoder.">
+    <meta name="keywords" content="base64 to image, decode base64, base64 decoder, base64 image decoder, convert base64">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/base64-to-image/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/image-tools/" class="text-gray-500 hover:text-violet-600">Image Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Base64 to Image</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Base64 to Image Converter</h1>
+                    <p class="text-gray-600 mb-6">Decode Base64 encoded images and download them.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Base64 Input</label>
+                        <textarea id="base64Input" rows="6" class="w-full px-4 py-3 font-mono text-xs border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Paste Base64 string or data URI here...
+data:image/png;base64,iVBORw0KGgoAAAANS...
+or just: iVBORw0KGgoAAAANS..."></textarea>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <button onclick="decode()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Decode Image</button>
+                        <button onclick="loadSample()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Load Sample</button>
+                        <button onclick="clearAll()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Clear</button>
+                    </div>
+                    
+                    <!-- Preview -->
+                    <div id="preview" class="hidden">
+                        <div class="border border-gray-200 rounded-xl p-6 text-center bg-gray-50">
+                            <img id="outputImage" class="max-w-full max-h-96 mx-auto rounded-lg">
+                            <div id="imageInfo" class="mt-4 text-sm text-gray-600"></div>
+                        </div>
+                        
+                        <div class="mt-4 flex flex-wrap gap-3 justify-center">
+                            <button onclick="downloadImage('png')" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg">Download PNG</button>
+                            <button onclick="downloadImage('jpg')" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Download JPG</button>
+                            <button onclick="downloadImage('webp')" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">Download WebP</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Supported Formats</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• PNG images</li>
+                        <li>• JPEG images</li>
+                        <li>• GIF images</li>
+                        <li>• WebP images</li>
+                        <li>• SVG images</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/image-to-base64/" class="text-violet-600 hover:underline text-sm">Image to Base64</a></li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
+                        <li><a href="/image-compressor/" class="text-violet-600 hover:underline text-sm">Image Compressor</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let currentImage = null;
+        let currentMimeType = 'image/png';
+        
+        function decode() {
+            let input = document.getElementById('base64Input').value.trim();
+            if (!input) {
+                showToast('Please enter Base64 data', 'error');
+                return;
+            }
+            
+            let dataUri;
+            
+            // Check if it's already a data URI
+            if (input.startsWith('data:')) {
+                dataUri = input;
+                const match = input.match(/data:([^;]+);/);
+                if (match) currentMimeType = match[1];
+            } else {
+                // Try to determine the image type from the base64
+                if (input.startsWith('/9j/')) {
+                    currentMimeType = 'image/jpeg';
+                } else if (input.startsWith('iVBOR')) {
+                    currentMimeType = 'image/png';
+                } else if (input.startsWith('R0lGOD')) {
+                    currentMimeType = 'image/gif';
+                } else if (input.startsWith('UklGR')) {
+                    currentMimeType = 'image/webp';
+                } else if (input.startsWith('PHN2Z')) {
+                    currentMimeType = 'image/svg+xml';
+                }
+                dataUri = `data:${currentMimeType};base64,${input}`;
+            }
+            
+            const img = new Image();
+            img.onload = function() {
+                document.getElementById('outputImage').src = dataUri;
+                document.getElementById('imageInfo').innerHTML = `<strong>Dimensions:</strong> ${img.naturalWidth} × ${img.naturalHeight} px | <strong>Type:</strong> ${currentMimeType}`;
+                document.getElementById('preview').classList.remove('hidden');
+                currentImage = img;
+                showToast('Image decoded successfully!');
+            };
+            img.onerror = function() {
+                showToast('Invalid Base64 image data', 'error');
+            };
+            img.src = dataUri;
+        }
+        
+        function downloadImage(format) {
+            if (!currentImage) return;
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = currentImage.naturalWidth;
+            canvas.height = currentImage.naturalHeight;
+            const ctx = canvas.getContext('2d');
+            
+            if (format === 'jpg') {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            
+            ctx.drawImage(currentImage, 0, 0);
+            
+            const mimeType = format === 'jpg' ? 'image/jpeg' : format === 'webp' ? 'image/webp' : 'image/png';
+            const quality = format === 'jpg' || format === 'webp' ? 0.92 : undefined;
+            
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `image.${format}`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }, mimeType, quality);
+        }
+        
+        function loadSample() {
+            // A small valid PNG image (1x1 red pixel)
+            document.getElementById('base64Input').value = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8BQzwAEjDAGNx4GAMPeBviuH8eqAAAAAElFTkSuQmCC';
+            decode();
+        }
+        
+        function clearAll() {
+            document.getElementById('base64Input').value = '';
+            document.getElementById('preview').classList.add('hidden');
+            currentImage = null;
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Base64 to Image Converter","description":"Decode Base64 encoded images.","url":"https://passive.hardikkanajariya.in/base64-to-image/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

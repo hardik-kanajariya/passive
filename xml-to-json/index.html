@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML to JSON Converter - Free Online Tool | PassiveTools</title>
+    <meta name="description" content="Convert XML to JSON online. Transform XML data to JSON format with formatting options. Free XML converter.">
+    <meta name="keywords" content="xml to json, xml converter, json converter, xml parser, convert xml, xml2json">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/xml-to-json/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">XML to JSON</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">XML to JSON Converter</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">XML Input</label>
+                            <textarea id="xmlInput" rows="14" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder='<root>
+  <item id="1">
+    <name>Item 1</name>
+    <price>10.00</price>
+  </item>
+  <item id="2">
+    <name>Item 2</name>
+    <price>20.00</price>
+  </item>
+</root>'></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">JSON Output</label>
+                            <textarea id="jsonOutput" rows="14" readonly class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div id="error" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm"></div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Indent</label>
+                            <select id="indent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option value="2">2 spaces</option>
+                                <option value="4">4 spaces</option>
+                                <option value="0">Minified</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="includeAttrs" checked class="w-4 h-4 text-violet-600 rounded">
+                                <span class="text-sm text-gray-700">Include Attributes</span>
+                            </label>
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="trimText" checked class="w-4 h-4 text-violet-600 rounded">
+                                <span class="text-sm text-gray-700">Trim Whitespace</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="convertXml()" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Convert</button>
+                        <button onclick="copyJson()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Copy JSON</button>
+                        <button onclick="loadSample()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Load Sample</button>
+                        <button onclick="clearAll()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Clear</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Conversion Notes</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Attributes become @attr keys</li>
+                        <li>• Text content uses #text key</li>
+                        <li>• Repeated elements → arrays</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/json-formatter/" class="text-violet-600 hover:underline text-sm">JSON Formatter</a></li>
+                        <li><a href="/json-to-csv/" class="text-violet-600 hover:underline text-sm">JSON to CSV</a></li>
+                        <li><a href="/csv-to-json/" class="text-violet-600 hover:underline text-sm">CSV to JSON</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function convertXml() {
+            const xmlStr = document.getElementById('xmlInput').value.trim();
+            const indent = parseInt(document.getElementById('indent').value);
+            const includeAttrs = document.getElementById('includeAttrs').checked;
+            const trimText = document.getElementById('trimText').checked;
+            const errorDiv = document.getElementById('error');
+            
+            errorDiv.classList.add('hidden');
+            
+            if (!xmlStr) {
+                showError('Please enter XML content');
+                return;
+            }
+            
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlStr, 'text/xml');
+                
+                const parseError = xmlDoc.querySelector('parsererror');
+                if (parseError) {
+                    throw new Error('Invalid XML: ' + parseError.textContent);
+                }
+                
+                const json = xmlToJson(xmlDoc.documentElement, includeAttrs, trimText);
+                const output = indent === 0 ? JSON.stringify(json) : JSON.stringify(json, null, indent);
+                document.getElementById('jsonOutput').value = output;
+            } catch (err) {
+                showError(err.message);
+            }
+        }
+        
+        function xmlToJson(node, includeAttrs, trimText) {
+            let obj = {};
+            
+            // Handle attributes
+            if (includeAttrs && node.attributes && node.attributes.length > 0) {
+                for (let i = 0; i < node.attributes.length; i++) {
+                    const attr = node.attributes[i];
+                    obj['@' + attr.name] = attr.value;
+                }
+            }
+            
+            // Handle child nodes
+            if (node.hasChildNodes()) {
+                const children = node.childNodes;
+                let textContent = '';
+                
+                for (let i = 0; i < children.length; i++) {
+                    const child = children[i];
+                    
+                    if (child.nodeType === 3) { // Text node
+                        const text = trimText ? child.textContent.trim() : child.textContent;
+                        if (text) textContent += text;
+                    } else if (child.nodeType === 1) { // Element node
+                        const childName = child.nodeName;
+                        const childValue = xmlToJson(child, includeAttrs, trimText);
+                        
+                        if (obj[childName]) {
+                            // If property exists, convert to array
+                            if (!Array.isArray(obj[childName])) {
+                                obj[childName] = [obj[childName]];
+                            }
+                            obj[childName].push(childValue);
+                        } else {
+                            obj[childName] = childValue;
+                        }
+                    }
+                }
+                
+                // If only text content
+                if (textContent && Object.keys(obj).length === 0) {
+                    return isNaN(textContent) ? textContent : Number(textContent);
+                } else if (textContent) {
+                    obj['#text'] = isNaN(textContent) ? textContent : Number(textContent);
+                }
+            }
+            
+            return Object.keys(obj).length === 0 ? '' : obj;
+        }
+        
+        function showError(msg) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = msg;
+            errorDiv.classList.remove('hidden');
+        }
+        
+        function copyJson() {
+            const json = document.getElementById('jsonOutput').value;
+            if (json) {
+                navigator.clipboard.writeText(json);
+                showToast('JSON copied!');
+            }
+        }
+        
+        function loadSample() {
+            document.getElementById('xmlInput').value = `<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <book id="bk101">
+    <author>Gambardella, Matthew</author>
+    <title>XML Developer's Guide</title>
+    <genre>Computer</genre>
+    <price>44.95</price>
+    <publish_date>2000-10-01</publish_date>
+  </book>
+  <book id="bk102">
+    <author>Ralls, Kim</author>
+    <title>Midnight Rain</title>
+    <genre>Fantasy</genre>
+    <price>5.95</price>
+    <publish_date>2000-12-16</publish_date>
+  </book>
+</catalog>`;
+            convertXml();
+        }
+        
+        function clearAll() {
+            document.getElementById('xmlInput').value = '';
+            document.getElementById('jsonOutput').value = '';
+            document.getElementById('error').classList.add('hidden');
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"XML to JSON Converter","description":"Convert XML to JSON format online.","url":"https://passive.hardikkanajariya.in/xml-to-json/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

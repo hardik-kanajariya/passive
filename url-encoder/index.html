@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encoder/Decoder - Free Online URL Encoding Tool | PassiveTools</title>
+    <meta name="description" content="Encode and decode URLs online. Convert special characters to URL-safe format. Free URL encoder and decoder tool.">
+    <meta name="keywords" content="url encoder, url decoder, percent encoding, url encoding, encode url, decode url">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/url-encoder/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">URL Encoder</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">URL Encoder / Decoder</h1>
+                    <p class="text-gray-600 mb-6">Encode or decode URLs with special characters.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Input Text or URL</label>
+                        <textarea id="input" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text or URL to encode/decode..."></textarea>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <button onclick="encode()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Encode</button>
+                        <button onclick="decode()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">Decode</button>
+                        <button onclick="encodeComponent()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Encode Component</button>
+                        <button onclick="decodeComponent()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Decode Component</button>
+                    </div>
+                    
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Output</label>
+                        <textarea id="output" rows="5" readonly class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl resize-none font-mono text-sm"></textarea>
+                        <button onclick="copyOutput()" class="absolute top-8 right-3 px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg">Copy</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">About URL Encoding</h2>
+                    <p class="text-gray-600 mb-4">URL encoding converts special characters into a format that can be transmitted over the Internet. Characters like spaces, &, ?, # are replaced with percent-encoded equivalents.</p>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2">Common Encodings:</h3>
+                        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-sm font-mono">
+                            <div>Space → %20</div>
+                            <div>& → %26</div>
+                            <div>? → %3F</div>
+                            <div>= → %3D</div>
+                            <div># → %23</div>
+                            <div>/ → %2F</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/html-encoder/" class="text-violet-600 hover:underline text-sm">HTML Encoder</a></li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
+                        <li><a href="/json-formatter/" class="text-violet-600 hover:underline text-sm">JSON Formatter</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function encode() {
+            const input = document.getElementById('input').value;
+            try {
+                document.getElementById('output').value = encodeURI(input);
+                showToast('URL encoded!');
+            } catch(e) {
+                showToast('Invalid input', 'error');
+            }
+        }
+        
+        function decode() {
+            const input = document.getElementById('input').value;
+            try {
+                document.getElementById('output').value = decodeURI(input);
+                showToast('URL decoded!');
+            } catch(e) {
+                showToast('Invalid encoded URL', 'error');
+            }
+        }
+        
+        function encodeComponent() {
+            const input = document.getElementById('input').value;
+            try {
+                document.getElementById('output').value = encodeURIComponent(input);
+                showToast('Component encoded!');
+            } catch(e) {
+                showToast('Invalid input', 'error');
+            }
+        }
+        
+        function decodeComponent() {
+            const input = document.getElementById('input').value;
+            try {
+                document.getElementById('output').value = decodeURIComponent(input);
+                showToast('Component decoded!');
+            } catch(e) {
+                showToast('Invalid encoded text', 'error');
+            }
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('output').value);
+            showToast('Copied to clipboard!');
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"URL Encoder/Decoder","description":"Encode and decode URLs online.","url":"https://passive.hardikkanajariya.in/url-encoder/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

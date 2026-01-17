@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor - Compress Images Online Free | PassiveTools</title>
+    <meta name="description" content="Compress images online for free. Reduce image file size while maintaining quality. Supports JPEG, PNG, WebP formats.">
+    <meta name="keywords" content="image compressor, compress image, reduce image size, image optimizer, compress jpeg, compress png">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/image-compressor/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/image-tools/" class="text-gray-500 hover:text-violet-600">Image Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Image Compressor</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Image Compressor</h1>
+                    <p class="text-gray-600 mb-6">Compress images while maintaining quality. All processing happens in your browser.</p>
+                    
+                    <!-- Upload Area -->
+                    <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center cursor-pointer hover:border-violet-500 transition-colors mb-6">
+                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <p class="text-gray-600 mb-2">Drag & drop images here or click to upload</p>
+                        <p class="text-sm text-gray-500">Supports JPEG, PNG, WebP (Max 10MB)</p>
+                        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" class="hidden" multiple>
+                    </div>
+                    
+                    <!-- Quality Slider -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-medium text-gray-700">Quality</label>
+                            <span id="qualityValue" class="text-sm text-violet-600 font-medium">80%</span>
+                        </div>
+                        <input type="range" id="quality" min="10" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>Smaller file</span>
+                            <span>Higher quality</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Results -->
+                    <div id="results" class="hidden">
+                        <h3 class="font-semibold text-gray-900 mb-4">Compressed Images</h3>
+                        <div id="imageList" class="space-y-4"></div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">How It Works</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-violet-600 font-bold">1</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Upload your images</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-violet-600 font-bold">2</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Adjust quality level</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-violet-600 font-bold">3</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Download compressed images</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 text-center">🔒 All processing happens locally in your browser. Your images never leave your device.</p>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/image-resizer/" class="text-violet-600 hover:underline text-sm">Image Resizer</a></li>
+                        <li><a href="/image-converter/" class="text-violet-600 hover:underline text-sm">Image Converter</a></li>
+                        <li><a href="/image-to-base64/" class="text-violet-600 hover:underline text-sm">Image to Base64</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const qualitySlider = document.getElementById('quality');
+        const qualityValue = document.getElementById('qualityValue');
+        
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('border-violet-500'); });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('border-violet-500'));
+        uploadArea.addEventListener('drop', e => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-violet-500');
+            handleFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener('change', e => handleFiles(e.target.files));
+        qualitySlider.addEventListener('input', e => { qualityValue.textContent = e.target.value + '%'; });
+        
+        function handleFiles(files) {
+            const imageList = document.getElementById('imageList');
+            imageList.innerHTML = '';
+            document.getElementById('results').classList.remove('hidden');
+            
+            Array.from(files).forEach(file => {
+                if (!file.type.match(/image\/(jpeg|png|webp)/)) return;
+                if (file.size > 10 * 1024 * 1024) { showToast('File too large (max 10MB)', 'error'); return; }
+                compressImage(file);
+            });
+        }
+        
+        function compressImage(file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const quality = parseInt(qualitySlider.value) / 100;
+                    const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+                    const dataUrl = canvas.toDataURL(mimeType, quality);
+                    
+                    const compressedSize = Math.round((dataUrl.length * 3) / 4);
+                    const savings = Math.round((1 - compressedSize / file.size) * 100);
+                    
+                    addResult(file, dataUrl, compressedSize, savings);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function addResult(file, dataUrl, newSize, savings) {
+            const imageList = document.getElementById('imageList');
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-4 p-4 bg-gray-50 rounded-xl';
+            div.innerHTML = `
+                <img src="${dataUrl}" class="w-16 h-16 object-cover rounded-lg">
+                <div class="flex-1">
+                    <p class="font-medium text-gray-900">${file.name}</p>
+                    <div class="flex gap-4 text-sm text-gray-600">
+                        <span>Original: ${formatFileSize(file.size)}</span>
+                        <span>Compressed: ${formatFileSize(newSize)}</span>
+                        <span class="text-green-600 font-medium">${savings > 0 ? '-' + savings + '%' : '+' + Math.abs(savings) + '%'}</span>
+                    </div>
+                </div>
+                <a href="${dataUrl}" download="${file.name.replace(/\.[^.]+$/, '')}_compressed.jpg" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg text-sm">Download</a>
+            `;
+            imageList.appendChild(div);
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Image Compressor","description":"Compress images online while maintaining quality.","url":"https://passive.hardikkanajariya.in/image-compressor/","applicationCategory":"MultimediaApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

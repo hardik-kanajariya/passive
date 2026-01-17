@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Reverser - Reverse Text Online | PassiveTools</title>
+    <meta name="description" content="Reverse text characters, words, or lines online. Create backwards text, mirror text, and flip text. Free text reverser tool.">
+    <meta name="keywords" content="text reverser, reverse text, backwards text, mirror text, flip text">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/text-reverser/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/text-tools/" class="text-gray-500 hover:text-violet-600">Text Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Text Reverser</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Text Reverser</h1>
+                    <p class="text-gray-600 mb-6">Reverse text in different ways - characters, words, or lines.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Input Text</label>
+                        <textarea id="input" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text to reverse..."></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                        <button onclick="reverseAll()" class="px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Reverse All</button>
+                        <button onclick="reverseWords()" class="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">Reverse Words</button>
+                        <button onclick="reverseLines()" class="px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors">Reverse Lines</button>
+                        <button onclick="reverseEachWord()" class="px-4 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-xl transition-colors">Reverse Each Word</button>
+                    </div>
+                    
+                    <div class="relative mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Result</label>
+                        <textarea id="output" rows="5" readonly class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                        <button onclick="copyOutput()" class="absolute top-8 right-3 px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg">Copy</button>
+                    </div>
+                    
+                    <!-- Additional Transforms -->
+                    <div class="border-t border-gray-200 pt-6">
+                        <h2 class="font-semibold text-gray-900 mb-4">More Transforms</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <button onclick="toUpsideDown()" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm">Upside Down</button>
+                            <button onclick="toMirror()" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm">Mirror</button>
+                            <button onclick="toBubble()" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm">Bubble Text</button>
+                            <button onclick="toSquare()" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm">Square Text</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Examples</h3>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <div class="text-gray-500">Reverse All:</div>
+                            <div class="font-mono">Hello → olleH</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500">Reverse Words:</div>
+                            <div class="font-mono">Hello World → World Hello</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500">Reverse Each Word:</div>
+                            <div class="font-mono">Hello World → olleH dlroW</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case Converter</a></li>
+                        <li><a href="/text-repeater/" class="text-violet-600 hover:underline text-sm">Text Repeater</a></li>
+                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function reverseAll() {
+            const text = document.getElementById('input').value;
+            document.getElementById('output').value = [...text].reverse().join('');
+            showToast('Reversed!');
+        }
+        
+        function reverseWords() {
+            const text = document.getElementById('input').value;
+            document.getElementById('output').value = text.split(/\s+/).reverse().join(' ');
+            showToast('Words reversed!');
+        }
+        
+        function reverseLines() {
+            const text = document.getElementById('input').value;
+            document.getElementById('output').value = text.split('\n').reverse().join('\n');
+            showToast('Lines reversed!');
+        }
+        
+        function reverseEachWord() {
+            const text = document.getElementById('input').value;
+            document.getElementById('output').value = text.split(/(\s+)/).map(w => /\s/.test(w) ? w : [...w].reverse().join('')).join('');
+            showToast('Each word reversed!');
+        }
+        
+        const upsideDownMap = {a:'ɐ',b:'q',c:'ɔ',d:'p',e:'ǝ',f:'ɟ',g:'ƃ',h:'ɥ',i:'ᴉ',j:'ɾ',k:'ʞ',l:'l',m:'ɯ',n:'u',o:'o',p:'d',q:'b',r:'ɹ',s:'s',t:'ʇ',u:'n',v:'ʌ',w:'ʍ',x:'x',y:'ʎ',z:'z',A:'∀',B:'q',C:'Ɔ',D:'p',E:'Ǝ',F:'Ⅎ',G:'פ',H:'H',I:'I',J:'ſ',K:'ʞ',L:'˥',M:'W',N:'N',O:'O',P:'Ԁ',Q:'Q',R:'ɹ',S:'S',T:'┴',U:'∩',V:'Λ',W:'M',X:'X',Y:'⅄',Z:'Z','1':'Ɩ','2':'ᄅ','3':'Ɛ','4':'ㄣ','5':'ϛ','6':'9','7':'ㄥ','8':'8','9':'6','0':'0','.':'˙',',':'\'','\'':',','?':'¿','!':'¡','"':'„','&':'⅋','_':'‾','(':')',')':'('};
+        
+        function toUpsideDown() {
+            const text = document.getElementById('input').value;
+            document.getElementById('output').value = [...text].map(c => upsideDownMap[c] || c).reverse().join('');
+            showToast('Upside down!');
+        }
+        
+        const mirrorMap = {a:'ɒ',b:'d',c:'ɔ',d:'b',e:'ɘ',f:'ʇ',g:'ǫ',h:'ʜ',i:'i',j:'ꞁ',k:'ʞ',l:'l',m:'m',n:'n',o:'o',p:'q',q:'p',r:'ɿ',s:'ꙅ',t:'ƚ',u:'u',v:'v',w:'w',x:'x',y:'y',z:'z',A:'A',B:'ᙠ',C:'Ɔ',D:'ᗡ',E:'Ǝ',F:'ꟻ',G:'Ә',H:'H',I:'I',J:'Ⴑ',K:'ꓘ',L:'⅃',M:'M',N:'И',O:'O',P:'ꟼ',Q:'Ọ',R:'ᴙ',S:'Ꙅ',T:'T',U:'U',V:'V',W:'W',X:'X',Y:'Y',Z:'Ƶ','1':'1','2':'S','3':'Ɛ','4':'ᔭ','5':'2','6':'ꞁ','7':'Ⴈ','8':'8','9':'Ꝯ','(':')',')':'(','[':']',']':'[','{':'}','}':'{','<':'>','>':'<','/':'\\','\\':'/'};
+        
+        function toMirror() {
+            const text = document.getElementById('input').value;
+            document.getElementById('output').value = [...text].map(c => mirrorMap[c] || c).reverse().join('');
+            showToast('Mirrored!');
+        }
+        
+        function toBubble() {
+            const text = document.getElementById('input').value;
+            const result = text.split('').map(c => {
+                const code = c.charCodeAt(0);
+                if (c >= 'a' && c <= 'z') return String.fromCodePoint(0x24D0 + code - 97);
+                if (c >= 'A' && c <= 'Z') return String.fromCodePoint(0x24B6 + code - 65);
+                if (c >= '0' && c <= '9') return c === '0' ? '⓪' : String.fromCodePoint(0x2460 + code - 49);
+                return c;
+            }).join('');
+            document.getElementById('output').value = result;
+            showToast('Bubble text!');
+        }
+        
+        function toSquare() {
+            const text = document.getElementById('input').value;
+            const result = text.split('').map(c => {
+                const code = c.charCodeAt(0);
+                if (c >= 'a' && c <= 'z') return String.fromCodePoint(0x1F130 + code - 97);
+                if (c >= 'A' && c <= 'Z') return String.fromCodePoint(0x1F130 + code - 65);
+                return c;
+            }).join('');
+            document.getElementById('output').value = result;
+            showToast('Square text!');
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('output').value);
+            showToast('Copied!');
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Text Reverser","description":"Reverse text characters, words, or lines.","url":"https://passive.hardikkanajariya.in/text-reverser/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

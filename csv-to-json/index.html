@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to JSON Converter - Free Online Tool | PassiveTools</title>
+    <meta name="description" content="Convert CSV data to JSON format online. Free CSV to JSON converter with customizable options.">
+    <meta name="keywords" content="csv to json, convert csv to json, csv converter, json converter, csv to json online">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/csv-to-json/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">CSV to JSON</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">CSV to JSON Converter</h1>
+                    <p class="text-gray-600 mb-6">Convert CSV data to JSON format.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">CSV Input</label>
+                            <textarea id="csvInput" rows="12" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="name,age,city
+John,30,New York
+Jane,25,Los Angeles"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">JSON Output</label>
+                            <textarea id="jsonOutput" rows="12" readonly class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Delimiter</label>
+                            <select id="delimiter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option value=",">Comma (,)</option>
+                                <option value=";">Semicolon (;)</option>
+                                <option value="\t">Tab</option>
+                                <option value="|">Pipe (|)</option>
+                            </select>
+                        </div>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="firstRowHeaders" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700">First row is headers</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="minify" class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700">Minify JSON</span>
+                        </label>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="convert()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Convert to JSON</button>
+                        <button onclick="copyOutput()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Copy JSON</button>
+                        <button onclick="downloadJSON()" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors">Download JSON</button>
+                        <button onclick="loadSample()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Load Sample</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">How to Use</h2>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                        <li>Paste your CSV data in the input field</li>
+                        <li>Select the delimiter used in your CSV</li>
+                        <li>Click "Convert to JSON"</li>
+                        <li>Copy or download the result</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/json-to-csv/" class="text-violet-600 hover:underline text-sm">JSON to CSV</a></li>
+                        <li><a href="/json-formatter/" class="text-violet-600 hover:underline text-sm">JSON Formatter</a></li>
+                        <li><a href="/xml-to-json/" class="text-violet-600 hover:underline text-sm">XML to JSON</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function convert() {
+            try {
+                const csv = document.getElementById('csvInput').value.trim();
+                if (!csv) { showToast('Enter CSV data', 'error'); return; }
+                
+                const delimiter = document.getElementById('delimiter').value.replace('\\t', '\t');
+                const firstRowHeaders = document.getElementById('firstRowHeaders').checked;
+                const minify = document.getElementById('minify').checked;
+                
+                const lines = csv.split('\n').filter(line => line.trim());
+                if (lines.length < 2 && firstRowHeaders) {
+                    showToast('Not enough data rows', 'error');
+                    return;
+                }
+                
+                let headers;
+                let dataStart;
+                
+                if (firstRowHeaders) {
+                    headers = parseCSVLine(lines[0], delimiter);
+                    dataStart = 1;
+                } else {
+                    const firstRow = parseCSVLine(lines[0], delimiter);
+                    headers = firstRow.map((_, i) => `column${i + 1}`);
+                    dataStart = 0;
+                }
+                
+                const result = [];
+                for (let i = dataStart; i < lines.length; i++) {
+                    const values = parseCSVLine(lines[i], delimiter);
+                    const obj = {};
+                    headers.forEach((header, idx) => {
+                        let val = values[idx] || '';
+                        // Try to parse numbers
+                        if (!isNaN(val) && val !== '') val = parseFloat(val);
+                        // Try to parse booleans
+                        else if (val.toLowerCase() === 'true') val = true;
+                        else if (val.toLowerCase() === 'false') val = false;
+                        obj[header] = val;
+                    });
+                    result.push(obj);
+                }
+                
+                document.getElementById('jsonOutput').value = JSON.stringify(result, null, minify ? 0 : 2);
+                showToast('Converted successfully!');
+            } catch(e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+        
+        function parseCSVLine(line, delimiter) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    if (inQuotes && line[i+1] === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === delimiter && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('jsonOutput').value);
+            showToast('Copied!');
+        }
+        
+        function downloadJSON() {
+            const json = document.getElementById('jsonOutput').value;
+            if (!json) { showToast('No JSON to download', 'error'); return; }
+            const blob = new Blob([json], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function loadSample() {
+            document.getElementById('csvInput').value = `name,email,age,city,active
+John Doe,john@example.com,30,New York,true
+Jane Smith,jane@example.com,25,Los Angeles,false
+Bob Johnson,bob@example.com,35,Chicago,true`;
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CSV to JSON Converter","description":"Convert CSV data to JSON format.","url":"https://passive.hardikkanajariya.in/csv-to-json/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

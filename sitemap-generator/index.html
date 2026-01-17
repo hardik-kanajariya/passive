@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Generator - Create XML Sitemap | PassiveTools</title>
+    <meta name="description" content="Generate XML sitemaps for your website. Add URLs, set priorities and change frequencies. Free sitemap generator for SEO.">
+    <meta name="keywords" content="sitemap generator, xml sitemap, create sitemap, sitemap creator, seo sitemap, website sitemap">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/sitemap-generator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Sitemap Generator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">XML Sitemap Generator</h1>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Add URL</label>
+                        <div class="flex gap-2">
+                            <input type="url" id="newUrl" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500" placeholder="https://example.com/page">
+                            <button onclick="addUrl()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Or paste multiple URLs (one per line)</label>
+                        <textarea id="bulkUrls" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500" placeholder="https://example.com/
+https://example.com/about
+https://example.com/contact"></textarea>
+                        <button onclick="addBulkUrls()" class="mt-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Add All</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Default Priority</label>
+                            <select id="defaultPriority" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option value="1.0">1.0 (Highest)</option>
+                                <option value="0.9">0.9</option>
+                                <option value="0.8" selected>0.8</option>
+                                <option value="0.7">0.7</option>
+                                <option value="0.6">0.6</option>
+                                <option value="0.5">0.5 (Default)</option>
+                                <option value="0.4">0.4</option>
+                                <option value="0.3">0.3</option>
+                                <option value="0.2">0.2</option>
+                                <option value="0.1">0.1 (Lowest)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Default Frequency</label>
+                            <select id="defaultFreq" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option value="always">Always</option>
+                                <option value="hourly">Hourly</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly" selected>Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                                <option value="never">Never</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="includeLastmod" checked class="w-4 h-4 text-violet-600 rounded">
+                                <span class="text-sm text-gray-700">Include lastmod (today)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="urlList" class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="text-sm font-medium text-gray-700">URLs (<span id="urlCount">0</span>)</label>
+                            <button onclick="clearUrls()" class="text-sm text-red-500 hover:text-red-700">Clear All</button>
+                        </div>
+                        <div id="urlContainer" class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg">
+                            <p class="text-gray-500 text-sm p-4 text-center">No URLs added yet</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Generated Sitemap</label>
+                        <textarea id="output" rows="12" readonly class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl"></textarea>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="generateSitemap()" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Generate Sitemap</button>
+                        <button onclick="copySitemap()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Copy</button>
+                        <button onclick="downloadSitemap()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Download sitemap.xml</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Sitemap Tips</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Max 50,000 URLs per sitemap</li>
+                        <li>• Submit to Google Search Console</li>
+                        <li>• Reference in robots.txt</li>
+                        <li>• Update when content changes</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/robots-txt-generator/" class="text-violet-600 hover:underline text-sm">Robots.txt Generator</a></li>
+                        <li><a href="/meta-tag-generator/" class="text-violet-600 hover:underline text-sm">Meta Tag Generator</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let urls = [];
+        
+        document.getElementById('newUrl').addEventListener('keypress', e => {
+            if (e.key === 'Enter') addUrl();
+        });
+        
+        function addUrl() {
+            const urlInput = document.getElementById('newUrl');
+            const url = urlInput.value.trim();
+            
+            if (url && isValidUrl(url)) {
+                if (!urls.includes(url)) {
+                    urls.push(url);
+                    updateUrlList();
+                }
+                urlInput.value = '';
+            } else {
+                showToast('Please enter a valid URL');
+            }
+        }
+        
+        function addBulkUrls() {
+            const bulkInput = document.getElementById('bulkUrls');
+            const lines = bulkInput.value.split('\n');
+            let added = 0;
+            
+            for (const line of lines) {
+                const url = line.trim();
+                if (url && isValidUrl(url) && !urls.includes(url)) {
+                    urls.push(url);
+                    added++;
+                }
+            }
+            
+            updateUrlList();
+            bulkInput.value = '';
+            showToast(`Added ${added} URLs`);
+        }
+        
+        function isValidUrl(url) {
+            try {
+                new URL(url);
+                return url.startsWith('http://') || url.startsWith('https://');
+            } catch {
+                return false;
+            }
+        }
+        
+        function updateUrlList() {
+            const container = document.getElementById('urlContainer');
+            document.getElementById('urlCount').textContent = urls.length;
+            
+            if (urls.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-sm p-4 text-center">No URLs added yet</p>';
+            } else {
+                container.innerHTML = urls.map((url, i) => `
+                    <div class="flex items-center justify-between px-3 py-2 border-b border-gray-100 last:border-b-0 hover:bg-gray-50">
+                        <span class="text-sm text-gray-700 truncate flex-1">${url}</span>
+                        <button onclick="removeUrl(${i})" class="ml-2 p-1 text-gray-400 hover:text-red-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function removeUrl(index) {
+            urls.splice(index, 1);
+            updateUrlList();
+        }
+        
+        function clearUrls() {
+            urls = [];
+            updateUrlList();
+            document.getElementById('output').value = '';
+        }
+        
+        function generateSitemap() {
+            if (urls.length === 0) {
+                showToast('Please add at least one URL');
+                return;
+            }
+            
+            const priority = document.getElementById('defaultPriority').value;
+            const freq = document.getElementById('defaultFreq').value;
+            const includeLastmod = document.getElementById('includeLastmod').checked;
+            const today = new Date().toISOString().split('T')[0];
+            
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+            
+            for (const url of urls) {
+                xml += '  <url>\n';
+                xml += `    <loc>${escapeXml(url)}</loc>\n`;
+                if (includeLastmod) {
+                    xml += `    <lastmod>${today}</lastmod>\n`;
+                }
+                xml += `    <changefreq>${freq}</changefreq>\n`;
+                xml += `    <priority>${priority}</priority>\n`;
+                xml += '  </url>\n';
+            }
+            
+            xml += '</urlset>';
+            
+            document.getElementById('output').value = xml;
+        }
+        
+        function escapeXml(str) {
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;')
+                      .replace(/'/g, '&apos;');
+        }
+        
+        function copySitemap() {
+            const output = document.getElementById('output').value;
+            if (output) {
+                navigator.clipboard.writeText(output);
+                showToast('Sitemap copied!');
+            }
+        }
+        
+        function downloadSitemap() {
+            const output = document.getElementById('output').value;
+            if (output) {
+                const blob = new Blob([output], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'sitemap.xml';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"XML Sitemap Generator","description":"Generate XML sitemaps for your website.","url":"https://passive.hardikkanajariya.in/sitemap-generator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

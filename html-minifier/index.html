@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Minifier - Minify HTML Online | PassiveTools</title>
+    <meta name="description" content="Minify HTML code by removing comments, whitespace and formatting. Compress HTML for faster page loads. Free online HTML minifier.">
+    <meta name="keywords" content="html minifier, minify html, compress html, html compressor, html optimizer, remove whitespace">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/html-minifier/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">HTML Minifier</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">HTML Minifier</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">HTML Input</label>
+                            <textarea id="input" rows="14" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+<body>
+    <!-- Content here -->
+</body>
+</html>"></textarea>
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span id="inputSize">0 bytes</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Minified Output</label>
+                            <textarea id="output" rows="14" readonly class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                            <div class="flex justify-between text-sm mt-1">
+                                <span id="outputSize" class="text-gray-500">0 bytes</span>
+                                <span id="savings" class="text-green-600 font-medium"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4 p-4 bg-gray-50 rounded-xl">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="removeComments" checked class="w-4 h-4 text-violet-600 rounded">
+                            <span class="text-sm text-gray-700">Remove Comments</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="collapseWhitespace" checked class="w-4 h-4 text-violet-600 rounded">
+                            <span class="text-sm text-gray-700">Collapse Whitespace</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="removeEmptyAttributes" class="w-4 h-4 text-violet-600 rounded">
+                            <span class="text-sm text-gray-700">Remove Empty Attrs</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="removeOptionalTags" class="w-4 h-4 text-violet-600 rounded">
+                            <span class="text-sm text-gray-700">Remove Optional Tags</span>
+                        </label>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="minify()" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Minify</button>
+                        <button onclick="copyOutput()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Copy</button>
+                        <button onclick="downloadOutput()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Download</button>
+                        <button onclick="clearAll()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Clear</button>
+                        <button onclick="loadSample()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Sample</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Benefits</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Faster page loads</li>
+                        <li>• Reduced bandwidth</li>
+                        <li>• Better performance</li>
+                        <li>• Lower hosting costs</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/css-minifier/" class="text-violet-600 hover:underline text-sm">CSS Minifier</a></li>
+                        <li><a href="/json-minifier/" class="text-violet-600 hover:underline text-sm">JSON Minifier</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        document.getElementById('input').addEventListener('input', updateInputSize);
+        
+        function updateInputSize() {
+            const input = document.getElementById('input').value;
+            document.getElementById('inputSize').textContent = formatBytes(new Blob([input]).size);
+        }
+        
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 bytes';
+            const k = 1024;
+            const sizes = ['bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function minify() {
+            let input = document.getElementById('input').value;
+            
+            if (!input.trim()) {
+                showToast('Please enter HTML to minify');
+                return;
+            }
+            
+            const removeComments = document.getElementById('removeComments').checked;
+            const collapseWhitespace = document.getElementById('collapseWhitespace').checked;
+            const removeEmptyAttributes = document.getElementById('removeEmptyAttributes').checked;
+            const removeOptionalTags = document.getElementById('removeOptionalTags').checked;
+            
+            let minified = input;
+            
+            // Remove HTML comments (except conditional comments)
+            if (removeComments) {
+                minified = minified.replace(/<!--(?!\[if)[\s\S]*?-->/g, '');
+            }
+            
+            // Collapse whitespace
+            if (collapseWhitespace) {
+                // Remove whitespace between tags
+                minified = minified.replace(/>\s+</g, '><');
+                // Collapse multiple spaces
+                minified = minified.replace(/\s{2,}/g, ' ');
+                // Remove leading/trailing whitespace from lines
+                minified = minified.split('\n').map(line => line.trim()).join('');
+            }
+            
+            // Remove empty attributes
+            if (removeEmptyAttributes) {
+                minified = minified.replace(/\s+\w+=("|')\1/g, '');
+            }
+            
+            // Remove optional closing tags (be careful with this)
+            if (removeOptionalTags) {
+                minified = minified.replace(/<\/?(html|head|body|p|li|dt|dd|tr|th|td|option|thead|tbody|tfoot|colgroup)>/gi, function(match) {
+                    // Only remove closing tags, keep opening tags
+                    return match.startsWith('</') ? '' : match;
+                });
+            }
+            
+            document.getElementById('output').value = minified;
+            
+            const inputSize = new Blob([input]).size;
+            const outputSize = new Blob([minified]).size;
+            const savings = ((1 - outputSize / inputSize) * 100).toFixed(1);
+            
+            document.getElementById('outputSize').textContent = formatBytes(outputSize);
+            document.getElementById('savings').textContent = savings > 0 ? `${savings}% smaller` : '';
+        }
+        
+        function copyOutput() {
+            const output = document.getElementById('output').value;
+            if (output) {
+                navigator.clipboard.writeText(output);
+                showToast('Copied!');
+            }
+        }
+        
+        function downloadOutput() {
+            const output = document.getElementById('output').value;
+            if (output) {
+                const blob = new Blob([output], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'minified.html';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+        
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('inputSize').textContent = '0 bytes';
+            document.getElementById('outputSize').textContent = '0 bytes';
+            document.getElementById('savings').textContent = '';
+        }
+        
+        function loadSample() {
+            document.getElementById('input').value = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Page</title>
+    <!-- This is a comment that will be removed -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article>
+            <h2>Article Title</h2>
+            <p>
+                This is a paragraph with some text content.
+                It spans multiple lines in the source code.
+            </p>
+            <p>
+                Another paragraph here with more content.
+            </p>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 My Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>`;
+            updateInputSize();
+            minify();
+        }
+        
+        updateInputSize();
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"HTML Minifier","description":"Minify HTML code by removing comments and whitespace.","url":"https://passive.hardikkanajariya.in/html-minifier/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

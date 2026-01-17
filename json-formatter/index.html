@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter - Free Online JSON Beautifier & Validator | PassiveTools</title>
+    <meta name="description" content="Format, beautify, and validate JSON data online. Free JSON formatter with syntax highlighting, minification, and error detection.">
+    <meta name="keywords" content="json formatter, json beautifier, json validator, format json, pretty print json, json online">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/json-formatter/">
+    <meta property="og:title" content="JSON Formatter - Beautify & Validate JSON">
+    <meta property="og:description" content="Format, beautify, and validate JSON data online with syntax highlighting.">
+    <meta property="og:url" content="https://passive.hardikkanajariya.in/json-formatter/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>
+        .ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}
+        .json-string{color:#22863a}.json-number{color:#005cc5}.json-boolean{color:#d73a49}.json-null{color:#6f42c1}.json-key{color:#032f62}
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">JSON Formatter</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">JSON Formatter</h1>
+                    <p class="text-gray-600 mb-6">Format, beautify, and validate your JSON data with syntax highlighting.</p>
+                    
+                    <!-- Status -->
+                    <div id="status" class="hidden mb-4 p-3 rounded-lg"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+                        <!-- Input -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Input JSON</label>
+                                <button onclick="clearInput()" class="text-xs text-gray-500 hover:text-gray-700">Clear</button>
+                            </div>
+                            <textarea id="input" rows="16" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder='{"name": "John", "age": 30}'></textarea>
+                        </div>
+                        
+                        <!-- Output -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Formatted Output</label>
+                                <button onclick="copyOutput()" class="text-xs text-violet-600 hover:text-violet-700">Copy</button>
+                            </div>
+                            <pre id="output" class="w-full h-[400px] px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl overflow-auto"></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Options -->
+                    <div class="flex flex-wrap gap-4 mb-4">
+                        <label class="flex items-center">
+                            <span class="text-sm text-gray-600 mr-2">Indent:</span>
+                            <select id="indent" class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-violet-500">
+                                <option value="2">2 spaces</option>
+                                <option value="4">4 spaces</option>
+                                <option value="tab">Tab</option>
+                            </select>
+                        </label>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="formatJSON()" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors">Format / Beautify</button>
+                        <button onclick="minifyJSON()" class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Minify</button>
+                        <button onclick="validateJSON()" class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Validate</button>
+                        <button onclick="downloadJSON()" class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors">Download</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">What is JSON?</h2>
+                    <p class="text-gray-600 mb-4">JSON (JavaScript Object Notation) is a lightweight data interchange format. It's easy for humans to read and write, and easy for machines to parse and generate.</p>
+                    <h3 class="font-semibold text-gray-900 mt-4 mb-2">Features:</h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Format and beautify JSON with customizable indentation</li>
+                        <li>Validate JSON syntax and show errors</li>
+                        <li>Minify JSON for production use</li>
+                        <li>Syntax highlighting for better readability</li>
+                        <li>Download formatted JSON as a file</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/json-to-csv/" class="text-violet-600 hover:underline text-sm">JSON to CSV</a></li>
+                        <li><a href="/csv-to-json/" class="text-violet-600 hover:underline text-sm">CSV to JSON</a></li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
+                        <li><a href="/url-encoder/" class="text-violet-600 hover:underline text-sm">URL Encoder</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function showStatus(message, isError = false) {
+            const status = document.getElementById('status');
+            status.className = `mb-4 p-3 rounded-lg ${isError ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`;
+            status.textContent = message;
+            status.classList.remove('hidden');
+        }
+        
+        function hideStatus() {
+            document.getElementById('status').classList.add('hidden');
+        }
+        
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+        
+        function getIndent() {
+            const indent = document.getElementById('indent').value;
+            return indent === 'tab' ? '\t' : parseInt(indent);
+        }
+        
+        function formatJSON() {
+            hideStatus();
+            const input = document.getElementById('input').value.trim();
+            if (!input) {
+                showStatus('Please enter JSON data', true);
+                return;
+            }
+            
+            try {
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, getIndent());
+                document.getElementById('output').innerHTML = syntaxHighlight(formatted);
+                showStatus('JSON formatted successfully!');
+            } catch (e) {
+                showStatus('Invalid JSON: ' + e.message, true);
+                document.getElementById('output').textContent = '';
+            }
+        }
+        
+        function minifyJSON() {
+            hideStatus();
+            const input = document.getElementById('input').value.trim();
+            if (!input) {
+                showStatus('Please enter JSON data', true);
+                return;
+            }
+            
+            try {
+                const parsed = JSON.parse(input);
+                const minified = JSON.stringify(parsed);
+                document.getElementById('output').textContent = minified;
+                showStatus('JSON minified! Size reduced to ' + minified.length + ' characters');
+            } catch (e) {
+                showStatus('Invalid JSON: ' + e.message, true);
+            }
+        }
+        
+        function validateJSON() {
+            hideStatus();
+            const input = document.getElementById('input').value.trim();
+            if (!input) {
+                showStatus('Please enter JSON data', true);
+                return;
+            }
+            
+            try {
+                JSON.parse(input);
+                showStatus('✓ Valid JSON!');
+            } catch (e) {
+                showStatus('✗ Invalid JSON: ' + e.message, true);
+            }
+        }
+        
+        function copyOutput() {
+            const output = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(output);
+            showToast('Copied to clipboard!');
+        }
+        
+        function clearInput() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').innerHTML = '';
+            hideStatus();
+        }
+        
+        function downloadJSON() {
+            const output = document.getElementById('output').textContent;
+            if (!output) {
+                showStatus('Nothing to download', true);
+                return;
+            }
+            const blob = new Blob([output], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'formatted.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('JSON downloaded!');
+        }
+        
+        // Auto-format on paste
+        document.getElementById('input').addEventListener('paste', () => {
+            setTimeout(formatJSON, 100);
+        });
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JSON Formatter","description":"Format, beautify, and validate JSON data online with syntax highlighting.","url":"https://passive.hardikkanajariya.in/json-formatter/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

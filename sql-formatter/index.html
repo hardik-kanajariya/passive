@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Formatter - Format SQL Query Online | PassiveTools</title>
+    <meta name="description" content="Format and beautify SQL queries online. Free SQL formatter with syntax highlighting and indentation options.">
+    <meta name="keywords" content="sql formatter, format sql, sql beautifier, sql pretty print, sql indentation, sql query formatter">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/sql-formatter/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}.sql-keyword{color:#7c3aed;font-weight:600}.sql-string{color:#059669}.sql-number{color:#dc2626}.sql-comment{color:#6b7280;font-style:italic}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">SQL Formatter</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">SQL Formatter</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">SQL Input</label>
+                            <textarea id="input" rows="14" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="SELECT * FROM users WHERE id = 1"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Formatted Output</label>
+                            <div id="output" class="w-full h-[336px] px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl overflow-auto whitespace-pre-wrap"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4 p-4 bg-gray-50 rounded-xl">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Indent</label>
+                            <select id="indent" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                <option value="2">2 Spaces</option>
+                                <option value="4" selected>4 Spaces</option>
+                                <option value="tab">Tab</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Keyword Case</label>
+                            <select id="keywordCase" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                <option value="upper" selected>UPPERCASE</option>
+                                <option value="lower">lowercase</option>
+                                <option value="preserve">Preserve</option>
+                            </select>
+                        </div>
+                        <label class="flex items-center gap-2 cursor-pointer pt-6">
+                            <input type="checkbox" id="commaFirst" class="w-4 h-4 text-violet-600 rounded">
+                            <span class="text-sm text-gray-700">Comma First</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer pt-6">
+                            <input type="checkbox" id="syntax" checked class="w-4 h-4 text-violet-600 rounded">
+                            <span class="text-sm text-gray-700">Syntax Highlight</span>
+                        </label>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="format()" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg">Format</button>
+                        <button onclick="minify()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Minify</button>
+                        <button onclick="copyOutput()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Copy</button>
+                        <button onclick="clearAll()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Clear</button>
+                        <button onclick="loadSample()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Sample</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Supported</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• SELECT, INSERT, UPDATE</li>
+                        <li>• DELETE, CREATE, ALTER</li>
+                        <li>• JOIN, WHERE, GROUP BY</li>
+                        <li>• Subqueries</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/json-formatter/" class="text-violet-600 hover:underline text-sm">JSON Formatter</a></li>
+                        <li><a href="/json-to-csv/" class="text-violet-600 hover:underline text-sm">JSON to CSV</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'BETWEEN', 'IS', 'NULL', 'ORDER', 'BY', 'ASC', 'DESC', 'LIMIT', 'OFFSET', 'GROUP', 'HAVING', 'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER', 'CROSS', 'ON', 'AS', 'DISTINCT', 'ALL', 'UNION', 'EXCEPT', 'INTERSECT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE', 'CREATE', 'TABLE', 'INDEX', 'VIEW', 'ALTER', 'DROP', 'ADD', 'COLUMN', 'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'CHECK', 'UNIQUE', 'CASCADE', 'EXISTS', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'CAST', 'CONVERT', 'COALESCE', 'NULLIF', 'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'TRUE', 'FALSE'];
+        
+        const breakBeforeKeywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'ORDER', 'GROUP', 'HAVING', 'LIMIT', 'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'UNION', 'EXCEPT', 'INTERSECT', 'INSERT', 'UPDATE', 'DELETE', 'SET', 'VALUES'];
+        
+        function format() {
+            let sql = document.getElementById('input').value.trim();
+            if (!sql) {
+                showToast('Please enter SQL to format');
+                return;
+            }
+            
+            const indentOption = document.getElementById('indent').value;
+            const indent = indentOption === 'tab' ? '\t' : ' '.repeat(parseInt(indentOption));
+            const keywordCase = document.getElementById('keywordCase').value;
+            const commaFirst = document.getElementById('commaFirst').checked;
+            const syntaxHighlight = document.getElementById('syntax').checked;
+            
+            // Tokenize
+            let formatted = sql;
+            
+            // Handle keyword case
+            keywords.forEach(kw => {
+                const regex = new RegExp('\\b' + kw + '\\b', 'gi');
+                formatted = formatted.replace(regex, match => {
+                    if (keywordCase === 'upper') return kw;
+                    if (keywordCase === 'lower') return kw.toLowerCase();
+                    return match;
+                });
+            });
+            
+            // Add line breaks before major keywords
+            breakBeforeKeywords.forEach(kw => {
+                const kwFormatted = keywordCase === 'lower' ? kw.toLowerCase() : kw;
+                const regex = new RegExp('\\s+' + kwFormatted + '\\b', 'gi');
+                formatted = formatted.replace(regex, '\n' + kwFormatted);
+            });
+            
+            // Format commas
+            if (commaFirst) {
+                formatted = formatted.replace(/,\s*/g, '\n    , ');
+            } else {
+                formatted = formatted.replace(/,\s*/g, ',\n    ');
+            }
+            
+            // Add indentation after certain keywords
+            const lines = formatted.split('\n');
+            let result = [];
+            let indentLevel = 0;
+            
+            for (let line of lines) {
+                line = line.trim();
+                if (!line) continue;
+                
+                // Decrease indent for certain keywords
+                if (/^(FROM|WHERE|ORDER|GROUP|HAVING|LIMIT|SET|VALUES)/i.test(line)) {
+                    indentLevel = Math.max(0, indentLevel);
+                }
+                
+                result.push(indent.repeat(indentLevel) + line);
+                
+                // Increase indent after SELECT, etc.
+                if (/^SELECT/i.test(line)) {
+                    indentLevel = 1;
+                }
+            }
+            
+            formatted = result.join('\n');
+            
+            // Display with or without syntax highlighting
+            if (syntaxHighlight) {
+                document.getElementById('output').innerHTML = highlightSyntax(formatted);
+            } else {
+                document.getElementById('output').textContent = formatted;
+            }
+        }
+        
+        function highlightSyntax(sql) {
+            let result = escapeHtml(sql);
+            
+            // Highlight keywords
+            keywords.forEach(kw => {
+                const regex = new RegExp('\\b(' + kw + ')\\b', 'gi');
+                result = result.replace(regex, '<span class="sql-keyword">$1</span>');
+            });
+            
+            // Highlight strings
+            result = result.replace(/'([^']*)'/g, '<span class="sql-string">\'$1\'</span>');
+            
+            // Highlight numbers
+            result = result.replace(/\b(\d+)\b/g, '<span class="sql-number">$1</span>');
+            
+            // Highlight comments
+            result = result.replace(/(--.*$)/gm, '<span class="sql-comment">$1</span>');
+            
+            return result;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function minify() {
+            let sql = document.getElementById('input').value.trim();
+            if (!sql) {
+                showToast('Please enter SQL to minify');
+                return;
+            }
+            
+            // Remove comments
+            sql = sql.replace(/--.*$/gm, '');
+            sql = sql.replace(/\/\*[\s\S]*?\*\//g, '');
+            
+            // Collapse whitespace
+            sql = sql.replace(/\s+/g, ' ').trim();
+            
+            document.getElementById('output').textContent = sql;
+        }
+        
+        function copyOutput() {
+            const output = document.getElementById('output').textContent;
+            if (output) {
+                navigator.clipboard.writeText(output);
+                showToast('Copied!');
+            }
+        }
+        
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').textContent = '';
+        }
+        
+        function loadSample() {
+            document.getElementById('input').value = `select u.id, u.name, u.email, o.order_id, o.total_amount, p.product_name from users u inner join orders o on u.id = o.user_id inner join order_items oi on o.order_id = oi.order_id inner join products p on oi.product_id = p.id where u.status = 'active' and o.created_at >= '2024-01-01' and o.total_amount > 100 group by u.id, u.name, u.email, o.order_id, o.total_amount, p.product_name having count(oi.id) > 1 order by o.total_amount desc limit 50`;
+            format();
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SQL Formatter","description":"Format and beautify SQL queries online.","url":"https://passive.hardikkanajariya.in/sql-formatter/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter - Convert Length, Weight, Temperature | PassiveTools</title>
+    <meta name="description" content="Convert between different units of measurement. Length, weight, temperature, area, volume, and more. Free unit converter.">
+    <meta name="keywords" content="unit converter, convert units, length converter, weight converter, temperature converter, measurement converter">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/unit-converter/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Unit Converter</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Unit Converter</h1>
+                    
+                    <!-- Category Selection -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button onclick="setCategory('length')" id="cat-length" class="px-4 py-2 bg-violet-600 text-white rounded-lg">Length</button>
+                        <button onclick="setCategory('weight')" id="cat-weight" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Weight</button>
+                        <button onclick="setCategory('temperature')" id="cat-temperature" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Temperature</button>
+                        <button onclick="setCategory('area')" id="cat-area" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Area</button>
+                        <button onclick="setCategory('volume')" id="cat-volume" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Volume</button>
+                        <button onclick="setCategory('speed')" id="cat-speed" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Speed</button>
+                        <button onclick="setCategory('data')" id="cat-data" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Data</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">From</label>
+                            <select id="fromUnit" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 mb-3"></select>
+                            <input type="number" id="fromValue" value="1" class="w-full px-4 py-4 text-2xl border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">To</label>
+                            <select id="toUnit" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 mb-3"></select>
+                            <input type="text" id="toValue" readonly class="w-full px-4 py-4 text-2xl bg-violet-50 border border-violet-200 rounded-xl font-bold text-violet-600">
+                        </div>
+                    </div>
+                    
+                    <button onclick="swapUnits()" class="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors mb-6 flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                        Swap Units
+                    </button>
+                    
+                    <!-- Quick Reference -->
+                    <div id="quickRef" class="p-4 bg-gray-50 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 mb-3">Quick Reference</h3>
+                        <div id="refTable" class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm"></div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/timestamp-converter/" class="text-violet-600 hover:underline text-sm">Timestamp Converter</a></li>
+                        <li><a href="/color-converter/" class="text-violet-600 hover:underline text-sm">Color Converter</a></li>
+                        <li><a href="/bmi-calculator/" class="text-violet-600 hover:underline text-sm">BMI Calculator</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const units = {
+            length: {
+                meter: 1, kilometer: 0.001, centimeter: 100, millimeter: 1000, mile: 0.000621371,
+                yard: 1.09361, foot: 3.28084, inch: 39.3701, nautical_mile: 0.000539957
+            },
+            weight: {
+                kilogram: 1, gram: 1000, milligram: 1000000, pound: 2.20462,
+                ounce: 35.274, ton: 0.001, stone: 0.157473
+            },
+            temperature: { celsius: 'C', fahrenheit: 'F', kelvin: 'K' },
+            area: {
+                sq_meter: 1, sq_kilometer: 0.000001, sq_centimeter: 10000, sq_foot: 10.7639,
+                sq_inch: 1550, acre: 0.000247105, hectare: 0.0001, sq_mile: 3.861e-7
+            },
+            volume: {
+                liter: 1, milliliter: 1000, cubic_meter: 0.001, gallon_us: 0.264172,
+                quart: 1.05669, pint: 2.11338, cup: 4.22675, fluid_oz: 33.814
+            },
+            speed: {
+                mps: 1, kph: 3.6, mph: 2.23694, knot: 1.94384, fps: 3.28084
+            },
+            data: {
+                byte: 1, kilobyte: 0.001, megabyte: 0.000001, gigabyte: 1e-9, terabyte: 1e-12,
+                bit: 8, kilobit: 0.008, megabit: 0.000008
+            }
+        };
+        
+        let currentCategory = 'length';
+        
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('[id^="cat-"]').forEach(btn => {
+                btn.className = btn.id === 'cat-' + cat 
+                    ? 'px-4 py-2 bg-violet-600 text-white rounded-lg' 
+                    : 'px-4 py-2 bg-gray-100 text-gray-700 rounded-lg';
+            });
+            updateUnitSelects();
+            convert();
+            updateQuickRef();
+        }
+        
+        function updateUnitSelects() {
+            const unitKeys = Object.keys(units[currentCategory]);
+            const options = unitKeys.map(u => `<option value="${u}">${formatUnit(u)}</option>`).join('');
+            document.getElementById('fromUnit').innerHTML = options;
+            document.getElementById('toUnit').innerHTML = options;
+            if (unitKeys.length > 1) document.getElementById('toUnit').selectedIndex = 1;
+        }
+        
+        function formatUnit(u) {
+            return u.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
+        function convert() {
+            const from = document.getElementById('fromUnit').value;
+            const to = document.getElementById('toUnit').value;
+            const value = parseFloat(document.getElementById('fromValue').value) || 0;
+            
+            let result;
+            if (currentCategory === 'temperature') {
+                result = convertTemp(value, from, to);
+            } else {
+                const baseValue = value / units[currentCategory][from];
+                result = baseValue * units[currentCategory][to];
+            }
+            
+            document.getElementById('toValue').value = formatNumber(result);
+        }
+        
+        function convertTemp(value, from, to) {
+            let celsius;
+            if (from === 'celsius') celsius = value;
+            else if (from === 'fahrenheit') celsius = (value - 32) * 5/9;
+            else celsius = value - 273.15;
+            
+            if (to === 'celsius') return celsius;
+            if (to === 'fahrenheit') return celsius * 9/5 + 32;
+            return celsius + 273.15;
+        }
+        
+        function formatNumber(n) {
+            if (Math.abs(n) < 0.0001 || Math.abs(n) > 1000000) return n.toExponential(6);
+            return parseFloat(n.toPrecision(10));
+        }
+        
+        function swapUnits() {
+            const fromUnit = document.getElementById('fromUnit');
+            const toUnit = document.getElementById('toUnit');
+            const temp = fromUnit.value;
+            fromUnit.value = toUnit.value;
+            toUnit.value = temp;
+            convert();
+        }
+        
+        function updateQuickRef() {
+            const unitKeys = Object.keys(units[currentCategory]).slice(0, 6);
+            const refs = [];
+            const baseUnit = unitKeys[0];
+            
+            if (currentCategory === 'temperature') {
+                refs.push('0°C = 32°F = 273.15K');
+                refs.push('100°C = 212°F = 373.15K');
+            } else {
+                unitKeys.forEach(u => {
+                    if (u !== baseUnit) {
+                        const val = formatNumber(units[currentCategory][u]);
+                        refs.push(`1 ${formatUnit(baseUnit)} = ${val} ${formatUnit(u)}`);
+                    }
+                });
+            }
+            
+            document.getElementById('refTable').innerHTML = refs.map(r => `<div class="p-2 bg-white rounded">${r}</div>`).join('');
+        }
+        
+        document.getElementById('fromValue').addEventListener('input', convert);
+        document.getElementById('fromUnit').addEventListener('change', convert);
+        document.getElementById('toUnit').addEventListener('change', convert);
+        
+        setCategory('length');
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Unit Converter","description":"Convert between different units of measurement.","url":"https://passive.hardikkanajariya.in/unit-converter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

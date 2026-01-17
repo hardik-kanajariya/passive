@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer - Focus Timer | PassiveTools</title>
+    <meta name="description" content="Boost productivity with the Pomodoro technique. Free online timer with customizable work and break intervals.">
+    <meta name="keywords" content="pomodoro timer, focus timer, productivity timer, work timer, study timer, time management">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/pomodoro-timer/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}.timer-ring{transition:stroke-dashoffset 1s linear}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Pomodoro Timer</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Pomodoro Timer</h1>
+                    
+                    <div class="flex justify-center gap-2 mb-6">
+                        <button onclick="setMode('work')" id="workBtn" class="px-6 py-2 bg-violet-600 text-white font-medium rounded-lg">Work</button>
+                        <button onclick="setMode('shortBreak')" id="shortBreakBtn" class="px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg">Short Break</button>
+                        <button onclick="setMode('longBreak')" id="longBreakBtn" class="px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg">Long Break</button>
+                    </div>
+                    
+                    <div class="flex justify-center mb-6">
+                        <div class="relative">
+                            <svg class="w-64 h-64 transform -rotate-90">
+                                <circle cx="128" cy="128" r="120" stroke="#e5e7eb" stroke-width="8" fill="none"/>
+                                <circle id="timerRing" cx="128" cy="128" r="120" stroke="#8b5cf6" stroke-width="8" fill="none" 
+                                    stroke-linecap="round" class="timer-ring"
+                                    stroke-dasharray="753.98" stroke-dashoffset="0"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="timerDisplay" class="text-5xl font-bold text-gray-900">25:00</span>
+                                <span id="modeDisplay" class="text-gray-500">Work</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center gap-3 mb-6">
+                        <button onclick="startTimer()" id="startBtn" class="px-8 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            Start
+                        </button>
+                        <button onclick="pauseTimer()" id="pauseBtn" class="hidden px-8 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            Pause
+                        </button>
+                        <button onclick="resetTimer()" class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Reset</button>
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <p class="text-gray-600">Pomodoros completed: <span id="pomodoroCount" class="font-bold text-violet-600">0</span></p>
+                    </div>
+                    
+                    <div class="p-4 bg-gray-50 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 mb-3">Settings</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Work (min)</label>
+                                <input type="number" id="workTime" value="25" min="1" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-center" onchange="updateSettings()">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Short Break (min)</label>
+                                <input type="number" id="shortBreakTime" value="5" min="1" max="30" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-center" onchange="updateSettings()">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Long Break (min)</label>
+                                <input type="number" id="longBreakTime" value="15" min="1" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-center" onchange="updateSettings()">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="autoStart" class="w-4 h-4 text-violet-600 rounded">
+                                <span class="text-sm text-gray-600">Auto-start next timer</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">The Technique</h3>
+                    <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                        <li>Work for 25 minutes</li>
+                        <li>Take a 5-minute break</li>
+                        <li>After 4 cycles, take a longer 15-30 minute break</li>
+                    </ol>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/date-difference/" class="text-violet-600 hover:underline text-sm">Date Difference</a></li>
+                        <li><a href="/timestamp-converter/" class="text-violet-600 hover:underline text-sm">Timestamp Converter</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let mode = 'work';
+        let timeLeft;
+        let totalTime;
+        let timer = null;
+        let pomodoroCount = 0;
+        let isRunning = false;
+        
+        const settings = {
+            work: 25 * 60,
+            shortBreak: 5 * 60,
+            longBreak: 15 * 60
+        };
+        
+        const circumference = 2 * Math.PI * 120;
+        
+        function setMode(newMode) {
+            mode = newMode;
+            resetTimer();
+            
+            // Update button styles
+            document.querySelectorAll('[id$="Btn"]').forEach(btn => {
+                if (btn.id === 'startBtn' || btn.id === 'pauseBtn') return;
+                btn.className = 'px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg';
+            });
+            
+            const btnId = newMode === 'work' ? 'workBtn' : newMode === 'shortBreak' ? 'shortBreakBtn' : 'longBreakBtn';
+            document.getElementById(btnId).className = 'px-6 py-2 bg-violet-600 text-white font-medium rounded-lg';
+            
+            // Update ring color
+            const ring = document.getElementById('timerRing');
+            ring.style.stroke = newMode === 'work' ? '#8b5cf6' : newMode === 'shortBreak' ? '#10b981' : '#f59e0b';
+            
+            // Update mode display
+            const modeNames = { work: 'Work', shortBreak: 'Short Break', longBreak: 'Long Break' };
+            document.getElementById('modeDisplay').textContent = modeNames[newMode];
+        }
+        
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update ring
+            const progress = timeLeft / totalTime;
+            const offset = circumference * (1 - progress);
+            document.getElementById('timerRing').style.strokeDashoffset = offset;
+            
+            // Update page title
+            document.title = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} - Pomodoro Timer`;
+        }
+        
+        function startTimer() {
+            if (!timeLeft) {
+                timeLeft = settings[mode];
+                totalTime = settings[mode];
+            }
+            
+            isRunning = true;
+            document.getElementById('startBtn').classList.add('hidden');
+            document.getElementById('pauseBtn').classList.remove('hidden');
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timer = null;
+                    isRunning = false;
+                    timerComplete();
+                }
+            }, 1000);
+        }
+        
+        function pauseTimer() {
+            clearInterval(timer);
+            timer = null;
+            isRunning = false;
+            document.getElementById('startBtn').classList.remove('hidden');
+            document.getElementById('pauseBtn').classList.add('hidden');
+        }
+        
+        function resetTimer() {
+            clearInterval(timer);
+            timer = null;
+            isRunning = false;
+            timeLeft = settings[mode];
+            totalTime = settings[mode];
+            updateDisplay();
+            document.getElementById('startBtn').classList.remove('hidden');
+            document.getElementById('pauseBtn').classList.add('hidden');
+            document.getElementById('timerRing').style.strokeDashoffset = 0;
+        }
+        
+        function timerComplete() {
+            // Play sound
+            playNotification();
+            
+            if (mode === 'work') {
+                pomodoroCount++;
+                document.getElementById('pomodoroCount').textContent = pomodoroCount;
+                
+                // After 4 pomodoros, suggest a long break
+                if (pomodoroCount % 4 === 0) {
+                    showToast('Great work! Time for a long break.');
+                    if (document.getElementById('autoStart').checked) {
+                        setMode('longBreak');
+                        startTimer();
+                    }
+                } else {
+                    showToast('Pomodoro complete! Take a short break.');
+                    if (document.getElementById('autoStart').checked) {
+                        setMode('shortBreak');
+                        startTimer();
+                    }
+                }
+            } else {
+                showToast('Break complete! Ready to work?');
+                if (document.getElementById('autoStart').checked) {
+                    setMode('work');
+                    startTimer();
+                }
+            }
+            
+            document.getElementById('startBtn').classList.remove('hidden');
+            document.getElementById('pauseBtn').classList.add('hidden');
+        }
+        
+        function playNotification() {
+            // Create a simple beep sound
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                gainNode.gain.value = 0.3;
+                
+                oscillator.start();
+                setTimeout(() => oscillator.stop(), 200);
+            } catch (e) {
+                // Audio not available
+            }
+            
+            // Also show browser notification if permitted
+            if (Notification.permission === 'granted') {
+                new Notification('Pomodoro Timer', { body: mode === 'work' ? 'Time for a break!' : 'Break is over!' });
+            }
+        }
+        
+        function updateSettings() {
+            settings.work = parseInt(document.getElementById('workTime').value) * 60 || 25 * 60;
+            settings.shortBreak = parseInt(document.getElementById('shortBreakTime').value) * 60 || 5 * 60;
+            settings.longBreak = parseInt(document.getElementById('longBreakTime').value) * 60 || 15 * 60;
+            
+            if (!isRunning) {
+                resetTimer();
+            }
+        }
+        
+        // Request notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+        
+        // Initialize
+        resetTimer();
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pomodoro Timer","description":"Boost productivity with the Pomodoro technique timer.","url":"https://passive.hardikkanajariya.in/pomodoro-timer/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

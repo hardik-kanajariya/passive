@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Repeater - Repeat Text Multiple Times | PassiveTools</title>
+    <meta name="description" content="Repeat text multiple times online. Generate repeated text, add separators, and copy easily. Free text repeater tool.">
+    <meta name="keywords" content="text repeater, repeat text, text multiplier, copy paste text, repeat words">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/text-repeater/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/text-tools/" class="text-gray-500 hover:text-violet-600">Text Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Text Repeater</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Text Repeater</h1>
+                    <p class="text-gray-600 mb-6">Repeat text multiple times with optional separators.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Text to Repeat</label>
+                        <textarea id="input" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text to repeat..."></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Repeat Count</label>
+                            <input type="number" id="count" value="10" min="1" max="10000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Separator</label>
+                            <select id="separator" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option value="">None</option>
+                                <option value=" ">Space</option>
+                                <option value="\n" selected>New Line</option>
+                                <option value=", ">Comma</option>
+                                <option value=" | ">Pipe</option>
+                                <option value=" - ">Dash</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        <div id="customSepDiv" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Custom Separator</label>
+                            <input type="text" id="customSep" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" id="addNumber" class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                                <span class="text-gray-700">Add numbers</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button onclick="repeat()" class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors mb-6">
+                        Repeat Text
+                    </button>
+                    
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Output</label>
+                        <textarea id="output" rows="10" readonly class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                        <div class="absolute top-8 right-3 flex gap-2">
+                            <button onclick="copyOutput()" class="px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg">Copy</button>
+                            <button onclick="downloadOutput()" class="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg">Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between text-sm text-gray-500 mt-2">
+                        <span>Characters: <span id="charCount">0</span></span>
+                        <span>Lines: <span id="lineCount">0</span></span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Quick Presets</h3>
+                    <div class="space-y-2">
+                        <button onclick="setPreset('😀', 100)" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">😀 × 100</button>
+                        <button onclick="setPreset('❤️', 50)" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">❤️ × 50</button>
+                        <button onclick="setPreset('🎉', 25)" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">🎉 × 25</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/character-counter/" class="text-violet-600 hover:underline text-sm">Character Counter</a></li>
+                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case Converter</a></li>
+                        <li><a href="/lorem-ipsum/" class="text-violet-600 hover:underline text-sm">Lorem Ipsum</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        document.getElementById('separator').addEventListener('change', function() {
+            document.getElementById('customSepDiv').classList.toggle('hidden', this.value !== 'custom');
+        });
+        
+        function repeat() {
+            const text = document.getElementById('input').value;
+            if (!text) { showToast('Enter text to repeat', 'error'); return; }
+            
+            const count = Math.min(10000, parseInt(document.getElementById('count').value) || 10);
+            let separator = document.getElementById('separator').value;
+            if (separator === 'custom') separator = document.getElementById('customSep').value;
+            separator = separator.replace(/\\n/g, '\n');
+            
+            const addNumber = document.getElementById('addNumber').checked;
+            
+            const result = [];
+            for (let i = 1; i <= count; i++) {
+                result.push(addNumber ? `${i}. ${text}` : text);
+            }
+            
+            const output = result.join(separator);
+            document.getElementById('output').value = output;
+            document.getElementById('charCount').textContent = output.length;
+            document.getElementById('lineCount').textContent = output.split('\n').length;
+            showToast('Text repeated!');
+        }
+        
+        function setPreset(text, count) {
+            document.getElementById('input').value = text;
+            document.getElementById('count').value = count;
+            document.getElementById('separator').value = '';
+            repeat();
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('output').value);
+            showToast('Copied!');
+        }
+        
+        function downloadOutput() {
+            const blob = new Blob([document.getElementById('output').value], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'repeated_text.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Text Repeater","description":"Repeat text multiple times with separators.","url":"https://passive.hardikkanajariya.in/text-repeater/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

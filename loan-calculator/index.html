@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator - EMI, Interest Calculator | PassiveTools</title>
+    <meta name="description" content="Calculate loan EMI, total interest, and payment schedule. Free loan calculator for home, car, and personal loans.">
+    <meta name="keywords" content="loan calculator, emi calculator, mortgage calculator, interest calculator, loan payment calculator">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/loan-calculator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/calculators/" class="text-gray-500 hover:text-violet-600">Calculators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Loan Calculator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Loan Calculator</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Loan Amount</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                                <input type="number" id="principal" value="250000" class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            </div>
+                            <input type="range" id="principalRange" min="1000" max="1000000" value="250000" step="1000" class="w-full mt-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Interest Rate (%)</label>
+                            <input type="number" id="rate" value="7" step="0.1" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            <input type="range" id="rateRange" min="1" max="30" value="7" step="0.1" class="w-full mt-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Loan Term</label>
+                            <div class="flex gap-2">
+                                <input type="number" id="term" value="30" class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <select id="termType" class="px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                            </div>
+                            <input type="range" id="termRange" min="1" max="40" value="30" class="w-full mt-2">
+                        </div>
+                    </div>
+                    
+                    <button onclick="calculate()" class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors mb-6">
+                        Calculate
+                    </button>
+                    
+                    <!-- Results -->
+                    <div id="results" class="hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 text-center">
+                                <div class="text-sm text-gray-600 mb-1">Monthly Payment</div>
+                                <div id="monthlyPayment" class="text-3xl font-bold text-violet-600">$0</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 text-center">
+                                <div class="text-sm text-gray-600 mb-1">Total Interest</div>
+                                <div id="totalInterest" class="text-3xl font-bold text-blue-600">$0</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 text-center">
+                                <div class="text-sm text-gray-600 mb-1">Total Payment</div>
+                                <div id="totalPayment" class="text-3xl font-bold text-green-600">$0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>Principal</span>
+                                <span>Interest</span>
+                            </div>
+                            <div class="h-6 bg-gray-200 rounded-full overflow-hidden flex">
+                                <div id="principalBar" class="bg-violet-500 h-full"></div>
+                                <div id="interestBar" class="bg-blue-500 h-full"></div>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span id="principalPercent">0%</span>
+                                <span id="interestPercent">0%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <h3 class="font-semibold text-gray-900 mb-3">Payment Breakdown</h3>
+                            <div class="overflow-x-auto max-h-64">
+                                <table class="w-full text-sm">
+                                    <thead class="sticky top-0 bg-gray-50">
+                                        <tr class="text-gray-600">
+                                            <th class="text-left p-2">#</th>
+                                            <th class="text-right p-2">Payment</th>
+                                            <th class="text-right p-2">Principal</th>
+                                            <th class="text-right p-2">Interest</th>
+                                            <th class="text-right p-2">Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="schedule" class="divide-y divide-gray-200"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Quick Presets</h3>
+                    <div class="space-y-2 text-sm">
+                        <button onclick="setPreset(250000, 7, 30)" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-left">Home Loan: $250K, 7%, 30yr</button>
+                        <button onclick="setPreset(35000, 5, 5)" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-left">Car Loan: $35K, 5%, 5yr</button>
+                        <button onclick="setPreset(10000, 12, 3)" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-left">Personal: $10K, 12%, 3yr</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/percentage-calculator/" class="text-violet-600 hover:underline text-sm">Percentage Calculator</a></li>
+                        <li><a href="/tip-calculator/" class="text-violet-600 hover:underline text-sm">Tip Calculator</a></li>
+                        <li><a href="/discount-calculator/" class="text-violet-600 hover:underline text-sm">Discount Calculator</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const principalInput = document.getElementById('principal');
+        const principalRange = document.getElementById('principalRange');
+        const rateInput = document.getElementById('rate');
+        const rateRange = document.getElementById('rateRange');
+        const termInput = document.getElementById('term');
+        const termRange = document.getElementById('termRange');
+        
+        principalInput.addEventListener('input', () => { principalRange.value = principalInput.value; });
+        principalRange.addEventListener('input', () => { principalInput.value = principalRange.value; });
+        rateInput.addEventListener('input', () => { rateRange.value = rateInput.value; });
+        rateRange.addEventListener('input', () => { rateInput.value = rateRange.value; });
+        termInput.addEventListener('input', () => { termRange.value = termInput.value; });
+        termRange.addEventListener('input', () => { termInput.value = termRange.value; });
+        
+        function setPreset(p, r, t) {
+            principalInput.value = principalRange.value = p;
+            rateInput.value = rateRange.value = r;
+            termInput.value = termRange.value = t;
+            document.getElementById('termType').value = 'years';
+            calculate();
+        }
+        
+        function calculate() {
+            const principal = parseFloat(principalInput.value);
+            const annualRate = parseFloat(rateInput.value) / 100;
+            let term = parseInt(termInput.value);
+            if (document.getElementById('termType').value === 'years') term *= 12;
+            
+            if (!principal || !annualRate || !term) {
+                showToast('Enter valid values', 'error');
+                return;
+            }
+            
+            const monthlyRate = annualRate / 12;
+            const payment = principal * (monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+            const totalPayment = payment * term;
+            const totalInterest = totalPayment - principal;
+            
+            document.getElementById('monthlyPayment').textContent = formatCurrency(payment);
+            document.getElementById('totalInterest').textContent = formatCurrency(totalInterest);
+            document.getElementById('totalPayment').textContent = formatCurrency(totalPayment);
+            
+            const principalPercent = (principal / totalPayment * 100).toFixed(1);
+            const interestPercent = (totalInterest / totalPayment * 100).toFixed(1);
+            document.getElementById('principalBar').style.width = principalPercent + '%';
+            document.getElementById('interestBar').style.width = interestPercent + '%';
+            document.getElementById('principalPercent').textContent = principalPercent + '%';
+            document.getElementById('interestPercent').textContent = interestPercent + '%';
+            
+            // Generate schedule (show first 12 and last 3)
+            let balance = principal;
+            const schedule = [];
+            for (let i = 1; i <= term; i++) {
+                const interestPayment = balance * monthlyRate;
+                const principalPayment = payment - interestPayment;
+                balance -= principalPayment;
+                if (balance < 0) balance = 0;
+                
+                if (i <= 12 || i > term - 3) {
+                    schedule.push(`<tr>
+                        <td class="p-2">${i}</td>
+                        <td class="text-right p-2">${formatCurrency(payment)}</td>
+                        <td class="text-right p-2">${formatCurrency(principalPayment)}</td>
+                        <td class="text-right p-2">${formatCurrency(interestPayment)}</td>
+                        <td class="text-right p-2">${formatCurrency(balance)}</td>
+                    </tr>`);
+                } else if (i === 13) {
+                    schedule.push(`<tr><td colspan="5" class="p-2 text-center text-gray-500">... ${term - 15} more payments ...</td></tr>`);
+                }
+            }
+            
+            document.getElementById('schedule').innerHTML = schedule.join('');
+            document.getElementById('results').classList.remove('hidden');
+        }
+        
+        function formatCurrency(n) {
+            return '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+        
+        calculate();
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Loan Calculator","description":"Calculate loan EMI, interest, and payment schedule.","url":"https://passive.hardikkanajariya.in/loan-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Tag Generator - Free SEO Tool | PassiveTools</title>
+    <meta name="description" content="Generate meta tags for your website. Create title, description, Open Graph, and Twitter Card tags. Free SEO meta tag generator.">
+    <meta name="keywords" content="meta tag generator, seo tags, open graph generator, twitter card generator, html meta tags">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/meta-tag-generator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Meta Tag Generator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Meta Tag Generator</h1>
+                    
+                    <div class="space-y-6">
+                        <!-- Basic Meta -->
+                        <div>
+                            <h2 class="font-semibold text-gray-900 mb-3">Basic Information</h2>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Page Title <span id="titleCount" class="text-gray-500">(0/60)</span></label>
+                                    <input type="text" id="title" maxlength="60" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500" placeholder="Your Page Title">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Description <span id="descCount" class="text-gray-500">(0/160)</span></label>
+                                    <textarea id="description" rows="2" maxlength="160" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Your page description..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Keywords (comma separated)</label>
+                                    <input type="text" id="keywords" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500" placeholder="keyword1, keyword2, keyword3">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Canonical URL</label>
+                                    <input type="url" id="canonical" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500" placeholder="https://example.com/page">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Open Graph -->
+                        <div>
+                            <h2 class="font-semibold text-gray-900 mb-3">Open Graph (Facebook, LinkedIn)</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">OG Image URL</label>
+                                    <input type="url" id="ogImage" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500" placeholder="https://example.com/image.jpg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">OG Type</label>
+                                    <select id="ogType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                        <option value="website">Website</option>
+                                        <option value="article">Article</option>
+                                        <option value="product">Product</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Twitter -->
+                        <div>
+                            <h2 class="font-semibold text-gray-900 mb-3">Twitter Card</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Card Type</label>
+                                    <select id="twitterCard" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                        <option value="summary">Summary</option>
+                                        <option value="summary_large_image">Summary Large Image</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Twitter Handle</label>
+                                    <input type="text" id="twitterSite" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500" placeholder="@username">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Robots -->
+                        <div>
+                            <h2 class="font-semibold text-gray-900 mb-3">Robots Settings</h2>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="flex items-center"><input type="checkbox" id="robotsIndex" checked class="mr-2"> Index</label>
+                                <label class="flex items-center"><input type="checkbox" id="robotsFollow" checked class="mr-2"> Follow</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="generate()" class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors mt-6">
+                        Generate Meta Tags
+                    </button>
+                </div>
+                
+                <!-- Output -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="font-semibold text-gray-900">Generated Meta Tags</h2>
+                        <button onclick="copyOutput()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg text-sm">Copy Code</button>
+                    </div>
+                    <pre id="output" class="bg-gray-900 text-green-400 p-4 rounded-xl overflow-x-auto text-sm font-mono whitespace-pre-wrap"></pre>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/robots-txt-generator/" class="text-violet-600 hover:underline text-sm">Robots.txt Generator</a></li>
+                        <li><a href="/sitemap-generator/" class="text-violet-600 hover:underline text-sm">Sitemap Generator</a></li>
+                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        document.getElementById('title').addEventListener('input', function() {
+            document.getElementById('titleCount').textContent = `(${this.value.length}/60)`;
+        });
+        document.getElementById('description').addEventListener('input', function() {
+            document.getElementById('descCount').textContent = `(${this.value.length}/160)`;
+        });
+        
+        function generate() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const keywords = document.getElementById('keywords').value;
+            const canonical = document.getElementById('canonical').value;
+            const ogImage = document.getElementById('ogImage').value;
+            const ogType = document.getElementById('ogType').value;
+            const twitterCard = document.getElementById('twitterCard').value;
+            const twitterSite = document.getElementById('twitterSite').value;
+            const robotsIndex = document.getElementById('robotsIndex').checked;
+            const robotsFollow = document.getElementById('robotsFollow').checked;
+            
+            let tags = [];
+            
+            // Basic
+            if (title) tags.push(`<title>${escHtml(title)}</title>`);
+            if (description) tags.push(`<meta name="description" content="${escHtml(description)}">`);
+            if (keywords) tags.push(`<meta name="keywords" content="${escHtml(keywords)}">`);
+            if (canonical) tags.push(`<link rel="canonical" href="${escHtml(canonical)}">`);
+            
+            // Robots
+            const robotsContent = (robotsIndex ? 'index' : 'noindex') + ', ' + (robotsFollow ? 'follow' : 'nofollow');
+            tags.push(`<meta name="robots" content="${robotsContent}">`);
+            
+            // Open Graph
+            tags.push('');
+            tags.push('<!-- Open Graph / Facebook -->');
+            tags.push(`<meta property="og:type" content="${ogType}">`);
+            if (canonical) tags.push(`<meta property="og:url" content="${escHtml(canonical)}">`);
+            if (title) tags.push(`<meta property="og:title" content="${escHtml(title)}">`);
+            if (description) tags.push(`<meta property="og:description" content="${escHtml(description)}">`);
+            if (ogImage) tags.push(`<meta property="og:image" content="${escHtml(ogImage)}">`);
+            
+            // Twitter
+            tags.push('');
+            tags.push('<!-- Twitter -->');
+            tags.push(`<meta property="twitter:card" content="${twitterCard}">`);
+            if (canonical) tags.push(`<meta property="twitter:url" content="${escHtml(canonical)}">`);
+            if (title) tags.push(`<meta property="twitter:title" content="${escHtml(title)}">`);
+            if (description) tags.push(`<meta property="twitter:description" content="${escHtml(description)}">`);
+            if (ogImage) tags.push(`<meta property="twitter:image" content="${escHtml(ogImage)}">`);
+            if (twitterSite) tags.push(`<meta property="twitter:site" content="${escHtml(twitterSite)}">`);
+            
+            document.getElementById('output').textContent = tags.join('\n');
+            showToast('Meta tags generated!');
+        }
+        
+        function escHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('output').textContent);
+            showToast('Copied!');
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Meta Tag Generator","description":"Generate meta tags for SEO.","url":"https://passive.hardikkanajariya.in/meta-tag-generator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

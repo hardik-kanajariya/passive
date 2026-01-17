@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to CSV Converter - Free Online Tool | PassiveTools</title>
+    <meta name="description" content="Convert JSON data to CSV format online. Free JSON to CSV converter with customizable options.">
+    <meta name="keywords" content="json to csv, convert json to csv, json converter, csv converter, json to csv online">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/json-to-csv/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">JSON to CSV</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">JSON to CSV Converter</h1>
+                    <p class="text-gray-600 mb-6">Convert JSON arrays to CSV format.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">JSON Input</label>
+                            <textarea id="jsonInput" rows="12" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder='[{"name":"John","age":30},{"name":"Jane","age":25}]'></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">CSV Output</label>
+                            <textarea id="csvOutput" rows="12" readonly class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Delimiter</label>
+                            <select id="delimiter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option value=",">Comma (,)</option>
+                                <option value=";">Semicolon (;)</option>
+                                <option value="\t">Tab</option>
+                                <option value="|">Pipe (|)</option>
+                            </select>
+                        </div>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="includeHeaders" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700">Include headers</span>
+                        </label>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="convert()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Convert to CSV</button>
+                        <button onclick="copyOutput()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Copy CSV</button>
+                        <button onclick="downloadCSV()" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors">Download CSV</button>
+                        <button onclick="loadSample()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Load Sample</button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">How to Use</h2>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                        <li>Paste your JSON array in the input field</li>
+                        <li>Choose your preferred delimiter</li>
+                        <li>Click "Convert to CSV"</li>
+                        <li>Copy or download the result</li>
+                    </ol>
+                    <p class="mt-4 text-sm text-gray-500">Note: JSON must be an array of objects for proper conversion.</p>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/csv-to-json/" class="text-violet-600 hover:underline text-sm">CSV to JSON</a></li>
+                        <li><a href="/json-formatter/" class="text-violet-600 hover:underline text-sm">JSON Formatter</a></li>
+                        <li><a href="/xml-to-json/" class="text-violet-600 hover:underline text-sm">XML to JSON</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function convert() {
+            try {
+                const json = JSON.parse(document.getElementById('jsonInput').value);
+                const delimiter = document.getElementById('delimiter').value.replace('\\t', '\t');
+                const includeHeaders = document.getElementById('includeHeaders').checked;
+                
+                if (!Array.isArray(json) || json.length === 0) {
+                    showToast('JSON must be a non-empty array', 'error');
+                    return;
+                }
+                
+                const headers = [...new Set(json.flatMap(obj => Object.keys(obj)))];
+                const rows = [];
+                
+                if (includeHeaders) {
+                    rows.push(headers.map(h => escapeCSV(h, delimiter)).join(delimiter));
+                }
+                
+                json.forEach(obj => {
+                    const row = headers.map(h => {
+                        const val = obj[h];
+                        if (val === undefined || val === null) return '';
+                        if (typeof val === 'object') return escapeCSV(JSON.stringify(val), delimiter);
+                        return escapeCSV(String(val), delimiter);
+                    });
+                    rows.push(row.join(delimiter));
+                });
+                
+                document.getElementById('csvOutput').value = rows.join('\n');
+                showToast('Converted successfully!');
+            } catch(e) {
+                showToast('Invalid JSON: ' + e.message, 'error');
+            }
+        }
+        
+        function escapeCSV(str, delimiter) {
+            if (str.includes(delimiter) || str.includes('"') || str.includes('\n')) {
+                return '"' + str.replace(/"/g, '""') + '"';
+            }
+            return str;
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('csvOutput').value);
+            showToast('Copied!');
+        }
+        
+        function downloadCSV() {
+            const csv = document.getElementById('csvOutput').value;
+            if (!csv) { showToast('No CSV to download', 'error'); return; }
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function loadSample() {
+            document.getElementById('jsonInput').value = JSON.stringify([
+                {"name": "John Doe", "email": "john@example.com", "age": 30, "city": "New York"},
+                {"name": "Jane Smith", "email": "jane@example.com", "age": 25, "city": "Los Angeles"},
+                {"name": "Bob Johnson", "email": "bob@example.com", "age": 35, "city": "Chicago"}
+            ], null, 2);
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JSON to CSV Converter","description":"Convert JSON data to CSV format.","url":"https://passive.hardikkanajariya.in/json-to-csv/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

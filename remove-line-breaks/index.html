@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Line Breaks - Clean Text Online | PassiveTools</title>
+    <meta name="description" content="Remove line breaks and extra whitespace from text. Clean up text formatting with our free online tool.">
+    <meta name="keywords" content="remove line breaks, clean text, remove whitespace, text cleaner, formatting remover">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/remove-line-breaks/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/text-tools/" class="text-gray-500 hover:text-violet-600">Text Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Remove Line Breaks</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Remove Line Breaks</h1>
+                    <p class="text-gray-600 mb-6">Clean up text by removing line breaks and extra whitespace.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Input Text</label>
+                        <textarea id="input" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Paste your text with line breaks here..."></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="removeLineBreaks" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700 text-sm">Line breaks</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="removeDoubleSpaces" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700 text-sm">Double spaces</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="trimLines" checked class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700 text-sm">Trim whitespace</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="preserveParagraphs" class="w-5 h-5 text-violet-600 rounded focus:ring-violet-500 mr-2">
+                            <span class="text-gray-700 text-sm">Keep paragraphs</span>
+                        </label>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Replace line breaks with</label>
+                        <select id="replacement" class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                            <option value=" ">Space</option>
+                            <option value="">Nothing</option>
+                            <option value=", ">Comma</option>
+                            <option value="; ">Semicolon</option>
+                            <option value=" | ">Pipe</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <button onclick="process()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">Clean Text</button>
+                        <button onclick="swapInputOutput()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">↔ Swap</button>
+                        <button onclick="clearAll()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">Clear</button>
+                    </div>
+                    
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Output</label>
+                        <textarea id="output" rows="8" readonly class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl resize-none"></textarea>
+                        <button onclick="copyOutput()" class="absolute top-8 right-3 px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg">Copy</button>
+                    </div>
+                    
+                    <div class="flex justify-between text-sm text-gray-500 mt-2">
+                        <span>Lines removed: <span id="linesRemoved">0</span></span>
+                        <span>Characters: <span id="charCount">0</span></span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button onclick="quickAction('oneline')" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">Convert to single line</button>
+                        <button onclick="quickAction('sentences')" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">One sentence per line</button>
+                        <button onclick="quickAction('dedup')" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">Remove duplicate lines</button>
+                        <button onclick="quickAction('sort')" class="w-full px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-left">Sort lines A-Z</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a></li>
+                        <li><a href="/case-converter/" class="text-violet-600 hover:underline text-sm">Case Converter</a></li>
+                        <li><a href="/text-repeater/" class="text-violet-600 hover:underline text-sm">Text Repeater</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function process() {
+            let text = document.getElementById('input').value;
+            const originalLines = text.split('\n').length;
+            
+            const removeLineBreaks = document.getElementById('removeLineBreaks').checked;
+            const removeDoubleSpaces = document.getElementById('removeDoubleSpaces').checked;
+            const trimLines = document.getElementById('trimLines').checked;
+            const preserveParagraphs = document.getElementById('preserveParagraphs').checked;
+            const replacement = document.getElementById('replacement').value;
+            
+            if (trimLines) {
+                text = text.split('\n').map(line => line.trim()).join('\n');
+            }
+            
+            if (removeLineBreaks) {
+                if (preserveParagraphs) {
+                    // Keep double line breaks (paragraphs), remove single
+                    text = text.replace(/\r?\n(?!\r?\n)/g, replacement);
+                    text = text.replace(/(\r?\n){2,}/g, '\n\n');
+                } else {
+                    text = text.replace(/\r?\n/g, replacement);
+                }
+            }
+            
+            if (removeDoubleSpaces) {
+                text = text.replace(/ {2,}/g, ' ');
+            }
+            
+            if (trimLines) {
+                text = text.trim();
+            }
+            
+            document.getElementById('output').value = text;
+            document.getElementById('linesRemoved').textContent = originalLines - text.split('\n').length;
+            document.getElementById('charCount').textContent = text.length;
+            showToast('Text cleaned!');
+        }
+        
+        function quickAction(action) {
+            let text = document.getElementById('input').value;
+            
+            switch(action) {
+                case 'oneline':
+                    text = text.replace(/\r?\n/g, ' ').replace(/ {2,}/g, ' ').trim();
+                    break;
+                case 'sentences':
+                    text = text.replace(/\. /g, '.\n').replace(/\? /g, '?\n').replace(/! /g, '!\n');
+                    break;
+                case 'dedup':
+                    const lines = text.split('\n');
+                    text = [...new Set(lines)].join('\n');
+                    break;
+                case 'sort':
+                    text = text.split('\n').sort().join('\n');
+                    break;
+            }
+            
+            document.getElementById('output').value = text;
+            showToast('Done!');
+        }
+        
+        function swapInputOutput() {
+            const input = document.getElementById('input');
+            const output = document.getElementById('output');
+            const temp = input.value;
+            input.value = output.value;
+            output.value = temp;
+        }
+        
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('linesRemoved').textContent = '0';
+            document.getElementById('charCount').textContent = '0';
+        }
+        
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('output').value);
+            showToast('Copied!');
+        }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Remove Line Breaks","description":"Clean up text by removing line breaks.","url":"https://passive.hardikkanajariya.in/remove-line-breaks/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

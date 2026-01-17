@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Free Online QR Code Maker | PassiveTools</title>
+    <meta name="description" content="Free QR code generator. Create QR codes for URLs, text, WiFi, vCard, and more. Download as PNG or SVG. No registration required.">
+    <meta name="keywords" content="qr code generator, qr code maker, create qr code, free qr code, qr code online">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/qr-code-generator/">
+    <meta property="og:title" content="QR Code Generator - Free Online Tool">
+    <meta property="og:description" content="Create QR codes for URLs, text, WiFi, and more. Download as PNG or SVG.">
+    <meta property="og:url" content="https://passive.hardikkanajariya.in/qr-code-generator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}.tab-btn.active{background:#7c3aed;color:white}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">QR Code Generator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">QR Code Generator</h1>
+                    <p class="text-gray-600 mb-6">Create QR codes for URLs, text, WiFi networks, and more.</p>
+                    
+                    <!-- Type Tabs -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button onclick="setType('url')" class="tab-btn active px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-type="url">URL</button>
+                        <button onclick="setType('text')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-type="text">Text</button>
+                        <button onclick="setType('wifi')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-type="wifi">WiFi</button>
+                        <button onclick="setType('email')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-type="email">Email</button>
+                        <button onclick="setType('phone')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-type="phone">Phone</button>
+                        <button onclick="setType('sms')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-100 text-gray-700" data-type="sms">SMS</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Input Section -->
+                        <div>
+                            <div id="input-url">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Enter URL</label>
+                                <input type="url" id="urlInput" placeholder="https://example.com" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            </div>
+                            
+                            <div id="input-text" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Enter Text</label>
+                                <textarea id="textInput" rows="4" placeholder="Enter any text..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"></textarea>
+                            </div>
+                            
+                            <div id="input-wifi" class="hidden space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Network Name (SSID)</label>
+                                    <input type="text" id="wifiSsid" placeholder="My WiFi Network" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                                    <input type="text" id="wifiPassword" placeholder="WiFi password" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Security</label>
+                                    <select id="wifiSecurity" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                        <option value="WPA">WPA/WPA2</option>
+                                        <option value="WEP">WEP</option>
+                                        <option value="">None</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div id="input-email" class="hidden space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                    <input type="email" id="emailTo" placeholder="email@example.com" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Subject (optional)</label>
+                                    <input type="text" id="emailSubject" placeholder="Email subject" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                </div>
+                            </div>
+                            
+                            <div id="input-phone" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="phoneNumber" placeholder="+1234567890" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            </div>
+                            
+                            <div id="input-sms" class="hidden space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="smsNumber" placeholder="+1234567890" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Message (optional)</label>
+                                    <textarea id="smsMessage" rows="2" placeholder="Your message..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Customization -->
+                            <div class="mt-6 space-y-4">
+                                <h3 class="font-semibold text-gray-900">Customize</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">Foreground</label>
+                                        <input type="color" id="fgColor" value="#000000" class="w-full h-10 rounded-lg cursor-pointer">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">Background</label>
+                                        <input type="color" id="bgColor" value="#ffffff" class="w-full h-10 rounded-lg cursor-pointer">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-1">Size: <span id="sizeValue">256</span>px</label>
+                                    <input type="range" id="qrSize" min="128" max="512" value="256" class="w-full accent-violet-600">
+                                </div>
+                            </div>
+                            
+                            <button onclick="generateQR()" class="w-full mt-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">
+                                Generate QR Code
+                            </button>
+                        </div>
+                        
+                        <!-- QR Code Display -->
+                        <div class="flex flex-col items-center">
+                            <div id="qrContainer" class="bg-white p-4 rounded-xl border-2 border-dashed border-gray-300 mb-4">
+                                <canvas id="qrCanvas"></canvas>
+                            </div>
+                            <div class="flex gap-3">
+                                <button onclick="downloadPNG()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors text-sm">Download PNG</button>
+                                <button onclick="downloadSVG()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors text-sm">Download SVG</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">What is a QR Code?</h2>
+                    <p class="text-gray-600 mb-4">QR (Quick Response) codes are two-dimensional barcodes that can store various types of data. When scanned with a smartphone camera, they can instantly open URLs, display text, connect to WiFi networks, and more.</p>
+                    <h3 class="font-semibold text-gray-900 mt-4 mb-2">Common Uses:</h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Share website URLs and links</li>
+                        <li>Connect to WiFi without typing passwords</li>
+                        <li>Share contact information (vCard)</li>
+                        <li>Send emails or SMS messages</li>
+                        <li>Make payments and transactions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/password-generator/" class="text-violet-600 hover:underline text-sm">Password Generator</a></li>
+                        <li><a href="/uuid-generator/" class="text-violet-600 hover:underline text-sm">UUID Generator</a></li>
+                        <li><a href="/base64-encoder/" class="text-violet-600 hover:underline text-sm">Base64 Encoder</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let currentType = 'url';
+        
+        function setType(type) {
+            currentType = type;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-violet-600', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('active', 'bg-violet-600', 'text-white');
+            document.querySelector(`[data-type="${type}"]`).classList.remove('bg-gray-100', 'text-gray-700');
+            
+            ['url', 'text', 'wifi', 'email', 'phone', 'sms'].forEach(t => {
+                document.getElementById(`input-${t}`).classList.toggle('hidden', t !== type);
+            });
+        }
+        
+        document.getElementById('qrSize').addEventListener('input', function() {
+            document.getElementById('sizeValue').textContent = this.value;
+        });
+        
+        function getData() {
+            switch(currentType) {
+                case 'url': return document.getElementById('urlInput').value || 'https://passive.hardikkanajariya.in';
+                case 'text': return document.getElementById('textInput').value || 'Hello World';
+                case 'wifi':
+                    const ssid = document.getElementById('wifiSsid').value;
+                    const pass = document.getElementById('wifiPassword').value;
+                    const sec = document.getElementById('wifiSecurity').value;
+                    return `WIFI:T:${sec};S:${ssid};P:${pass};;`;
+                case 'email':
+                    const email = document.getElementById('emailTo').value;
+                    const subject = document.getElementById('emailSubject').value;
+                    return `mailto:${email}${subject ? '?subject=' + encodeURIComponent(subject) : ''}`;
+                case 'phone': return `tel:${document.getElementById('phoneNumber').value}`;
+                case 'sms':
+                    const num = document.getElementById('smsNumber').value;
+                    const msg = document.getElementById('smsMessage').value;
+                    return `sms:${num}${msg ? '?body=' + encodeURIComponent(msg) : ''}`;
+            }
+        }
+        
+        function generateQR() {
+            const canvas = document.getElementById('qrCanvas');
+            const size = parseInt(document.getElementById('qrSize').value);
+            const data = getData();
+            
+            QRCode.toCanvas(canvas, data, {
+                width: size,
+                margin: 2,
+                color: {
+                    dark: document.getElementById('fgColor').value,
+                    light: document.getElementById('bgColor').value
+                }
+            }, function(error) {
+                if (error) console.error(error);
+            });
+        }
+        
+        function downloadPNG() {
+            const canvas = document.getElementById('qrCanvas');
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('PNG downloaded!');
+        }
+        
+        function downloadSVG() {
+            const data = getData();
+            const size = parseInt(document.getElementById('qrSize').value);
+            QRCode.toString(data, {
+                type: 'svg',
+                width: size,
+                margin: 2,
+                color: {
+                    dark: document.getElementById('fgColor').value,
+                    light: document.getElementById('bgColor').value
+                }
+            }, function(err, svg) {
+                if (err) return console.error(err);
+                const blob = new Blob([svg], {type: 'image/svg+xml'});
+                const link = document.createElement('a');
+                link.download = 'qrcode.svg';
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                showToast('SVG downloaded!');
+            });
+        }
+        
+        generateQR();
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code Generator","description":"Create QR codes for URLs, text, WiFi, and more. Download as PNG or SVG.","url":"https://passive.hardikkanajariya.in/qr-code-generator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>

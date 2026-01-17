@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech - Free Online TTS Tool | PassiveTools</title>
+    <meta name="description" content="Convert text to speech online using browser's speech synthesis. Free TTS tool with multiple voices and languages.">
+    <meta name="keywords" content="text to speech, tts, speech synthesis, read aloud, voice generator, text reader">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/text-to-speech/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{violet:{50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95'}}}}}</script>
+    <style>.ad-container{display:flex;align-items:center;justify-content:center;min-height:60px;background:#f9fafb;border-radius:8px}</style>
+</head>
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/text-tools/" class="text-gray-500 hover:text-violet-600">Text Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Text to Speech</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Text to Speech</h1>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Enter Text</label>
+                        <textarea id="text" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 resize-none" placeholder="Enter text to convert to speech..."></textarea>
+                        <div class="flex justify-between text-sm text-gray-500 mt-1">
+                            <span id="charCount">0 characters</span>
+                            <span id="wordCount">0 words</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Voice</label>
+                            <select id="voice" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500">
+                                <option>Loading voices...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Speed: <span id="rateValue">1.0</span>x</label>
+                            <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1" class="w-full">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Pitch: <span id="pitchValue">1.0</span></label>
+                            <input type="range" id="pitch" min="0.5" max="2" step="0.1" value="1" class="w-full">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Volume: <span id="volumeValue">100</span>%</label>
+                            <input type="range" id="volume" min="0" max="1" step="0.1" value="1" class="w-full">
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <button onclick="speak()" id="playBtn" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            Play
+                        </button>
+                        <button onclick="pause()" id="pauseBtn" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg flex items-center gap-2 hidden">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            Pause
+                        </button>
+                        <button onclick="resume()" id="resumeBtn" class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg flex items-center gap-2 hidden">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            Resume
+                        </button>
+                        <button onclick="stop()" id="stopBtn" class="px-6 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-medium rounded-lg flex items-center gap-2 hidden">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+                            Stop
+                        </button>
+                    </div>
+                    
+                    <div id="status" class="hidden p-4 bg-violet-50 rounded-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="animate-pulse w-3 h-3 bg-violet-500 rounded-full"></div>
+                            <span class="text-violet-700 font-medium">Speaking...</span>
+                        </div>
+                    </div>
+                    
+                    <div id="notSupported" class="hidden p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                        <p class="text-yellow-700">Your browser doesn't support the Web Speech API. Please try a modern browser like Chrome, Edge, or Safari.</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Tips</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Different voices have different qualities</li>
+                        <li>• Adjust speed for easier listening</li>
+                        <li>• Works offline in most browsers</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a></li>
+                        <li><a href="/text-to-slug/" class="text-violet-600 hover:underline text-sm">Text to Slug</a></li>
+                    </ul>
+                </div>
+                
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let synth = window.speechSynthesis;
+        let voices = [];
+        let utterance = null;
+        let isSpeaking = false;
+        let isPaused = false;
+        
+        if (!synth) {
+            document.getElementById('notSupported').classList.remove('hidden');
+        }
+        
+        function loadVoices() {
+            voices = synth.getVoices();
+            const voiceSelect = document.getElementById('voice');
+            voiceSelect.innerHTML = '';
+            
+            voices.forEach((voice, i) => {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                if (voice.default) option.selected = true;
+                voiceSelect.appendChild(option);
+            });
+        }
+        
+        if (synth) {
+            loadVoices();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = loadVoices;
+            }
+        }
+        
+        document.getElementById('text').addEventListener('input', updateCounts);
+        document.getElementById('rate').addEventListener('input', e => {
+            document.getElementById('rateValue').textContent = e.target.value;
+        });
+        document.getElementById('pitch').addEventListener('input', e => {
+            document.getElementById('pitchValue').textContent = e.target.value;
+        });
+        document.getElementById('volume').addEventListener('input', e => {
+            document.getElementById('volumeValue').textContent = Math.round(e.target.value * 100);
+        });
+        
+        function updateCounts() {
+            const text = document.getElementById('text').value;
+            document.getElementById('charCount').textContent = text.length + ' characters';
+            document.getElementById('wordCount').textContent = (text.trim() ? text.trim().split(/\s+/).length : 0) + ' words';
+        }
+        
+        function speak() {
+            const text = document.getElementById('text').value.trim();
+            if (!text) {
+                showToast('Please enter some text');
+                return;
+            }
+            
+            stop();
+            
+            utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = voices[document.getElementById('voice').value];
+            utterance.rate = parseFloat(document.getElementById('rate').value);
+            utterance.pitch = parseFloat(document.getElementById('pitch').value);
+            utterance.volume = parseFloat(document.getElementById('volume').value);
+            
+            utterance.onstart = () => {
+                isSpeaking = true;
+                updateButtons();
+                document.getElementById('status').classList.remove('hidden');
+            };
+            
+            utterance.onend = () => {
+                isSpeaking = false;
+                isPaused = false;
+                updateButtons();
+                document.getElementById('status').classList.add('hidden');
+            };
+            
+            utterance.onerror = () => {
+                isSpeaking = false;
+                isPaused = false;
+                updateButtons();
+                document.getElementById('status').classList.add('hidden');
+            };
+            
+            synth.speak(utterance);
+        }
+        
+        function pause() {
+            synth.pause();
+            isPaused = true;
+            updateButtons();
+        }
+        
+        function resume() {
+            synth.resume();
+            isPaused = false;
+            updateButtons();
+        }
+        
+        function stop() {
+            synth.cancel();
+            isSpeaking = false;
+            isPaused = false;
+            updateButtons();
+            document.getElementById('status').classList.add('hidden');
+        }
+        
+        function updateButtons() {
+            document.getElementById('playBtn').classList.toggle('hidden', isSpeaking);
+            document.getElementById('pauseBtn').classList.toggle('hidden', !isSpeaking || isPaused);
+            document.getElementById('resumeBtn').classList.toggle('hidden', !isPaused);
+            document.getElementById('stopBtn').classList.toggle('hidden', !isSpeaking && !isPaused);
+        }
+        
+        updateCounts();
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Text to Speech","description":"Convert text to speech using browser speech synthesis.","url":"https://passive.hardikkanajariya.in/text-to-speech/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+</html>
