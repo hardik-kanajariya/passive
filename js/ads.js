@@ -600,9 +600,9 @@ const AdManager = {
         if (this.loaded['exitIntent']) return;
 
         const self = this;
-        
+
         // Desktop: Mouse leaves viewport at top
-        document.addEventListener('mouseout', function(e) {
+        document.addEventListener('mouseout', function (e) {
             if (e.clientY < 10 && !self.exitIntentShown) {
                 self.exitIntentShown = true;
                 self.showExitIntentAd();
@@ -610,7 +610,7 @@ const AdManager = {
         });
 
         // Mobile: Back button / visibility change
-        document.addEventListener('visibilitychange', function() {
+        document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'hidden' && !self.exitIntentShown) {
                 self.exitIntentShown = true;
                 // Trigger popunder for mobile exit
@@ -638,9 +638,9 @@ const AdManager = {
         const self = this;
         let ticking = false;
 
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (!ticking) {
-                window.requestAnimationFrame(function() {
+                window.requestAnimationFrame(function () {
                     self.checkScrollPosition();
                     ticking = false;
                 });
@@ -655,7 +655,7 @@ const AdManager = {
         if (this.scrollAdShown) return;
 
         const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-        
+
         if (scrollPercent >= this.config.scrollAdThreshold) {
             this.scrollAdShown = true;
             this.loadScrollTriggeredAd();
@@ -700,7 +700,7 @@ const AdManager = {
         if (this.loaded['timeDelayed']) return;
 
         const self = this;
-        
+
         setTimeout(() => {
             if (!self.timeDelayedAdShown && self.shouldShowSessionAd('timeDelayedAd')) {
                 self.timeDelayedAdShown = true;
@@ -749,15 +749,15 @@ const AdManager = {
         if (this.loaded['directLinks']) return;
 
         const smartLink = this.popunderUrls[0];
-        
+
         // Intercept external link clicks (with low frequency)
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
-            
+
             const href = link.getAttribute('href');
             if (!href) return;
-            
+
             // Check if external link (not same domain)
             if (href.startsWith('http') && !href.includes(window.location.hostname)) {
                 // Only monetize 20% of external clicks (to not annoy users)
@@ -818,7 +818,7 @@ const AdManager = {
 
         // Push a state to detect back button
         history.pushState(null, '', window.location.href);
-        
+
         window.addEventListener('popstate', () => {
             if (this.shouldShowSessionAd('backButtonAd')) {
                 this.loadAdsterraInterstitial();
@@ -835,7 +835,7 @@ const AdManager = {
         if (this.loaded['tabFocus']) return;
 
         let lastHidden = 0;
-        
+
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'hidden') {
                 lastHidden = Date.now();
@@ -861,7 +861,7 @@ const AdManager = {
         this.setupAdRefresh();
         this.setupBackButtonAd();
         this.setupTabFocusAd();
-        
+
         console.log('[AdManager] Revenue optimization features initialized');
     }
 };
