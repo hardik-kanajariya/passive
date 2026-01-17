@@ -100,10 +100,10 @@ const AdManager = {
     // Process Adsterra queue one at a time
     processAdsterraQueue() {
         if (this.adsterraLoading || this.adsterraQueue.length === 0) return;
-        
+
         this.adsterraLoading = true;
         const { containerId, key, width, height, scriptUrl } = this.adsterraQueue.shift();
-        
+
         const container = document.getElementById(containerId);
         if (!container) {
             this.adsterraLoading = false;
@@ -149,7 +149,7 @@ const AdManager = {
             height,
             scriptUrl: `https://www.highperformanceformat.com/${key}/invoke.js`
         });
-        
+
         this.processAdsterraQueue();
     },
 
