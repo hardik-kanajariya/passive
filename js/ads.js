@@ -7,8 +7,9 @@ const AdManager = {
     config: {
         enableAdsterra: true,
         enableJuicyAds: false,
-        enableSmartLinks: false,
-        enableAntiAdblock: false
+        enableSmartLinks: true,  // Enable popunder on click (high revenue)
+        enableAntiAdblock: true, // Enable anti-adblock popunder
+        enableInterstitial: true // Enable interstitial between actions
     },
     loaded: {},
     errors: [],
@@ -34,13 +35,13 @@ const AdManager = {
         return script;
     },
 
-    // Check if popunder should load (1x per 24 hours)
+    // Check if popunder should load (1x per 6 hours for better revenue)
     shouldLoadPopunder() {
         const lastPop = localStorage.getItem('lastPopunder');
         const now = Date.now();
-        const dayInMs = 24 * 60 * 60 * 1000;
+        const sixHoursInMs = 6 * 60 * 60 * 1000; // 6 hours
 
-        if (!lastPop || (now - parseInt(lastPop)) > dayInMs) {
+        if (!lastPop || (now - parseInt(lastPop)) > sixHoursInMs) {
             localStorage.setItem('lastPopunder', now.toString());
             return true;
         }
@@ -311,12 +312,36 @@ const AdManager = {
     // Adsterra: Interstitial
     loadAdsterraInterstitial() {
         if (!this.config.enableAdsterra) return;
+        if (!this.config.enableInterstitial) return;
         if (this.loaded['interstitial']) return;
 
         const script = document.createElement('script');
         script.src = 'https://biographygridetelegram.com/88/b4/ec/88b4ecec127d7745b7a8d8a4ea4017f6.js';
         document.body.appendChild(script);
         this.loaded['interstitial'] = true;
+    },
+
+    // Inject ad into result/output areas (high engagement placement)
+    injectInContentAd(targetSelector) {
+        if (!this.config.enableAdsterra) return;
+
+        const targets = document.querySelectorAll(targetSelector);
+        targets.forEach((target, index) => {
+            if (index === 0) { // Only first match
+                const adContainer = document.createElement('div');
+                adContainer.id = 'ad-in-content-' + Date.now();
+                adContainer.className = 'my-4 flex justify-center';
+                adContainer.style.minHeight = '250px';
+
+                // Insert after the target element
+                target.parentNode.insertBefore(adContainer, target.nextSibling);
+
+                // Load 300x250 ad
+                setTimeout(() => {
+                    this.loadAdsterraViaIframe(adContainer.id, 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
+                }, 500);
+            }
+        });
     },
 
     // JuicyAds: PopUnder
@@ -419,10 +444,17 @@ const AdManager = {
         if (pageType === 'tool') {
             this.loadAdsterraNative('ad-native');
             this.loadJuicyBanner('ad-juicy-banner');
+            // Show interstitial after tool usage (delayed)
+            this.setupToolInterstitial();
         }
 
         // Processing pages get interstitial
         if (pageType === 'processing') {
+            this.loadAdsterraInterstitial();
+        }
+
+        // Always load interstitial for all pages (shows on page exit or after time)
+        if (this.config.enableInterstitial) {
             this.loadAdsterraInterstitial();
         }
 
@@ -431,6 +463,25 @@ const AdManager = {
 
         // Check ad loading status after 5 seconds
         setTimeout(() => this.checkAdStatus(), 5000);
+    },
+
+    // Setup interstitial to show after tool usage
+    setupToolInterstitial() {
+        // Listen for tool completion events (buttons with specific classes)
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            // Check if clicked element is a "download", "copy", "generate" button
+            if (target.matches('button, [role="button"], .btn') &&
+                (target.textContent.toLowerCase().includes('download') ||
+                    target.textContent.toLowerCase().includes('copy') ||
+                    target.textContent.toLowerCase().includes('generate') ||
+                    target.textContent.toLowerCase().includes('convert'))) {
+                // Show interstitial after action (delayed to not interrupt UX)
+                setTimeout(() => {
+                    this.loadAdsterraInterstitial();
+                }, 2000);
+            }
+        });
     },
 
     // Check if ads loaded and show fallback if blocked
