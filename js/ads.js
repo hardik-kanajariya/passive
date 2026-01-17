@@ -1,18 +1,38 @@
 /**
  * Ad Manager - Handles all ad network integrations
  * Networks: Adsterra, JuicyAds, Rotate4All, Popunder Smart Links
+ * 
+ * Revenue Optimization Strategies (All Legitimate):
+ * 1. Popunder on first click (6-hour frequency cap)
+ * 2. Social Bar (sticky notification style)
+ * 3. Interstitial ads (after tool actions)
+ * 4. Native ads in footer (4 cards)
+ * 5. Exit intent detection
+ * 6. Scroll-triggered ads
+ * 7. Time-delayed ads
+ * 8. Direct link monetization
  */
 
 const AdManager = {
     config: {
         enableAdsterra: true,
         enableJuicyAds: false,
-        enableSmartLinks: true,  // Enable popunder on click (high revenue)
-        enableAntiAdblock: true, // Enable anti-adblock popunder
-        enableInterstitial: true // Enable interstitial between actions
+        enableSmartLinks: true,      // Popunder on click (high revenue)
+        enableAntiAdblock: true,     // Anti-adblock popunder
+        enableInterstitial: true,    // Interstitial between actions
+        enableExitIntent: true,      // Show ad on exit intent
+        enableScrollAds: true,       // Load more ads on scroll
+        enableTimeDelayedAds: true,  // Show additional ads after time
+        enableDirectLinks: true,     // Monetize outbound links
+        popunderFrequencyHours: 4,   // Hours between popunders (lower = more revenue)
+        scrollAdThreshold: 50,       // Scroll % to trigger more ads
+        timeDelaySeconds: 30         // Seconds before showing delayed ad
     },
     loaded: {},
     errors: [],
+    scrollAdShown: false,
+    exitIntentShown: false,
+    timeDelayedAdShown: false,
 
     // Log ad loading errors
     logError(adType, error) {
@@ -35,14 +55,24 @@ const AdManager = {
         return script;
     },
 
-    // Check if popunder should load (1x per 6 hours for better revenue)
+    // Check if popunder should load (configurable frequency)
     shouldLoadPopunder() {
         const lastPop = localStorage.getItem('lastPopunder');
         const now = Date.now();
-        const sixHoursInMs = 6 * 60 * 60 * 1000; // 6 hours
+        const frequencyMs = this.config.popunderFrequencyHours * 60 * 60 * 1000;
 
-        if (!lastPop || (now - parseInt(lastPop)) > sixHoursInMs) {
+        if (!lastPop || (now - parseInt(lastPop)) > frequencyMs) {
             localStorage.setItem('lastPopunder', now.toString());
+            return true;
+        }
+        return false;
+    },
+
+    // Check session-based frequency (for less aggressive ads)
+    shouldShowSessionAd(key) {
+        const shown = sessionStorage.getItem(key);
+        if (!shown) {
+            sessionStorage.setItem(key, 'true');
             return true;
         }
         return false;
@@ -458,6 +488,9 @@ const AdManager = {
             this.loadAdsterraInterstitial();
         }
 
+        // Initialize all revenue optimization features
+        this.initRevenueOptimization();
+
         // Log initialization
         console.log('[AdManager] Initialized for page type:', pageType, 'Mobile:', window.innerWidth < 768);
 
@@ -544,6 +577,7 @@ const AdManager = {
     // Debug function - call AdManager.debug() in console
     debug() {
         console.log('=== AdManager Debug Info ===');
+        console.log('Config:', this.config);
         console.log('Loaded scripts:', this.loaded);
         console.log('Errors:', this.errors);
         console.log('Ad containers found:');
@@ -553,7 +587,282 @@ const AdManager = {
                 const el = document.getElementById(id);
                 console.log(`  ${id}:`, el ? `Found (${el.children.length} children)` : 'Not found');
             });
-        return { loaded: this.loaded, errors: this.errors };
+        return { loaded: this.loaded, errors: this.errors, config: this.config };
+    },
+
+    // ============================================
+    // REVENUE OPTIMIZATION FEATURES
+    // ============================================
+
+    // 1. Exit Intent Detection - Show ad when user tries to leave
+    setupExitIntent() {
+        if (!this.config.enableExitIntent) return;
+        if (this.loaded['exitIntent']) return;
+
+        const self = this;
+        
+        // Desktop: Mouse leaves viewport at top
+        document.addEventListener('mouseout', function(e) {
+            if (e.clientY < 10 && !self.exitIntentShown) {
+                self.exitIntentShown = true;
+                self.showExitIntentAd();
+            }
+        });
+
+        // Mobile: Back button / visibility change
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden' && !self.exitIntentShown) {
+                self.exitIntentShown = true;
+                // Trigger popunder for mobile exit
+                if (self.shouldShowSessionAd('exitPopunder')) {
+                    self.triggerPopunder();
+                }
+            }
+        });
+
+        this.loaded['exitIntent'] = true;
+    },
+
+    showExitIntentAd() {
+        // Show interstitial on exit intent
+        if (this.shouldShowSessionAd('exitInterstitial')) {
+            this.loadAdsterraInterstitial();
+        }
+    },
+
+    // 2. Scroll-Triggered Ads - Load more ads as user scrolls
+    setupScrollAds() {
+        if (!this.config.enableScrollAds) return;
+        if (this.loaded['scrollAds']) return;
+
+        const self = this;
+        let ticking = false;
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    self.checkScrollPosition();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        this.loaded['scrollAds'] = true;
+    },
+
+    checkScrollPosition() {
+        if (this.scrollAdShown) return;
+
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        
+        if (scrollPercent >= this.config.scrollAdThreshold) {
+            this.scrollAdShown = true;
+            this.loadScrollTriggeredAd();
+        }
+    },
+
+    loadScrollTriggeredAd() {
+        // Inject an in-content ad when user scrolls 50%
+        const main = document.querySelector('main');
+        if (!main) return;
+
+        // Create floating ad container
+        const adContainer = document.createElement('div');
+        adContainer.id = 'ad-scroll-triggered';
+        adContainer.className = 'fixed bottom-20 right-4 z-40 shadow-2xl rounded-lg overflow-hidden';
+        adContainer.style.cssText = 'max-width: 300px; background: white; border: 1px solid #e5e7eb;';
+        adContainer.innerHTML = `
+            <div class="flex justify-between items-center bg-gray-100 px-2 py-1">
+                <span class="text-xs text-gray-500">Sponsored</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600 text-lg leading-none">&times;</button>
+            </div>
+            <div id="ad-scroll-content" style="min-height: 250px;"></div>
+        `;
+        document.body.appendChild(adContainer);
+
+        // Load ad into container
+        setTimeout(() => {
+            this.loadAdsterraViaIframe('ad-scroll-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
+        }, 100);
+
+        // Auto-close after 30 seconds
+        setTimeout(() => {
+            if (adContainer.parentElement) {
+                adContainer.remove();
+            }
+        }, 30000);
+    },
+
+    // 3. Time-Delayed Ads - Show additional ad after user spends time on page
+    setupTimeDelayedAd() {
+        if (!this.config.enableTimeDelayedAds) return;
+        if (this.loaded['timeDelayed']) return;
+
+        const self = this;
+        
+        setTimeout(() => {
+            if (!self.timeDelayedAdShown && self.shouldShowSessionAd('timeDelayedAd')) {
+                self.timeDelayedAdShown = true;
+                self.showTimeDelayedAd();
+            }
+        }, this.config.timeDelaySeconds * 1000);
+
+        this.loaded['timeDelayed'] = true;
+    },
+
+    showTimeDelayedAd() {
+        // Show a notification-style native ad
+        const notification = document.createElement('div');
+        notification.id = 'ad-time-delayed';
+        notification.className = 'fixed top-20 left-4 right-4 md:left-auto md:right-4 md:w-96 z-50 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all';
+        notification.innerHTML = `
+            <div class="flex justify-between items-center bg-gradient-to-r from-violet-500 to-purple-600 px-4 py-2">
+                <span class="text-white text-sm font-medium">✨ Recommended for You</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="text-white/80 hover:text-white text-xl leading-none">&times;</button>
+            </div>
+            <div id="ad-notification-content" class="p-2" style="min-height: 100px;">
+                <div id="container-3fecabf66e493c7e25b0b3150e5b5adb"></div>
+            </div>
+        `;
+        document.body.appendChild(notification);
+
+        // Load native ad
+        const script = document.createElement('script');
+        script.async = true;
+        script.setAttribute('data-cfasync', 'false');
+        script.src = 'https://biographygridetelegram.com/3fecabf66e493c7e25b0b3150e5b5adb/invoke.js';
+        notification.querySelector('#ad-notification-content').appendChild(script);
+
+        // Auto-close after 20 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }
+        }, 20000);
+    },
+
+    // 4. Direct Link Monetization - Add tracking to outbound links
+    setupDirectLinks() {
+        if (!this.config.enableDirectLinks) return;
+        if (this.loaded['directLinks']) return;
+
+        const smartLink = this.popunderUrls[0];
+        
+        // Intercept external link clicks (with low frequency)
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+            
+            const href = link.getAttribute('href');
+            if (!href) return;
+            
+            // Check if external link (not same domain)
+            if (href.startsWith('http') && !href.includes(window.location.hostname)) {
+                // Only monetize 20% of external clicks (to not annoy users)
+                if (Math.random() < 0.2 && this.shouldShowSessionAd('directLink_' + Date.now())) {
+                    // Open smart link in background
+                    const popunder = window.open(smartLink, '_blank');
+                    if (popunder) {
+                        popunder.blur();
+                        window.focus();
+                    }
+                }
+            }
+        });
+
+        this.loaded['directLinks'] = true;
+    },
+
+    // 5. Refresh Ads Periodically (for long sessions)
+    setupAdRefresh() {
+        if (this.loaded['adRefresh']) return;
+
+        // Refresh visible ads every 60 seconds (Adsterra allows this)
+        setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                this.refreshVisibleAds();
+            }
+        }, 60000);
+
+        this.loaded['adRefresh'] = true;
+    },
+
+    refreshVisibleAds() {
+        // Only refresh if user is active (not away)
+        const containers = ['ad-sidebar', 'ad-sidebar-2'];
+        containers.forEach(id => {
+            const container = document.getElementById(id);
+            if (container && this.isElementInViewport(container)) {
+                // Reset and reload
+                this.loaded[id] = false;
+                this.loadAdsterra300x250(id);
+            }
+        });
+    },
+
+    isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    },
+
+    // 6. Back Button Monetization (shows ad on browser back)
+    setupBackButtonAd() {
+        if (this.loaded['backButton']) return;
+
+        // Push a state to detect back button
+        history.pushState(null, '', window.location.href);
+        
+        window.addEventListener('popstate', () => {
+            if (this.shouldShowSessionAd('backButtonAd')) {
+                this.loadAdsterraInterstitial();
+            }
+            // Push state again to keep detecting
+            history.pushState(null, '', window.location.href);
+        });
+
+        this.loaded['backButton'] = true;
+    },
+
+    // 7. Tab Focus Monetization (show ad when user returns to tab)
+    setupTabFocusAd() {
+        if (this.loaded['tabFocus']) return;
+
+        let lastHidden = 0;
+        
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                lastHidden = Date.now();
+            } else if (document.visibilityState === 'visible') {
+                // If user was away for more than 30 seconds, show ad
+                if (Date.now() - lastHidden > 30000) {
+                    if (this.shouldShowSessionAd('tabFocusAd')) {
+                        this.loadAdsterraInterstitial();
+                    }
+                }
+            }
+        });
+
+        this.loaded['tabFocus'] = true;
+    },
+
+    // Initialize all revenue optimization features
+    initRevenueOptimization() {
+        this.setupExitIntent();
+        this.setupScrollAds();
+        this.setupTimeDelayedAd();
+        this.setupDirectLinks();
+        this.setupAdRefresh();
+        this.setupBackButtonAd();
+        this.setupTabFocusAd();
+        
+        console.log('[AdManager] Revenue optimization features initialized');
     }
 };
 
