@@ -873,23 +873,23 @@
 
         createSearchDropdown();
 
-        searchInput?.addEventListener('input', function(e) {
+        searchInput?.addEventListener('input', function (e) {
             searchTools(e.target.value);
         });
 
-        searchInput?.addEventListener('focus', function(e) {
+        searchInput?.addEventListener('focus', function (e) {
             if (e.target.value.length >= 2) {
                 searchTools(e.target.value);
             }
         });
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!searchInput?.contains(e.target) && !searchDropdown?.contains(e.target)) {
                 searchDropdown?.classList.add('hidden');
             }
         });
 
-        searchInput?.addEventListener('keydown', function(e) {
+        searchInput?.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
                 const firstResult = searchDropdown?.querySelector('a');
                 if (firstResult) {

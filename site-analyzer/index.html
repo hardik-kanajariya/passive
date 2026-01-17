@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Analyzer - Website Link Crawler & Structure Viewer | PassiveTools</title>
+    <meta name="description"
+        content="Analyze website structure and find all internal links. Generate visual tree view of your site's pages. Detect broken links and orphan pages.">
+    <meta name="keywords"
+        content="site analyzer, website crawler, link checker, site structure, broken link finder, SEO tool">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/site-analyzer/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+
+        .tree-node {
+            padding-left: 20px;
+            border-left: 1px dashed #d1d5db;
+        }
+
+        .tree-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .tree-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        .broken-link {
+            background: #fef2f2 !important;
+            border-color: #fecaca !important;
+        }
+
+        .tree-item {
+            transition: all 0.2s;
+        }
+
+        .tree-item:hover {
+            background: #f5f3ff;
+        }
+
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/miscellaneous/" class="text-gray-500 hover:text-violet-600">Miscellaneous</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Site Analyzer</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Site Analyzer</h1>
+                    <p class="text-gray-600 mb-6">Analyze website structure, find all internal links, and detect broken
+                        pages.</p>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
+                        <div class="flex gap-2">
+                            <input type="url" id="siteUrl" placeholder="https://example.com"
+                                class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent">
+                            <button onclick="analyzeSite()" id="analyzeBtn"
+                                class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                Analyze
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Enter the homepage URL of the site you want to analyze.
+                            Due to CORS restrictions, this works best with sites that allow cross-origin requests.</p>
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="progress" class="hidden mb-6">
+                        <div class="flex items-center gap-3 p-4 bg-violet-50 rounded-xl">
+                            <div
+                                class="w-6 h-6 border-2 border-violet-600 border-t-transparent rounded-full animate-spin">
+                            </div>
+                            <div>
+                                <p class="font-medium text-violet-700">Analyzing site...</p>
+                                <p id="progressText" class="text-sm text-violet-600">Fetching pages...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div id="stats" class="hidden mb-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="p-4 bg-gray-50 rounded-xl text-center">
+                                <p id="statTotal" class="text-2xl font-bold text-violet-600">0</p>
+                                <p class="text-sm text-gray-600">Total Links</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-xl text-center">
+                                <p id="statWorking" class="text-2xl font-bold text-green-600">0</p>
+                                <p class="text-sm text-gray-600">Working</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-xl text-center">
+                                <p id="statBroken" class="text-2xl font-bold text-red-600">0</p>
+                                <p class="text-sm text-gray-600">Broken</p>
+                            </div>
+                            <div class="p-4 bg-amber-50 rounded-xl text-center">
+                                <p id="statDepth" class="text-2xl font-bold text-amber-600">0</p>
+                                <p class="text-sm text-gray-600">Max Depth</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div id="controls" class="hidden flex flex-wrap gap-2 mb-4">
+                        <button onclick="expandAll()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium">
+                            Expand All
+                        </button>
+                        <button onclick="collapseAll()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium">
+                            Collapse All
+                        </button>
+                        <button onclick="showBrokenOnly()"
+                            class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-sm font-medium">
+                            Show Broken Only
+                        </button>
+                        <button onclick="exportResults()"
+                            class="px-4 py-2 bg-violet-100 hover:bg-violet-200 text-violet-700 rounded-lg text-sm font-medium">
+                            Export JSON
+                        </button>
+                    </div>
+
+                    <!-- Tree View -->
+                    <div id="treeContainer" class="hidden">
+                        <h3 class="font-semibold text-gray-900 mb-3">Site Structure</h3>
+                        <div id="treeView"
+                            class="bg-gray-50 rounded-xl p-4 max-h-[500px] overflow-auto font-mono text-sm"></div>
+                    </div>
+
+                    <!-- Broken Links List -->
+                    <div id="brokenList" class="hidden mt-6">
+                        <h3 class="font-semibold text-red-700 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Broken/Unreachable Links
+                        </h3>
+                        <div id="brokenLinks" class="space-y-2"></div>
+                    </div>
+
+                    <!-- CORS Notice -->
+                    <div id="corsNotice" class="hidden mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                        <h4 class="font-semibold text-amber-700 mb-2">⚠️ CORS Limitation</h4>
+                        <p class="text-amber-600 text-sm">Due to browser security (CORS), we can only analyze sites that
+                            allow cross-origin requests. For full analysis, you may need to use a server-side tool or
+                            browser extension.</p>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">How it Works</h3>
+                    <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                        <li>Enter the website URL</li>
+                        <li>We crawl internal links</li>
+                        <li>Build a tree structure</li>
+                        <li>Highlight broken links</li>
+                    </ol>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Legend</h3>
+                    <ul class="text-sm space-y-2">
+                        <li class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                            <span class="text-gray-600">Working link</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                            <span class="text-gray-600">Broken/Unreachable</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-amber-500 rounded-full"></span>
+                            <span class="text-gray-600">Could not check</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/meta-tag-generator/" class="text-violet-600 hover:underline text-sm">Meta Tag
+                                Generator</a></li>
+                        <li><a href="/og-generator/" class="text-violet-600 hover:underline text-sm">OG Generator</a>
+                        </li>
+                        <li><a href="/sitemap-generator/" class="text-violet-600 hover:underline text-sm">Sitemap
+                                Generator</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let siteData = {
+            baseUrl: '',
+            links: new Map(),
+            brokenLinks: [],
+            tree: null
+        };
+
+        let expandedNodes = new Set();
+
+        async function analyzeSite() {
+            const urlInput = document.getElementById('siteUrl').value.trim();
+
+            if (!urlInput) {
+                showToast('Please enter a URL');
+                return;
+            }
+
+            let baseUrl;
+            try {
+                baseUrl = new URL(urlInput);
+                siteData.baseUrl = baseUrl.origin;
+            } catch (e) {
+                showToast('Please enter a valid URL');
+                return;
+            }
+
+            // Reset
+            siteData.links = new Map();
+            siteData.brokenLinks = [];
+            expandedNodes.clear();
+
+            // UI
+            document.getElementById('progress').classList.remove('hidden');
+            document.getElementById('stats').classList.add('hidden');
+            document.getElementById('controls').classList.add('hidden');
+            document.getElementById('treeContainer').classList.add('hidden');
+            document.getElementById('brokenList').classList.add('hidden');
+            document.getElementById('corsNotice').classList.add('hidden');
+            document.getElementById('analyzeBtn').disabled = true;
+
+            try {
+                await crawlSite(baseUrl.href, 0, 3); // Max depth of 3
+                buildTree();
+                renderResults();
+            } catch (e) {
+                console.error(e);
+                document.getElementById('corsNotice').classList.remove('hidden');
+                showToast('Analysis failed - likely due to CORS restrictions');
+            }
+
+            document.getElementById('progress').classList.add('hidden');
+            document.getElementById('analyzeBtn').disabled = false;
+        }
+
+        async function crawlSite(url, depth, maxDepth) {
+            if (depth > maxDepth || siteData.links.has(url)) return;
+
+            document.getElementById('progressText').textContent = `Crawling: ${url.substring(0, 50)}...`;
+
+            const linkData = {
+                url: url,
+                depth: depth,
+                status: 'pending',
+                children: []
+            };
+            siteData.links.set(url, linkData);
+
+            try {
+                // Use a CORS proxy for external sites
+                const proxyUrl = url.startsWith(window.location.origin) ? url : `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+
+                const response = await fetch(proxyUrl, {
+                    method: 'GET',
+                    mode: 'cors',
+                    signal: AbortSignal.timeout(10000)
+                });
+
+                if (!response.ok) {
+                    linkData.status = 'broken';
+                    linkData.statusCode = response.status;
+                    siteData.brokenLinks.push(url);
+                    return;
+                }
+
+                linkData.status = 'ok';
+                linkData.statusCode = response.status;
+
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Find all internal links
+                const links = doc.querySelectorAll('a[href]');
+                const childUrls = new Set();
+
+                links.forEach(link => {
+                    try {
+                        const href = link.getAttribute('href');
+                        if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+                        let fullUrl;
+                        if (href.startsWith('http')) {
+                            fullUrl = new URL(href);
+                        } else {
+                            fullUrl = new URL(href, siteData.baseUrl);
+                        }
+
+                        // Only internal links
+                        if (fullUrl.origin === siteData.baseUrl) {
+                            const cleanUrl = fullUrl.origin + fullUrl.pathname;
+                            if (!siteData.links.has(cleanUrl) && !childUrls.has(cleanUrl)) {
+                                childUrls.add(cleanUrl);
+                                linkData.children.push(cleanUrl);
+                            }
+                        }
+                    } catch (e) {
+                        // Invalid URL, skip
+                    }
+                });
+
+                // Crawl children
+                for (const childUrl of childUrls) {
+                    await crawlSite(childUrl, depth + 1, maxDepth);
+                }
+
+            } catch (e) {
+                linkData.status = 'error';
+                linkData.error = e.message;
+                if (e.name !== 'AbortError') {
+                    siteData.brokenLinks.push(url);
+                }
+            }
+        }
+
+        function buildTree() {
+            // Find root
+            const rootUrl = siteData.baseUrl + '/';
+            siteData.tree = buildTreeNode(rootUrl, new Set());
+        }
+
+        function buildTreeNode(url, visited) {
+            if (visited.has(url)) return null;
+            visited.add(url);
+
+            const linkData = siteData.links.get(url);
+            if (!linkData) return null;
+
+            const node = {
+                url: url,
+                path: new URL(url).pathname || '/',
+                status: linkData.status,
+                children: []
+            };
+
+            for (const childUrl of linkData.children) {
+                const childNode = buildTreeNode(childUrl, visited);
+                if (childNode) {
+                    node.children.push(childNode);
+                }
+            }
+
+            return node;
+        }
+
+        function renderResults() {
+            // Stats
+            const total = siteData.links.size;
+            const broken = siteData.brokenLinks.length;
+            const working = total - broken;
+            let maxDepth = 0;
+            siteData.links.forEach(link => {
+                if (link.depth > maxDepth) maxDepth = link.depth;
+            });
+
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statWorking').textContent = working;
+            document.getElementById('statBroken').textContent = broken;
+            document.getElementById('statDepth').textContent = maxDepth;
+
+            document.getElementById('stats').classList.remove('hidden');
+            document.getElementById('controls').classList.remove('hidden');
+            document.getElementById('treeContainer').classList.remove('hidden');
+
+            // Tree view
+            renderTree();
+
+            // Broken links
+            if (siteData.brokenLinks.length > 0) {
+                const brokenHtml = siteData.brokenLinks.map(url => `
+                    <div class="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
+                        <span class="text-red-700 text-sm break-all">${url}</span>
+                        <a href="${url}" target="_blank" class="text-red-600 hover:text-red-800 ml-2 flex-shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </a>
+                    </div>
+                `).join('');
+                document.getElementById('brokenLinks').innerHTML = brokenHtml;
+                document.getElementById('brokenList').classList.remove('hidden');
+            }
+        }
+
+        function renderTree() {
+            if (!siteData.tree) {
+                document.getElementById('treeView').innerHTML = '<p class="text-gray-500">No links found</p>';
+                return;
+            }
+
+            document.getElementById('treeView').innerHTML = renderTreeNode(siteData.tree, 0);
+        }
+
+        function renderTreeNode(node, level) {
+            if (!node) return '';
+
+            const hasChildren = node.children && node.children.length > 0;
+            const isExpanded = expandedNodes.has(node.url);
+            const isBroken = node.status === 'broken' || node.status === 'error';
+
+            const statusColor = isBroken ? 'bg-red-500' : (node.status === 'ok' ? 'bg-green-500' : 'bg-amber-500');
+            const bgColor = isBroken ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200';
+
+            let html = `
+                <div class="tree-item mb-1">
+                    <div class="flex items-center gap-2 p-2 ${bgColor} border rounded-lg ${hasChildren ? 'tree-toggle' : ''}" 
+                         ${hasChildren ? `onclick="toggleNode('${node.url}')"` : ''}>
+                        ${hasChildren ? `
+                            <svg class="w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        ` : '<span class="w-4"></span>'}
+                        <span class="w-2 h-2 ${statusColor} rounded-full flex-shrink-0"></span>
+                        <span class="${isBroken ? 'text-red-700' : 'text-gray-700'} break-all">${node.path}</span>
+                        <a href="${node.url}" target="_blank" class="text-gray-400 hover:text-violet-600 ml-auto flex-shrink-0" onclick="event.stopPropagation()">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </a>
+                    </div>
+                    ${hasChildren && isExpanded ? `
+                        <div class="tree-node ml-4 mt-1">
+                            ${node.children.map(child => renderTreeNode(child, level + 1)).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            return html;
+        }
+
+        function toggleNode(url) {
+            if (expandedNodes.has(url)) {
+                expandedNodes.delete(url);
+            } else {
+                expandedNodes.add(url);
+            }
+            renderTree();
+        }
+
+        function expandAll() {
+            function addAllNodes(node) {
+                if (!node) return;
+                expandedNodes.add(node.url);
+                if (node.children) {
+                    node.children.forEach(addAllNodes);
+                }
+            }
+            addAllNodes(siteData.tree);
+            renderTree();
+        }
+
+        function collapseAll() {
+            expandedNodes.clear();
+            renderTree();
+        }
+
+        function showBrokenOnly() {
+            // Expand paths to broken links
+            expandedNodes.clear();
+
+            function findBrokenPaths(node, path) {
+                if (!node) return;
+
+                if (node.status === 'broken' || node.status === 'error') {
+                    path.forEach(url => expandedNodes.add(url));
+                }
+
+                if (node.children) {
+                    node.children.forEach(child => {
+                        findBrokenPaths(child, [...path, node.url]);
+                    });
+                }
+            }
+
+            findBrokenPaths(siteData.tree, []);
+            renderTree();
+        }
+
+        function exportResults() {
+            const data = {
+                baseUrl: siteData.baseUrl,
+                analyzedAt: new Date().toISOString(),
+                totalLinks: siteData.links.size,
+                brokenLinks: siteData.brokenLinks,
+                links: Array.from(siteData.links.entries()).map(([url, data]) => ({
+                    url,
+                    status: data.status,
+                    depth: data.depth,
+                    children: data.children
+                }))
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = `site-analysis-${new Date().toISOString().slice(0, 10)}.json`;
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+            showToast('Results exported');
+        }
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Site Analyzer","description":"Analyze website structure and find all internal links with broken link detection.","url":"https://passive.hardikkanajariya.in/site-analyzer/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

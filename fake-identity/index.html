@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Identity Generator - Random Persona Generator | PassiveTools</title>
+    <meta name="description"
+        content="Generate realistic fake identities for testing, privacy, and development. Random names, addresses, phone numbers, and more. All data is fictional.">
+    <meta name="keywords"
+        content="fake identity generator, random name generator, fake address, test data generator, persona generator">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/fake-identity/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+
+        .identity-field {
+            transition: all 0.2s;
+        }
+
+        .identity-field:hover {
+            background: #f5f3ff;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Fake Identity</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Fake Identity Generator</h1>
+                    <p class="text-gray-600 mb-6">Generate realistic fictional identities for testing and privacy
+                        purposes.</p>
+
+                    <!-- Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                            <select id="gender"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <option value="random">Random</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                            <select id="country"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="IN">India</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Age Range</label>
+                            <select id="ageRange"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                <option value="18-25">18-25</option>
+                                <option value="26-35" selected>26-35</option>
+                                <option value="36-45">36-45</option>
+                                <option value="46-60">46-60</option>
+                                <option value="60+">60+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="generateIdentity()"
+                        class="w-full px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Generate New Identity
+                    </button>
+
+                    <!-- Results -->
+                    <div id="results" class="mt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-gray-900">Generated Identity</h3>
+                            <div class="flex gap-2">
+                                <button onclick="copyAll()"
+                                    class="px-3 py-1.5 text-sm bg-violet-100 hover:bg-violet-200 text-violet-700 rounded-lg transition-colors">
+                                    Copy All
+                                </button>
+                                <button onclick="downloadJSON()"
+                                    class="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                                    Download JSON
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Personal Info -->
+                            <div class="space-y-3">
+                                <h4 class="font-medium text-gray-700 text-sm uppercase tracking-wide">Personal
+                                    Information</h4>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Full Name</p>
+                                        <p id="fullName" class="font-medium text-gray-900">-</p>
+                                    </div>
+                                    <button onclick="copyField('fullName')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Date of Birth</p>
+                                        <p id="dob" class="font-medium text-gray-900">-</p>
+                                    </div>
+                                    <button onclick="copyField('dob')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Age</p>
+                                        <p id="age" class="font-medium text-gray-900">-</p>
+                                    </div>
+                                    <button onclick="copyField('age')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Gender</p>
+                                        <p id="genderDisplay" class="font-medium text-gray-900">-</p>
+                                    </div>
+                                    <button onclick="copyField('genderDisplay')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div class="space-y-3">
+                                <h4 class="font-medium text-gray-700 text-sm uppercase tracking-wide">Contact
+                                    Information</h4>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Email</p>
+                                        <p id="email" class="font-medium text-gray-900 break-all">-</p>
+                                    </div>
+                                    <button onclick="copyField('email')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Phone</p>
+                                        <p id="phone" class="font-medium text-gray-900">-</p>
+                                    </div>
+                                    <button onclick="copyField('phone')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Address</p>
+                                        <p id="address" class="font-medium text-gray-900 text-sm">-</p>
+                                    </div>
+                                    <button onclick="copyField('address')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="identity-field flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Username</p>
+                                        <p id="username" class="font-medium text-gray-900">-</p>
+                                    </div>
+                                    <button onclick="copyField('username')"
+                                        class="p-1.5 text-gray-400 hover:text-violet-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Info -->
+                        <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="identity-field p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">SSN (Fake)</p>
+                                <p id="ssn" class="font-medium text-gray-900 font-mono">-</p>
+                            </div>
+                            <div class="identity-field p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Credit Card (Fake)</p>
+                                <p id="cc" class="font-medium text-gray-900 font-mono text-sm">-</p>
+                            </div>
+                            <div class="identity-field p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Occupation</p>
+                                <p id="occupation" class="font-medium text-gray-900 text-sm">-</p>
+                            </div>
+                            <div class="identity-field p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Company</p>
+                                <p id="company" class="font-medium text-gray-900 text-sm">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                        <h4 class="font-semibold text-amber-700 mb-2">⚠️ Disclaimer</h4>
+                        <p class="text-amber-600 text-sm">This tool generates completely fictional data for testing and
+                            privacy purposes only. Do NOT use this data for fraud, identity theft, or any illegal
+                            activities. All generated information is random and does not represent real people.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Use Cases</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Software testing</li>
+                        <li>• Form validation</li>
+                        <li>• Database seeding</li>
+                        <li>• Privacy protection</li>
+                        <li>• Demo data</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/username-generator/" class="text-violet-600 hover:underline text-sm">Username
+                                Generator</a></li>
+                        <li><a href="/password-generator/" class="text-violet-600 hover:underline text-sm">Password
+                                Generator</a></li>
+                        <li><a href="/lorem-ipsum/" class="text-violet-600 hover:underline text-sm">Lorem Ipsum</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let currentIdentity = {};
+
+        const data = {
+            maleFirstNames: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua'],
+            femaleFirstNames: ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Barbara', 'Elizabeth', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Lisa', 'Nancy', 'Betty', 'Margaret', 'Sandra', 'Ashley', 'Kimberly', 'Emily', 'Donna', 'Michelle'],
+            lastNames: ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'],
+            streets: ['Main St', 'Oak Ave', 'Maple Dr', 'Cedar Ln', 'Pine St', 'Elm St', 'Washington Ave', 'Park Rd', 'Lake Dr', 'Hill St', 'River Rd', 'Forest Ave', 'Sunset Blvd', 'Highland Ave', 'Valley Rd'],
+            cities: {
+                US: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Austin'],
+                UK: ['London', 'Birmingham', 'Manchester', 'Leeds', 'Liverpool', 'Newcastle', 'Bristol', 'Sheffield', 'Edinburgh', 'Glasgow'],
+                CA: ['Toronto', 'Montreal', 'Vancouver', 'Calgary', 'Edmonton', 'Ottawa', 'Winnipeg', 'Quebec City', 'Hamilton', 'Victoria'],
+                AU: ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Gold Coast', 'Canberra', 'Newcastle', 'Hobart', 'Darwin'],
+                DE: ['Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt', 'Stuttgart', 'Düsseldorf', 'Leipzig', 'Dortmund', 'Essen'],
+                FR: ['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Bordeaux', 'Lille'],
+                IN: ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow']
+            },
+            occupations: ['Software Engineer', 'Teacher', 'Nurse', 'Accountant', 'Marketing Manager', 'Sales Representative', 'Designer', 'Project Manager', 'Data Analyst', 'Consultant', 'Writer', 'Chef', 'Electrician', 'Lawyer', 'Doctor'],
+            companies: ['TechCorp Inc', 'Global Solutions', 'Innovate Labs', 'Digital Dynamics', 'NextGen Systems', 'Prime Services', 'Elite Consulting', 'Alpha Industries', 'Summit Group', 'Horizon Partners'],
+            emailDomains: ['gmail.com', 'yahoo.com', 'outlook.com', 'mail.com', 'proton.me', 'icloud.com']
+        };
+
+        function random(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateIdentity() {
+            const genderSelect = document.getElementById('gender').value;
+            const country = document.getElementById('country').value;
+            const ageRange = document.getElementById('ageRange').value;
+
+            // Gender
+            const gender = genderSelect === 'random' ? (Math.random() > 0.5 ? 'male' : 'female') : genderSelect;
+
+            // Name
+            const firstName = gender === 'male' ? random(data.maleFirstNames) : random(data.femaleFirstNames);
+            const lastName = random(data.lastNames);
+            const fullName = `${firstName} ${lastName}`;
+
+            // Age & DOB
+            let minAge, maxAge;
+            switch (ageRange) {
+                case '18-25': minAge = 18; maxAge = 25; break;
+                case '26-35': minAge = 26; maxAge = 35; break;
+                case '36-45': minAge = 36; maxAge = 45; break;
+                case '46-60': minAge = 46; maxAge = 60; break;
+                case '60+': minAge = 60; maxAge = 80; break;
+                default: minAge = 18; maxAge = 65;
+            }
+            const age = randomNum(minAge, maxAge);
+            const birthYear = new Date().getFullYear() - age;
+            const birthMonth = randomNum(1, 12);
+            const birthDay = randomNum(1, 28);
+            const dob = `${birthMonth.toString().padStart(2, '0')}/${birthDay.toString().padStart(2, '0')}/${birthYear}`;
+
+            // Address
+            const streetNum = randomNum(100, 9999);
+            const street = random(data.streets);
+            const city = random(data.cities[country] || data.cities.US);
+            const zip = randomNum(10000, 99999);
+            const address = `${streetNum} ${street}, ${city}, ${country} ${zip}`;
+
+            // Contact
+            const phone = `(${randomNum(200, 999)}) ${randomNum(200, 999)}-${randomNum(1000, 9999)}`;
+            const emailBase = `${firstName.toLowerCase()}${lastName.toLowerCase()}${randomNum(1, 999)}`;
+            const email = `${emailBase}@${random(data.emailDomains)}`;
+            const username = `${firstName.toLowerCase()}${randomNum(10, 999)}`;
+
+            // Fake SSN
+            const ssn = `${randomNum(100, 999)}-${randomNum(10, 99)}-${randomNum(1000, 9999)}`;
+
+            // Fake CC (not valid)
+            const cc = `4${randomNum(100, 999)} ${randomNum(1000, 9999)} ${randomNum(1000, 9999)} ${randomNum(1000, 9999)}`;
+
+            // Work
+            const occupation = random(data.occupations);
+            const company = random(data.companies);
+
+            // Store current identity
+            currentIdentity = {
+                fullName, firstName, lastName, gender: gender.charAt(0).toUpperCase() + gender.slice(1),
+                dob, age, email, phone, address, username, ssn, cc, occupation, company, country
+            };
+
+            // Update UI
+            document.getElementById('fullName').textContent = fullName;
+            document.getElementById('dob').textContent = dob;
+            document.getElementById('age').textContent = age + ' years';
+            document.getElementById('genderDisplay').textContent = currentIdentity.gender;
+            document.getElementById('email').textContent = email;
+            document.getElementById('phone').textContent = phone;
+            document.getElementById('address').textContent = address;
+            document.getElementById('username').textContent = username;
+            document.getElementById('ssn').textContent = ssn;
+            document.getElementById('cc').textContent = cc;
+            document.getElementById('occupation').textContent = occupation;
+            document.getElementById('company').textContent = company;
+        }
+
+        function copyField(fieldId) {
+            const text = document.getElementById(fieldId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied!');
+            });
+        }
+
+        function copyAll() {
+            const text = Object.entries(currentIdentity)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n');
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('All fields copied!');
+            });
+        }
+
+        function downloadJSON() {
+            const blob = new Blob([JSON.stringify(currentIdentity, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'fake-identity.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded!');
+        }
+
+        // Generate on load
+        generateIdentity();
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Fake Identity Generator","description":"Generate realistic fictional identities for testing and privacy purposes.","url":"https://passive.hardikkanajariya.in/fake-identity/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>
