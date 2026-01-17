@@ -16,7 +16,18 @@
   - [Mobile Banner 320x50](#6-mobile-banner-320x50)
   - [Banner 300x250](#7-banner-300x250-medium-rectangle)
   - [Direct Link](#8-direct-link)
+- [JuicyAds](#juicyads)
+  - [Site Verification](#site-verification)
+  - [PopUnders v3](#1-popunders-v3)
+  - [Click-under v3.2P](#2-click-under-v32p-tag-based)
+  - [Display Banner 632x190](#3-display-banner-632x190)
+- [TrafficStars](#trafficstars) ⏳
+- [PopAds.net](#popadsnet) ⏳
+- [A-ADS (Crypto)](#a-ads-crypto) ⏳
+- [Rotate4All](#rotate4all)
 - [Placement Guide](#placement-guide)
+- [Network Status](#network-status-overview)
+- [Recommended Ad Stack](#recommended-ad-stack)
 
 ---
 
@@ -244,34 +255,174 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 | Social Bar | Auto | `066fefb2005b66dd6bb910cac5faa9ff` |
 | Interstitial | Fullscreen | `88b4ecec127d7745b7a8d8a4ea4017f6` |
 | Direct Link | URL | `ba588c7082379404e4ff4358b3eb9355` |
+| JuicyAds Banner | 632×190 | Zone: `1109381` |
+| JuicyAds PopUnder | Auto | `44640333y244u4r2p28403d494` |
+| Rotate4All PTP | URL | `promote-299080` |
 
 ---
 
------------- Juicy Ads ------------
-verification header: 
+## JuicyAds
+
+### Site Verification
+
+**Required:** Add to `<head>` section of all pages for verification.
+
+```html
 <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+```
 
-<!-- JuicyAds PopUnders v3 Start -->
+---
+
+### 1. PopUnders v3
+
+**Type:** Pop-under ad  
+**Best For:** All pages  
+**Frequency:** 1x per session recommended
+
+```html
+<!-- JuicyAds PopUnders v3 -->
 <script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333y244u4r2p28403d494&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
-<!-- JuicyAds PopUnders v3 End -->
+```
 
-<!-- JuicyAds v3.2P Start -->
+**Placement:** Add before `</body>` tag.
+
+---
+
+### 2. Click-under v3.2P (Tag-based)
+
+**Type:** Click-under (triggers on `<a>` and `<img>` clicks)  
+**Best For:** Pages with many clickable elements  
+**Behavior:** Opens ad on user interaction
+
+```html
+<!-- JuicyAds v3.2P Click-under -->
 <script type="text/javascript">
 var juicy_tags = ['a', 'img'];
 </script>
 <script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333y244u4r2p28403d494&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
-<!-- JuicyAds v3.2P End -->
+```
 
-<!-- JuicyAds v3.0 -->
+> ⚠️ **Note:** Use EITHER PopUnders v3 OR Click-under v3.2P, not both on the same page.
+
+---
+
+### 3. Display Banner 632x190
+
+**Dimensions:** 632 × 190 px  
+**Ad Zone ID:** `1109381`  
+**Best For:** Header, in-content, above fold  
+**Device:** Desktop
+
+```html
+<!-- JuicyAds Display Banner 632x190 -->
 <script type="text/javascript" data-cfasync="false" async src="https://poweredby.jads.co/js/jads.js"></script>
 <ins id="1109381" data-width="632" data-height="190"></ins>
-<script type="text/javascript" data-cfasync="false" async>(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1109381});</script>
-<!--JuicyAds END-->
------------- TrafficStars ------------
---- pending approval ---
------------- PopAds.net ------------
---- pending approval ---
------------- A-ADS (Crypto) ------------
---- pending approval ---
------------- Rotate4All ------------
+<script type="text/javascript" data-cfasync="false" async>
+  (adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1109381});
+</script>
+```
+
+---
+
+## TrafficStars
+
+> ⏳ **Status:** Pending Approval
+
+*Ad codes will be added once approved.*
+
+---
+
+## PopAds.net
+
+> ⏳ **Status:** Pending Approval
+
+*Ad codes will be added once approved.*
+
+---
+
+## A-ADS (Crypto)
+
+> ⏳ **Status:** Pending Approval
+
+*Ad codes will be added once approved.*
+
+**Best For:** Crypto calculator tools, Bitcoin-related content
+
+---
+
+## Rotate4All
+
+### PTP (Paid to Promote) Link
+
+**Type:** Traffic exchange / PTP link  
+**Best For:** Footer links, "Partners" section, interstitial pages
+
+```
 https://www.rotate4all.com/ptp/promote-299080
+```
+
+**Example usage:**
+
+```html
+<a href="https://www.rotate4all.com/ptp/promote-299080" 
+   target="_blank" 
+   rel="noopener nofollow">
+  Visit our partners
+</a>
+```
+
+> 💡 **Tip:** Use on processing/countdown pages where users wait.
+
+---
+
+## Network Status Overview
+
+| Network | Status | Ad Types Available |
+|---------|--------|-------------------|
+| ✅ Adsterra | Active | Banners, Native, Social Bar, Interstitial, Direct Link |
+| ✅ JuicyAds | Active | PopUnders, Click-under, Display Banners |
+| ⏳ TrafficStars | Pending | - |
+| ⏳ PopAds.net | Pending | - |
+| ⏳ A-ADS | Pending | - |
+| ✅ Rotate4All | Active | PTP Links |
+
+---
+
+## Recommended Ad Stack
+
+### Per Page (Optimal Revenue)
+
+| Position | Network | Ad Type |
+|----------|---------|---------|
+| `<head>` | JuicyAds | Site verification meta |
+| Header | Adsterra | 468x60 Banner |
+| Sidebar | Adsterra | 160x300 + 300x250 |
+| In-content | Adsterra | Native Banner |
+| In-content | JuicyAds | 632x190 Banner |
+| Footer | Adsterra | 468x60 Banner |
+| Footer link | Rotate4All | PTP Link |
+| Before `</body>` | Adsterra | Social Bar |
+| Before `</body>` | JuicyAds | PopUnder (OR Click-under) |
+
+### Mobile Specific
+
+| Position | Network | Ad Type |
+|----------|---------|---------|
+| Header | Adsterra | 320x50 Mobile Banner |
+| In-content | Adsterra | 300x250 Banner |
+| Sticky bottom | Adsterra | 320x50 Mobile Banner |
+| Before `</body>` | Adsterra | Social Bar |
+
+---
+
+## Quick Implementation Checklist
+
+- [ ] Add JuicyAds verification meta to all pages
+- [ ] Add Adsterra Social Bar to all pages
+- [ ] Add JuicyAds PopUnder OR Click-under (not both)
+- [ ] Place 300x250 banners on tool pages
+- [ ] Add Native ads between content sections
+- [ ] Use Direct Link on download buttons
+- [ ] Add Rotate4All PTP link in footer
+- [ ] Setup mobile-specific banners (320x50)
+- [ ] Add Interstitial on processing pages only
