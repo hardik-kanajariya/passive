@@ -93,84 +93,84 @@ const AdManager = {
         this.loaded['popunderTrigger'] = true;
     },
 
-    // Adsterra: Banner 468x60
-    loadAdsterra468x60(containerId) {
-        if (this.loaded[containerId]) return;
-        const container = document.getElementById(containerId);
-        if (!container) return;
+    // Queue for loading Adsterra ads sequentially (they use global atOptions)
+    adsterraQueue: [],
+    adsterraLoading: false,
 
+    // Process Adsterra queue one at a time
+    processAdsterraQueue() {
+        if (this.adsterraLoading || this.adsterraQueue.length === 0) return;
+        
+        this.adsterraLoading = true;
+        const { containerId, key, width, height, scriptUrl } = this.adsterraQueue.shift();
+        
+        const container = document.getElementById(containerId);
+        if (!container) {
+            this.adsterraLoading = false;
+            this.processAdsterraQueue();
+            return;
+        }
+
+        // Set options before loading script
         window.atOptions = {
-            'key': '2fd5ef6df9cb74880bb92917f2d93d06',
+            'key': key,
             'format': 'iframe',
-            'height': 60,
-            'width': 468,
+            'height': height,
+            'width': width,
             'params': {}
         };
 
         const script = document.createElement('script');
-        script.src = 'https://www.highperformanceformat.com/2fd5ef6df9cb74880bb92917f2d93d06/invoke.js';
+        script.src = scriptUrl;
+        script.onload = () => {
+            this.adsterraLoading = false;
+            // Small delay before next ad to ensure proper initialization
+            setTimeout(() => this.processAdsterraQueue(), 100);
+        };
+        script.onerror = () => {
+            this.logError(containerId, 'Adsterra script failed to load');
+            this.adsterraLoading = false;
+            setTimeout(() => this.processAdsterraQueue(), 100);
+        };
         container.appendChild(script);
         this.loaded[containerId] = true;
+    },
+
+    // Queue an Adsterra ad for loading
+    queueAdsterra(containerId, key, width, height) {
+        if (this.loaded[containerId]) return;
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        this.adsterraQueue.push({
+            containerId,
+            key,
+            width,
+            height,
+            scriptUrl: `https://www.highperformanceformat.com/${key}/invoke.js`
+        });
+        
+        this.processAdsterraQueue();
+    },
+
+    // Adsterra: Banner 468x60
+    loadAdsterra468x60(containerId) {
+        this.queueAdsterra(containerId, '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60);
     },
 
     // Adsterra: Banner 160x300
     loadAdsterra160x300(containerId) {
-        if (this.loaded[containerId]) return;
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        window.atOptions = {
-            'key': '820015608f3c05c78d776d295a0323a9',
-            'format': 'iframe',
-            'height': 300,
-            'width': 160,
-            'params': {}
-        };
-
-        const script = document.createElement('script');
-        script.src = 'https://www.highperformanceformat.com/820015608f3c05c78d776d295a0323a9/invoke.js';
-        container.appendChild(script);
-        this.loaded[containerId] = true;
+        this.queueAdsterra(containerId, '820015608f3c05c78d776d295a0323a9', 160, 300);
     },
 
     // Adsterra: Banner 300x250
     loadAdsterra300x250(containerId) {
-        if (this.loaded[containerId]) return;
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        window.atOptions = {
-            'key': 'c44a710d9fa8c03495f7861c0d3c84ac',
-            'format': 'iframe',
-            'height': 250,
-            'width': 300,
-            'params': {}
-        };
-
-        const script = document.createElement('script');
-        script.src = 'https://www.highperformanceformat.com/c44a710d9fa8c03495f7861c0d3c84ac/invoke.js';
-        container.appendChild(script);
-        this.loaded[containerId] = true;
+        this.queueAdsterra(containerId, 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
     },
 
     // Adsterra: Mobile Banner 320x50
     loadAdsterra320x50(containerId) {
-        if (this.loaded[containerId]) return;
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        window.atOptions = {
-            'key': '9009f28e9a070214cd6bbd79b4b7308d',
-            'format': 'iframe',
-            'height': 50,
-            'width': 320,
-            'params': {}
-        };
-
-        const script = document.createElement('script');
-        script.src = 'https://www.highperformanceformat.com/9009f28e9a070214cd6bbd79b4b7308d/invoke.js';
-        container.appendChild(script);
-        this.loaded[containerId] = true;
+        this.queueAdsterra(containerId, '9009f28e9a070214cd6bbd79b4b7308d', 320, 50);
     },
 
     // Adsterra: Native Banner
@@ -276,7 +276,12 @@ const AdManager = {
         // Load PopUnder (frequency limited)
         this.loadJuicyPopunder();
 
-        // Desktop ads
+        // Load sidebar ads (these are the actual container IDs used in HTML pages)
+        // ad-sidebar is typically 300x250 or similar
+        this.loadAdsterra300x250('ad-sidebar');
+        this.loadAdsterra300x250('ad-sidebar-2');
+
+        // Desktop-specific ads
         if (!isMobile) {
             this.loadAdsterra468x60('ad-header');
             this.loadAdsterra160x300('ad-sidebar-skyscraper');
@@ -311,7 +316,7 @@ const AdManager = {
 
     // Check if ads loaded and show fallback if blocked
     checkAdStatus() {
-        const adContainers = ['ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer'];
+        const adContainers = ['ad-sidebar', 'ad-sidebar-2', 'ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer'];
         let adsBlocked = true;
 
         adContainers.forEach(id => {
@@ -332,7 +337,7 @@ const AdManager = {
         console.log('Loaded scripts:', this.loaded);
         console.log('Errors:', this.errors);
         console.log('Ad containers found:');
-        ['ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer',
+        ['ad-sidebar', 'ad-sidebar-2', 'ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer',
             'ad-mobile-top', 'ad-mobile-content', 'ad-mobile-sticky', 'ad-native', 'ad-juicy-banner']
             .forEach(id => {
                 const el = document.getElementById(id);

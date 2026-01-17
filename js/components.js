@@ -28,13 +28,22 @@ const Components = {
             // Execute any scripts in the loaded component
             const scripts = element.querySelectorAll('script');
             scripts.forEach(script => {
-                const newScript = document.createElement('script');
-                if (script.src) {
-                    newScript.src = script.src;
-                } else {
-                    newScript.textContent = script.textContent;
+                try {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    // Remove old script and append new one to parent
+                    const parent = script.parentNode;
+                    if (parent) {
+                        parent.removeChild(script);
+                        parent.appendChild(newScript);
+                    }
+                } catch (e) {
+                    console.warn('Failed to execute component script:', e);
                 }
-                script.parentNode.replaceChild(newScript, script);
             });
         }
 
