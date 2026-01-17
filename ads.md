@@ -7,6 +7,10 @@
 
 ## Table of Contents
 
+- [Popunder Smart Links (NEW)](#popunder-smart-links-new)
+  - [Smartlink 1](#smartlink-1-primary)
+  - [Smartlink 2](#smartlink-2-secondary)
+  - [Anti-Adblock Script](#anti-adblock-script)
 - [Adsterra](#adsterra)
   - [Social Bar (Pop-under)](#1-social-bar--pop-under)
   - [Banner 468x60](#2-banner-468x60-leaderboard-small)
@@ -28,6 +32,49 @@
 - [Placement Guide](#placement-guide)
 - [Network Status](#network-status-overview)
 - [Recommended Ad Stack](#recommended-ad-stack)
+
+---
+
+## Popunder Smart Links (NEW)
+
+### Smartlink 1 (Primary)
+
+**Type:** Popunder Direct URL  
+**Network:** BiographyGridTelegram  
+**Best For:** First user click, timed auto-trigger
+
+```
+https://biographygridetelegram.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
+```
+
+**Usage:** Use as direct URL for popunder on user click or timed trigger.
+
+---
+
+### Smartlink 2 (Secondary)
+
+**Type:** Popunder Direct URL  
+**Network:** BiographyGridTelegram  
+**Best For:** Rotation with Smartlink 1
+
+```
+https://biographygridetelegram.com/gzfm2zz1b?key=c54407e930a6fcd009f2749f33eb3aa5
+```
+
+**Usage:** Rotate randomly with Smartlink 1 for better coverage.
+
+---
+
+### Anti-Adblock Script
+
+**Type:** Anti-Adblock JS SYNC  
+**Best For:** Bypass ad blockers, ensure ad delivery
+
+```html
+<script src="https://biographygridetelegram.com/06/6f/ef/066fefb2005b66dd6bb910cac5faa9ff.js"></script>
+```
+
+**Placement:** Add before `</body>` tag on all pages. Loaded automatically via `ads.js`.
 
 ---
 

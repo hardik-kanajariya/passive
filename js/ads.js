@@ -1,6 +1,6 @@
 /**
  * Ad Manager - Handles all ad network integrations
- * Only includes active networks: Adsterra, JuicyAds, Rotate4All
+ * Networks: Adsterra, JuicyAds, Rotate4All, Popunder Smart Links
  */
 
 const AdManager = {
@@ -17,6 +17,50 @@ const AdManager = {
             return true;
         }
         return false;
+    },
+
+    // Popunder Smart Link URLs
+    popunderUrls: [
+        'https://biographygridetelegram.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355',
+        'https://biographygridetelegram.com/gzfm2zz1b?key=c54407e930a6fcd009f2749f33eb3aa5'
+    ],
+
+    // Load Anti-Adblock Popunder Script
+    loadAntiAdblockPopunder() {
+        if (this.loaded['antiAdblockPopunder']) return;
+
+        const script = document.createElement('script');
+        script.src = 'https://biographygridetelegram.com/06/6f/ef/066fefb2005b66dd6bb910cac5faa9ff.js';
+        document.body.appendChild(script);
+        this.loaded['antiAdblockPopunder'] = true;
+    },
+
+    // Trigger popunder on user interaction (click)
+    triggerPopunder() {
+        if (!this.shouldLoadPopunder()) return;
+
+        // Select random URL from popunder list
+        const randomUrl = this.popunderUrls[Math.floor(Math.random() * this.popunderUrls.length)];
+
+        // Open popunder
+        const popunder = window.open(randomUrl, '_blank');
+        if (popunder) {
+            popunder.blur();
+            window.focus();
+        }
+    },
+
+    // Setup popunder trigger on first user click
+    setupPopunderTrigger() {
+        if (this.loaded['popunderTrigger']) return;
+
+        const triggerPopunder = () => {
+            this.triggerPopunder();
+            document.removeEventListener('click', triggerPopunder);
+        };
+
+        document.addEventListener('click', triggerPopunder, { once: true });
+        this.loaded['popunderTrigger'] = true;
     },
 
     // Adsterra: Banner 468x60
@@ -192,6 +236,12 @@ const AdManager = {
 
         // Always load Social Bar
         this.loadAdsterraSocialBar();
+
+        // Load Anti-Adblock Popunder Script
+        this.loadAntiAdblockPopunder();
+
+        // Setup popunder trigger on first click
+        this.setupPopunderTrigger();
 
         // Load PopUnder (frequency limited)
         this.loadJuicyPopunder();
