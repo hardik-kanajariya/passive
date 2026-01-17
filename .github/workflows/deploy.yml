@@ -1,0 +1,108 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy site files
+        run: |
+          rsync -avz --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/passive.hardikkanajariya.in/
+
+      - name: Configure Nginx
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+          
+          # Create site directory if it doesn't exist
+          sudo mkdir -p /var/www/passive.hardikkanajariya.in
+          sudo chown -R $USER:$USER /var/www/passive.hardikkanajariya.in
+          
+          # Create Nginx config using cat with sudo tee
+          cat << 'NGINX_CONFIG' | sudo tee /etc/nginx/sites-available/passive.hardikkanajariya.in
+          server {
+              listen 80;
+              listen [::]:80;
+              
+              server_name passive.hardikkanajariya.in;
+              root /var/www/passive.hardikkanajariya.in;
+              index index.html landing-page.html;
+              
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+              
+              # Cache static assets
+              location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$ {
+                  expires 30d;
+                  add_header Cache-Control "public, immutable";
+              }
+              
+              # Security headers
+              add_header X-Frame-Options "SAMEORIGIN" always;
+              add_header X-Content-Type-Options "nosniff" always;
+              add_header X-XSS-Protection "1; mode=block" always;
+              
+              # Gzip compression
+              gzip on;
+              gzip_vary on;
+              gzip_min_length 1024;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/json application/xml;
+              
+              # Error pages
+              error_page 404 /404.html;
+              error_page 500 502 503 504 /50x.html;
+          }
+          NGINX_CONFIG
+          
+          # Enable the site by creating symlink
+          sudo ln -sf /etc/nginx/sites-available/passive.hardikkanajariya.in /etc/nginx/sites-enabled/
+          
+          # Test Nginx configuration
+          sudo nginx -t
+          
+          # Reload Nginx to apply changes
+          sudo systemctl reload nginx
+          
+          ENDSSH
+
+      - name: Setup SSL with Certbot (optional - runs only if certbot is installed)
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+          
+          # Check if certbot is installed and SSL cert doesn't exist
+          if command -v certbot &> /dev/null; then
+            if [ ! -f /etc/letsencrypt/live/passive.hardikkanajariya.in/fullchain.pem ]; then
+              echo "Setting up SSL certificate..."
+              sudo certbot --nginx -d passive.hardikkanajariya.in --non-interactive --agree-tos --email ${{ secrets.SSL_EMAIL }} || echo "SSL setup skipped or failed"
+            else
+              echo "SSL certificate already exists"
+            fi
+          else
+            echo "Certbot not installed, skipping SSL setup"
+          fi
+          
+          ENDSSH
+
+      - name: Cleanup SSH
+        if: always()
+        run: rm -rf ~/.ssh/id_rsa
