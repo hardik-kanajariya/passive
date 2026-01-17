@@ -4,6 +4,12 @@
  */
 
 const AdManager = {
+    config: {
+        enableAdsterra: true,
+        enableJuicyAds: false,
+        enableSmartLinks: false,
+        enableAntiAdblock: false
+    },
     loaded: {},
     errors: [],
 
@@ -49,6 +55,7 @@ const AdManager = {
 
     // Load Anti-Adblock Popunder Script
     loadAntiAdblockPopunder() {
+        if (!this.config.enableAntiAdblock) return;
         if (this.loaded['antiAdblockPopunder']) return;
 
         const script = this.loadScript(
@@ -62,6 +69,7 @@ const AdManager = {
 
     // Trigger popunder on user interaction (click)
     triggerPopunder() {
+        if (!this.config.enableSmartLinks) return;
         if (!this.shouldLoadPopunder()) return;
 
         // Select random URL from popunder list
@@ -81,6 +89,7 @@ const AdManager = {
 
     // Setup popunder trigger on first user click
     setupPopunderTrigger() {
+        if (!this.config.enableSmartLinks) return;
         if (this.loaded['popunderTrigger']) return;
 
         const self = this;
@@ -175,6 +184,7 @@ const AdManager = {
 
     // Adsterra: Native Banner
     loadAdsterraNative(containerId) {
+        if (!this.config.enableAdsterra) return;
         if (this.loaded[containerId]) return;
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -194,6 +204,7 @@ const AdManager = {
 
     // Adsterra: Social Bar
     loadAdsterraSocialBar() {
+        if (!this.config.enableAdsterra) return;
         if (this.loaded['socialbar']) return;
 
         const script = document.createElement('script');
@@ -204,6 +215,7 @@ const AdManager = {
 
     // Adsterra: Interstitial
     loadAdsterraInterstitial() {
+        if (!this.config.enableAdsterra) return;
         if (this.loaded['interstitial']) return;
 
         const script = document.createElement('script');
@@ -214,6 +226,7 @@ const AdManager = {
 
     // JuicyAds: PopUnder
     loadJuicyPopunder() {
+        if (!this.config.enableJuicyAds) return;
         if (!this.shouldLoadPopunder()) return;
         if (this.loaded['juicypop']) return;
 
@@ -226,6 +239,7 @@ const AdManager = {
 
     // JuicyAds: Banner 632x190
     loadJuicyBanner(containerId) {
+        if (!this.config.enableJuicyAds) return;
         if (this.loaded[containerId]) return;
         const container = document.getElementById(containerId);
         if (!container) return;
