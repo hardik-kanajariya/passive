@@ -491,6 +491,12 @@ const AdManager = {
         // Initialize all revenue optimization features
         this.initRevenueOptimization();
 
+        // Create sticky sidebar for desktop
+        this.createStickySidebarAd();
+
+        // Monetize download buttons
+        this.monetizeDownloads();
+
         // Log initialization
         console.log('[AdManager] Initialized for page type:', pageType, 'Mobile:', window.innerWidth < 768);
 
@@ -861,8 +867,177 @@ const AdManager = {
         this.setupAdRefresh();
         this.setupBackButtonAd();
         this.setupTabFocusAd();
+        this.setupInactivityAd();
+        this.setupCopyPasteMonetization();
+        this.setupSecondPopunder();
+        this.setupPageTransitionAd();
 
         console.log('[AdManager] Revenue optimization features initialized');
+    },
+
+    // 8. Inactivity Detection - Show ad after user is idle
+    setupInactivityAd() {
+        if (this.loaded['inactivityAd']) return;
+
+        let inactivityTimer;
+        const inactivityTime = 45000; // 45 seconds of inactivity
+        const self = this;
+
+        const resetTimer = () => {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (self.shouldShowSessionAd('inactivityAd')) {
+                    self.showInactivityAd();
+                }
+            }, inactivityTime);
+        };
+
+        // Reset timer on user activity
+        ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetTimer, { passive: true });
+        });
+
+        resetTimer();
+        this.loaded['inactivityAd'] = true;
+    },
+
+    showInactivityAd() {
+        // Show a subtle reminder ad
+        const reminder = document.createElement('div');
+        reminder.id = 'ad-inactivity';
+        reminder.className = 'fixed bottom-4 left-4 z-50 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden max-w-sm';
+        reminder.innerHTML = `
+            <div class="flex justify-between items-center bg-gray-50 px-3 py-2 border-b">
+                <span class="text-xs text-gray-500">💡 You might like this</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <div id="ad-inactivity-content" style="min-height: 250px;"></div>
+        `;
+        document.body.appendChild(reminder);
+
+        setTimeout(() => {
+            this.loadAdsterraViaIframe('ad-inactivity-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
+        }, 100);
+
+        // Auto-close after 25 seconds
+        setTimeout(() => {
+            if (reminder.parentElement) {
+                reminder.remove();
+            }
+        }, 25000);
+    },
+
+    // 9. Copy/Paste Monetization - Show ad when user copies content
+    setupCopyPasteMonetization() {
+        if (this.loaded['copyPaste']) return;
+
+        const self = this;
+        document.addEventListener('copy', () => {
+            if (self.shouldShowSessionAd('copyAd')) {
+                // Delay slightly so copy completes first
+                setTimeout(() => {
+                    self.triggerPopunder();
+                }, 500);
+            }
+        });
+
+        this.loaded['copyPaste'] = true;
+    },
+
+    // 10. Second Popunder - Trigger another popunder after significant engagement
+    setupSecondPopunder() {
+        if (this.loaded['secondPopunder']) return;
+
+        let clickCount = 0;
+        const self = this;
+
+        document.addEventListener('click', () => {
+            clickCount++;
+            // After 10 clicks, show another popunder (if enough time has passed)
+            if (clickCount === 10) {
+                const lastSecondPop = localStorage.getItem('lastSecondPopunder');
+                const now = Date.now();
+                const twoHoursMs = 2 * 60 * 60 * 1000;
+
+                if (!lastSecondPop || (now - parseInt(lastSecondPop)) > twoHoursMs) {
+                    localStorage.setItem('lastSecondPopunder', now.toString());
+                    setTimeout(() => {
+                        const popunder = window.open(self.popunderUrls[0], '_blank');
+                        if (popunder) {
+                            popunder.blur();
+                            window.focus();
+                        }
+                    }, 1000);
+                }
+            }
+        });
+
+        this.loaded['secondPopunder'] = true;
+    },
+
+    // 11. Page Transition Ad - Show interstitial when navigating between pages
+    setupPageTransitionAd() {
+        if (this.loaded['pageTransition']) return;
+
+        const self = this;
+        let navigationCount = parseInt(sessionStorage.getItem('navCount') || '0');
+
+        // Intercept internal link clicks
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Check if internal link
+            if (href.startsWith('/') || href.includes(window.location.hostname)) {
+                navigationCount++;
+                sessionStorage.setItem('navCount', navigationCount.toString());
+
+                // Show interstitial every 5 page navigations
+                if (navigationCount % 5 === 0) {
+                    e.preventDefault();
+                    self.loadAdsterraInterstitial();
+                    // Navigate after a short delay
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1500);
+                }
+            }
+        });
+
+        this.loaded['pageTransition'] = true;
+    },
+
+    // 12. Smart Link in Download Buttons - Redirect downloads through smart link
+    monetizeDownloads() {
+        const downloadButtons = document.querySelectorAll('[data-download], .download-btn, button:contains("Download")');
+        const self = this;
+
+        downloadButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (self.shouldShowSessionAd('downloadAd')) {
+                    // Open smart link first
+                    window.open(self.popunderUrls[0], '_blank');
+                }
+            });
+        });
+    },
+
+    // 13. Sticky Sidebar Ad (for desktop)
+    createStickySidebarAd() {
+        if (window.innerWidth < 1024) return; // Only on large screens
+        if (this.loaded['stickySidebar']) return;
+
+        const existingSidebar = document.querySelector('.lg\\:col-span-1');
+        if (!existingSidebar) return;
+
+        // Make sidebar sticky
+        existingSidebar.style.position = 'sticky';
+        existingSidebar.style.top = '100px';
+
+        this.loaded['stickySidebar'] = true;
     }
 };
 
