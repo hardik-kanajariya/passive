@@ -23,24 +23,45 @@ const Components = {
         for (const element of elements) {
             const componentName = element.dataset.component;
             const html = await this.load(componentName);
+            if (!html || !html.trim()) {
+                continue;
+            }
             element.innerHTML = html;
 
             // Execute any scripts in the loaded component
             const scripts = element.querySelectorAll('script');
             scripts.forEach(script => {
                 try {
+                    if (!script.hasAttribute('data-component-script')) {
+                        return;
+                    }
+
+                    const type = (script.getAttribute('type') || '').trim().toLowerCase();
+                    const isModule = type === 'module';
+                    const isExecutable = !type || type === 'text/javascript' || isModule;
+
+                    if (!isExecutable) {
+                        return;
+                    }
+
+                    if (!script.src) {
+                        const content = script.textContent || '';
+                        const trimmed = content.trim();
+                        if (!trimmed) {
+                            return;
+                        }
+                    }
+
                     const newScript = document.createElement('script');
+                    Array.from(script.attributes).forEach(({ name, value }) => {
+                        newScript.setAttribute(name, value);
+                    });
                     if (script.src) {
                         newScript.src = script.src;
                     } else {
                         newScript.textContent = script.textContent;
                     }
-                    // Remove old script and append new one to parent
-                    const parent = script.parentNode;
-                    if (parent) {
-                        parent.removeChild(script);
-                        parent.appendChild(newScript);
-                    }
+                    script.replaceWith(newScript);
                 } catch (e) {
                     console.warn('Failed to execute component script:', e);
                 }
