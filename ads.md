@@ -251,8 +251,27 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 verification header: 
 <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
 
+<!-- JuicyAds PopUnders v3 Start -->
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333y244u4r2p28403d494&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
+<!-- JuicyAds PopUnders v3 End -->
 
+<!-- JuicyAds v3.2P Start -->
+<script type="text/javascript">
+var juicy_tags = ['a', 'img'];
+</script>
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333y244u4r2p28403d494&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
+<!-- JuicyAds v3.2P End -->
+
+<!-- JuicyAds v3.0 -->
+<script type="text/javascript" data-cfasync="false" async src="https://poweredby.jads.co/js/jads.js"></script>
+<ins id="1109381" data-width="632" data-height="190"></ins>
+<script type="text/javascript" data-cfasync="false" async>(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1109381});</script>
+<!--JuicyAds END-->
 ------------ TrafficStars ------------
+--- pending approval ---
 ------------ PopAds.net ------------
+--- pending approval ---
 ------------ A-ADS (Crypto) ------------
+--- pending approval ---
 ------------ Rotate4All ------------
+https://www.rotate4all.com/ptp/promote-299080
