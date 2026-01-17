@@ -753,17 +753,149 @@
 
     <!-- Search -->
     <script>
-        document.getElementById('search-tools')?.addEventListener('input', function (e) {
-            const query = e.target.value.toLowerCase();
-            const toolLinks = document.querySelectorAll('[href^="/"][href$="/"]');
-            toolLinks.forEach(link => {
-                const text = link.textContent.toLowerCase();
-                if (query.length > 0 && text.includes(query)) {
-                    link.style.background = '#f3e8ff';
-                } else {
-                    link.style.background = '';
+        const allTools = [
+            { name: 'Image Compressor', url: '/image-compressor/', category: 'Image Tools', keywords: 'compress reduce size jpg png webp' },
+            { name: 'Image Resizer', url: '/image-resizer/', category: 'Image Tools', keywords: 'resize scale dimension width height' },
+            { name: 'Image Converter', url: '/image-converter/', category: 'Image Tools', keywords: 'convert jpg png webp gif format' },
+            { name: 'Image to Base64', url: '/image-to-base64/', category: 'Image Tools', keywords: 'encode base64 data uri' },
+            { name: 'Base64 to Image', url: '/base64-to-image/', category: 'Image Tools', keywords: 'decode base64 convert' },
+            { name: 'Color Picker', url: '/color-picker/', category: 'Image Tools', keywords: 'hex rgb hsl pick eyedropper' },
+            { name: 'Color Palette', url: '/color-palette/', category: 'Image Tools', keywords: 'colors scheme generate palette' },
+            { name: 'Gradient Generator', url: '/gradient-generator/', category: 'Image Tools', keywords: 'css gradient linear radial' },
+            { name: 'Favicon Generator', url: '/favicon-generator/', category: 'Image Tools', keywords: 'icon ico website browser' },
+            { name: 'Placeholder Image', url: '/placeholder-image/', category: 'Image Tools', keywords: 'dummy mockup placeholder' },
+            { name: 'ASCII Art', url: '/ascii-art/', category: 'Image Tools', keywords: 'text art convert image' },
+            { name: 'Word Counter', url: '/word-counter/', category: 'Text Tools', keywords: 'count words characters sentences' },
+            { name: 'Character Counter', url: '/character-counter/', category: 'Text Tools', keywords: 'count letters characters' },
+            { name: 'Case Converter', url: '/case-converter/', category: 'Text Tools', keywords: 'uppercase lowercase title case' },
+            { name: 'Text Reverser', url: '/text-reverser/', category: 'Text Tools', keywords: 'reverse flip backwards' },
+            { name: 'Text Repeater', url: '/text-repeater/', category: 'Text Tools', keywords: 'repeat duplicate multiply' },
+            { name: 'Remove Line Breaks', url: '/remove-line-breaks/', category: 'Text Tools', keywords: 'remove newlines single line' },
+            { name: 'Text to Slug', url: '/text-to-slug/', category: 'Text Tools', keywords: 'url slug seo friendly' },
+            { name: 'Lorem Ipsum', url: '/lorem-ipsum/', category: 'Text Tools', keywords: 'dummy text placeholder filler' },
+            { name: 'Notepad', url: '/notepad/', category: 'Text Tools', keywords: 'notes text editor scratch pad' },
+            { name: 'Diff Checker', url: '/diff-checker/', category: 'Text Tools', keywords: 'compare difference text' },
+            { name: 'Text to Speech', url: '/text-to-speech/', category: 'Text Tools', keywords: 'tts speak voice audio' },
+            { name: 'Password Generator', url: '/password-generator/', category: 'Generators', keywords: 'secure random strong password' },
+            { name: 'QR Code Generator', url: '/qr-code-generator/', category: 'Generators', keywords: 'qr code scan barcode' },
+            { name: 'Barcode Generator', url: '/barcode-generator/', category: 'Generators', keywords: 'barcode ean upc code128 code39' },
+            { name: 'UUID Generator', url: '/uuid-generator/', category: 'Generators', keywords: 'guid unique identifier' },
+            { name: 'Hash Generator', url: '/hash-generator/', category: 'Generators', keywords: 'md5 sha1 sha256 sha512 hash' },
+            { name: 'Random Number', url: '/random-number/', category: 'Generators', keywords: 'random number dice lottery' },
+            { name: 'Meta Tag Generator', url: '/meta-tag-generator/', category: 'Generators', keywords: 'seo meta tags html' },
+            { name: 'OG Generator', url: '/og-generator/', category: 'Generators', keywords: 'open graph facebook twitter social' },
+            { name: 'Robots.txt Generator', url: '/robots-txt-generator/', category: 'Generators', keywords: 'robots seo crawler' },
+            { name: 'Sitemap Generator', url: '/sitemap-generator/', category: 'Generators', keywords: 'xml sitemap seo' },
+            { name: 'Cron Generator', url: '/cron-generator/', category: 'Generators', keywords: 'cron job schedule expression' },
+            { name: 'Emoji Picker', url: '/emoji-picker/', category: 'Generators', keywords: 'emoji emoticon copy paste' },
+            { name: 'Age Calculator', url: '/age-calculator/', category: 'Calculators', keywords: 'age birthday years old' },
+            { name: 'BMI Calculator', url: '/bmi-calculator/', category: 'Calculators', keywords: 'bmi body mass index weight' },
+            { name: 'Percentage Calculator', url: '/percentage-calculator/', category: 'Calculators', keywords: 'percent ratio calculate' },
+            { name: 'Discount Calculator', url: '/discount-calculator/', category: 'Calculators', keywords: 'sale discount price off' },
+            { name: 'Tip Calculator', url: '/tip-calculator/', category: 'Calculators', keywords: 'tip gratuity restaurant bill' },
+            { name: 'Loan Calculator', url: '/loan-calculator/', category: 'Calculators', keywords: 'loan mortgage emi payment interest' },
+            { name: 'Date Difference', url: '/date-difference/', category: 'Calculators', keywords: 'days between dates duration' },
+            { name: 'Unit Converter', url: '/unit-converter/', category: 'Calculators', keywords: 'length weight temperature convert' },
+            { name: 'Currency Converter', url: '/currency-converter/', category: 'Calculators', keywords: 'money exchange rate forex' },
+            { name: 'JSON Formatter', url: '/json-formatter/', category: 'Converters', keywords: 'json beautify format pretty' },
+            { name: 'JSON Validator', url: '/json-validator/', category: 'Converters', keywords: 'json validate check syntax' },
+            { name: 'JSON Minifier', url: '/json-minifier/', category: 'Converters', keywords: 'json minify compress' },
+            { name: 'JSON to CSV', url: '/json-to-csv/', category: 'Converters', keywords: 'json csv convert export' },
+            { name: 'CSV to JSON', url: '/csv-to-json/', category: 'Converters', keywords: 'csv json convert import' },
+            { name: 'XML to JSON', url: '/xml-to-json/', category: 'Converters', keywords: 'xml json convert' },
+            { name: 'YAML to JSON', url: '/yaml-to-json/', category: 'Converters', keywords: 'yaml json convert' },
+            { name: 'Markdown to HTML', url: '/markdown-to-html/', category: 'Converters', keywords: 'markdown html convert md' },
+            { name: 'HTML to Markdown', url: '/html-to-markdown/', category: 'Converters', keywords: 'html markdown convert' },
+            { name: 'Base64 Encoder', url: '/base64-encoder/', category: 'Converters', keywords: 'base64 encode decode' },
+            { name: 'URL Encoder', url: '/url-encoder/', category: 'Converters', keywords: 'url encode decode percent' },
+            { name: 'HTML Encoder', url: '/html-encoder/', category: 'Converters', keywords: 'html entities encode decode' },
+            { name: 'Binary Converter', url: '/binary-converter/', category: 'Converters', keywords: 'binary decimal hex convert' },
+            { name: 'Hex Converter', url: '/hex-converter/', category: 'Converters', keywords: 'hexadecimal decimal binary' },
+            { name: 'Color Converter', url: '/color-converter/', category: 'Converters', keywords: 'hex rgb hsl color convert' },
+            { name: 'Timestamp Converter', url: '/timestamp-converter/', category: 'Converters', keywords: 'unix timestamp date epoch' },
+            { name: 'CSS Minifier', url: '/css-minifier/', category: 'Developer', keywords: 'css minify compress' },
+            { name: 'HTML Minifier', url: '/html-minifier/', category: 'Developer', keywords: 'html minify compress' },
+            { name: 'JS Minifier', url: '/js-minifier/', category: 'Developer', keywords: 'javascript minify compress uglify' },
+            { name: 'SQL Formatter', url: '/sql-formatter/', category: 'Developer', keywords: 'sql format beautify query' },
+            { name: 'Regex Tester', url: '/regex-tester/', category: 'Developer', keywords: 'regex regular expression test match' },
+            { name: 'JWT Decoder', url: '/jwt-decoder/', category: 'Developer', keywords: 'jwt token decode parse' },
+            { name: 'IP Lookup', url: '/ip-lookup/', category: 'Developer', keywords: 'ip address location geolocation' },
+            { name: 'Pomodoro Timer', url: '/pomodoro-timer/', category: 'Productivity', keywords: 'timer focus work break productivity' },
+            { name: 'Stopwatch', url: '/stopwatch/', category: 'Productivity', keywords: 'timer stopwatch lap time' },
+            { name: 'Countdown Timer', url: '/countdown-timer/', category: 'Productivity', keywords: 'timer countdown alarm' },
+            { name: 'Typing Test', url: '/typing-test/', category: 'Productivity', keywords: 'typing speed wpm test' }
+        ];
+
+        const searchInput = document.getElementById('search-tools');
+        let searchDropdown = null;
+
+        function createSearchDropdown() {
+            if (searchDropdown) return;
+            searchDropdown = document.createElement('div');
+            searchDropdown.id = 'search-dropdown';
+            searchDropdown.className = 'absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 max-h-80 overflow-y-auto z-50 hidden';
+            searchInput.parentElement.style.position = 'relative';
+            searchInput.parentElement.appendChild(searchDropdown);
+        }
+
+        function searchTools(query) {
+            if (!query || query.length < 2) {
+                searchDropdown.classList.add('hidden');
+                return;
+            }
+
+            query = query.toLowerCase();
+            const results = allTools.filter(tool => {
+                const searchText = `${tool.name} ${tool.category} ${tool.keywords}`.toLowerCase();
+                return searchText.includes(query);
+            }).slice(0, 8);
+
+            if (results.length === 0) {
+                searchDropdown.innerHTML = '<div class="p-4 text-gray-500 text-center">No tools found</div>';
+            } else {
+                searchDropdown.innerHTML = results.map(tool => `
+                    <a href="${tool.url}" class="flex items-center gap-3 p-3 hover:bg-violet-50 transition-colors border-b border-gray-100 last:border-0">
+                        <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center text-violet-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">${tool.name}</div>
+                            <div class="text-xs text-gray-500">${tool.category}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+
+            searchDropdown.classList.remove('hidden');
+        }
+
+        createSearchDropdown();
+
+        searchInput?.addEventListener('input', function(e) {
+            searchTools(e.target.value);
+        });
+
+        searchInput?.addEventListener('focus', function(e) {
+            if (e.target.value.length >= 2) {
+                searchTools(e.target.value);
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!searchInput?.contains(e.target) && !searchDropdown?.contains(e.target)) {
+                searchDropdown?.classList.add('hidden');
+            }
+        });
+
+        searchInput?.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const firstResult = searchDropdown?.querySelector('a');
+                if (firstResult) {
+                    window.location.href = firstResult.href;
                 }
-            });
+            }
         });
     </script>
 </body>

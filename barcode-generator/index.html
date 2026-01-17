@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Generator - Create Barcodes Online Free | PassiveTools</title>
+    <meta name="description"
+        content="Free barcode generator. Create Code 128, Code 39, EAN-13, UPC-A, ITF-14 barcodes online. Download as PNG or SVG.">
+    <meta name="keywords"
+        content="barcode generator, barcode maker, code 128, code 39, ean-13, upc-a, create barcode, free barcode">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/barcode-generator/">
+    <meta property="og:title" content="Barcode Generator - Free Online Tool">
+    <meta property="og:description" content="Create barcodes in various formats. Download as PNG or SVG.">
+    <meta property="og:url" content="https://passive.hardikkanajariya.in/barcode-generator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Barcode Generator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Barcode Generator</h1>
+                    <p class="text-gray-600 mb-6">Create barcodes in various formats for products, inventory, and more.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Input Section -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Barcode Format</label>
+                                <select id="barcodeFormat" onchange="updatePlaceholder()"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                                    <option value="CODE128">Code 128 (Any characters)</option>
+                                    <option value="CODE39">Code 39 (A-Z, 0-9, -.$/+%)</option>
+                                    <option value="EAN13">EAN-13 (12-13 digits)</option>
+                                    <option value="EAN8">EAN-8 (7-8 digits)</option>
+                                    <option value="UPC">UPC-A (11-12 digits)</option>
+                                    <option value="ITF14">ITF-14 (14 digits)</option>
+                                    <option value="MSI">MSI (Digits only)</option>
+                                    <option value="pharmacode">Pharmacode (3-131070)</option>
+                                    <option value="codabar">Codabar (0-9, -$:/.+)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Enter Value</label>
+                                <input type="text" id="barcodeValue" placeholder="Enter barcode value..."
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                    oninput="generateBarcode()">
+                                <p id="formatHint" class="text-xs text-gray-500 mt-1">Code 128 supports any characters
+                                </p>
+                            </div>
+
+                            <!-- Customization -->
+                            <div class="space-y-4 pt-4 border-t">
+                                <h3 class="font-semibold text-gray-900">Customize</h3>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">Line Color</label>
+                                        <input type="color" id="lineColor" value="#000000"
+                                            class="w-full h-10 rounded-lg cursor-pointer" onchange="generateBarcode()">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">Background</label>
+                                        <input type="color" id="bgColor" value="#ffffff"
+                                            class="w-full h-10 rounded-lg cursor-pointer" onchange="generateBarcode()">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-1">Width: <span
+                                            id="widthValue">2</span>px</label>
+                                    <input type="range" id="barWidth" min="1" max="5" value="2"
+                                        class="w-full accent-violet-600" oninput="updateWidth()">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-1">Height: <span
+                                            id="heightValue">100</span>px</label>
+                                    <input type="range" id="barHeight" min="50" max="200" value="100"
+                                        class="w-full accent-violet-600" oninput="updateHeight()">
+                                </div>
+
+                                <div class="flex items-center gap-4">
+                                    <label class="flex items-center gap-2">
+                                        <input type="checkbox" id="showText" checked class="rounded text-violet-600"
+                                            onchange="generateBarcode()">
+                                        <span class="text-sm text-gray-700">Show text</span>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="checkbox" id="flatBarcode" class="rounded text-violet-600"
+                                            onchange="generateBarcode()">
+                                        <span class="text-sm text-gray-700">Flat (no text margin)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button onclick="generateBarcode()"
+                                class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">
+                                Generate Barcode
+                            </button>
+                        </div>
+
+                        <!-- Barcode Display -->
+                        <div class="flex flex-col items-center">
+                            <div id="barcodeContainer"
+                                class="bg-white p-6 rounded-xl border-2 border-dashed border-gray-300 mb-4 min-h-[180px] flex items-center justify-center">
+                                <svg id="barcodeSvg"></svg>
+                            </div>
+                            <div id="errorMessage" class="hidden text-red-500 text-sm mb-4 text-center"></div>
+                            <div class="flex gap-3">
+                                <button onclick="downloadPNG()"
+                                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors text-sm">Download
+                                    PNG</button>
+                                <button onclick="downloadSVG()"
+                                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors text-sm">Download
+                                    SVG</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:block mb-6">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Barcode Format Guide</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Code 128</h3>
+                            <p class="text-gray-600">Most versatile. Supports all ASCII characters. Used in shipping
+                                labels.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Code 39</h3>
+                            <p class="text-gray-600">Supports A-Z, 0-9, and special characters. Common in automotive and
+                                defense.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">EAN-13</h3>
+                            <p class="text-gray-600">International retail product code. 13 digits with check digit.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">UPC-A</h3>
+                            <p class="text-gray-600">North American retail standard. 12 digits with check digit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Quick Examples</h3>
+                    <div class="space-y-2">
+                        <button onclick="loadExample('CODE128', 'Hello-2024')"
+                            class="w-full text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm">
+                            Code 128: Hello-2024
+                        </button>
+                        <button onclick="loadExample('EAN13', '5901234123457')"
+                            class="w-full text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm">
+                            EAN-13: 5901234123457
+                        </button>
+                        <button onclick="loadExample('UPC', '012345678905')"
+                            class="w-full text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm">
+                            UPC-A: 012345678905
+                        </button>
+                        <button onclick="loadExample('CODE39', 'CODE39')"
+                            class="w-full text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm">
+                            Code 39: CODE39
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/qr-code-generator/" class="text-violet-600 hover:underline text-sm">QR Code
+                                Generator</a></li>
+                        <li><a href="/uuid-generator/" class="text-violet-600 hover:underline text-sm">UUID
+                                Generator</a></li>
+                        <li><a href="/random-number/" class="text-violet-600 hover:underline text-sm">Random Number
+                                Generator</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const formatHints = {
+            'CODE128': 'Code 128 supports any characters',
+            'CODE39': 'Code 39: A-Z, 0-9, space, -.$/+%',
+            'EAN13': 'EAN-13: Enter 12 or 13 digits',
+            'EAN8': 'EAN-8: Enter 7 or 8 digits',
+            'UPC': 'UPC-A: Enter 11 or 12 digits',
+            'ITF14': 'ITF-14: Enter exactly 14 digits',
+            'MSI': 'MSI: Digits only (0-9)',
+            'pharmacode': 'Pharmacode: Number between 3 and 131070',
+            'codabar': 'Codabar: 0-9, -$:/.+ (start/end with A-D)'
+        };
+
+        const formatPlaceholders = {
+            'CODE128': 'Hello-2024',
+            'CODE39': 'CODE39',
+            'EAN13': '5901234123457',
+            'EAN8': '96385074',
+            'UPC': '012345678905',
+            'ITF14': '10012345000017',
+            'MSI': '123456',
+            'pharmacode': '1234',
+            'codabar': 'A12345B'
+        };
+
+        function updatePlaceholder() {
+            const format = document.getElementById('barcodeFormat').value;
+            document.getElementById('barcodeValue').placeholder = formatPlaceholders[format] || 'Enter value...';
+            document.getElementById('formatHint').textContent = formatHints[format] || '';
+            generateBarcode();
+        }
+
+        function updateWidth() {
+            document.getElementById('widthValue').textContent = document.getElementById('barWidth').value;
+            generateBarcode();
+        }
+
+        function updateHeight() {
+            document.getElementById('heightValue').textContent = document.getElementById('barHeight').value;
+            generateBarcode();
+        }
+
+        function generateBarcode() {
+            const svg = document.getElementById('barcodeSvg');
+            const errorDiv = document.getElementById('errorMessage');
+            const format = document.getElementById('barcodeFormat').value;
+            let value = document.getElementById('barcodeValue').value.trim();
+
+            // Use placeholder if empty
+            if (!value) {
+                value = formatPlaceholders[format] || 'TEST';
+            }
+
+            const options = {
+                format: format,
+                width: parseInt(document.getElementById('barWidth').value),
+                height: parseInt(document.getElementById('barHeight').value),
+                displayValue: document.getElementById('showText').checked,
+                lineColor: document.getElementById('lineColor').value,
+                background: document.getElementById('bgColor').value,
+                flat: document.getElementById('flatBarcode').checked,
+                margin: 10,
+                fontSize: 16,
+                textMargin: 5
+            };
+
+            try {
+                JsBarcode(svg, value, options);
+                errorDiv.classList.add('hidden');
+                svg.style.display = 'block';
+            } catch (error) {
+                errorDiv.textContent = `Error: ${error.message || 'Invalid value for selected format'}`;
+                errorDiv.classList.remove('hidden');
+                svg.style.display = 'none';
+            }
+        }
+
+        function loadExample(format, value) {
+            document.getElementById('barcodeFormat').value = format;
+            document.getElementById('barcodeValue').value = value;
+            updatePlaceholder();
+        }
+
+        function downloadPNG() {
+            const svg = document.getElementById('barcodeSvg');
+            if (svg.style.display === 'none') {
+                showToast('Please generate a valid barcode first');
+                return;
+            }
+
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = function () {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.fillStyle = document.getElementById('bgColor').value;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+
+                const link = document.createElement('a');
+                link.download = 'barcode.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('PNG downloaded!');
+            };
+
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        }
+
+        function downloadSVG() {
+            const svg = document.getElementById('barcodeSvg');
+            if (svg.style.display === 'none') {
+                showToast('Please generate a valid barcode first');
+                return;
+            }
+
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const link = document.createElement('a');
+            link.download = 'barcode.svg';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            showToast('SVG downloaded!');
+        }
+
+        // Initialize
+        generateBarcode();
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Barcode Generator","description":"Create barcodes in Code 128, Code 39, EAN-13, UPC-A and more formats.","url":"https://passive.hardikkanajariya.in/barcode-generator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>
