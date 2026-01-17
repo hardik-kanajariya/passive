@@ -47,13 +47,12 @@ const AdManager = {
         return false;
     },
 
-    // Popunder Smart Link URLs
+    // Popunder Smart Link URLs (Adsterra Smartlink)
     popunderUrls: [
-        'https://biographygridetelegram.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355',
-        'https://biographygridetelegram.com/gzfm2zz1b?key=c54407e930a6fcd009f2749f33eb3aa5'
+        'https://biographygridetelegram.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355'
     ],
 
-    // Load Anti-Adblock Popunder Script
+    // Load Anti-Adblock Popunder Script (uses Social Bar script)
     loadAntiAdblockPopunder() {
         if (!this.config.enableAntiAdblock) return;
         if (this.loaded['antiAdblockPopunder']) return;
@@ -179,7 +178,7 @@ const AdManager = {
             key,
             width,
             height,
-            scriptUrl: `https://www.highperformanceformat.com/${key}/invoke.js`
+            scriptUrl: `https://biographygridetelegram.com/${key}/invoke.js`
         });
 
         this.processAdsterraQueue();
@@ -225,7 +224,7 @@ const AdManager = {
         const script = document.createElement('script');
         script.async = true;
         script.setAttribute('data-cfasync', 'false');
-        script.src = 'https://pl28503854.effectivegatecpm.com/3fecabf66e493c7e25b0b3150e5b5adb/invoke.js';
+        script.src = 'https://biographygridetelegram.com/3fecabf66e493c7e25b0b3150e5b5adb/invoke.js';
         container.appendChild(script);
 
         this.loaded[containerId] = true;
@@ -237,7 +236,7 @@ const AdManager = {
         if (this.loaded['socialbar']) return;
 
         const script = document.createElement('script');
-        script.src = 'https://pl28503838.effectivegatecpm.com/06/6f/ef/066fefb2005b66dd6bb910cac5faa9ff.js';
+        script.src = 'https://biographygridetelegram.com/06/6f/ef/066fefb2005b66dd6bb910cac5faa9ff.js';
         document.body.appendChild(script);
         this.loaded['socialbar'] = true;
     },
@@ -248,7 +247,7 @@ const AdManager = {
         if (this.loaded['interstitial']) return;
 
         const script = document.createElement('script');
-        script.src = 'https://pl28503859.effectivegatecpm.com/88/b4/ec/88b4ecec127d7745b7a8d8a4ea4017f6.js';
+        script.src = 'https://biographygridetelegram.com/88/b4/ec/88b4ecec127d7745b7a8d8a4ea4017f6.js';
         document.body.appendChild(script);
         this.loaded['interstitial'] = true;
     },
