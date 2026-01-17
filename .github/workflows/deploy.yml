@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  DOMAIN: passive.hardikkanajariya.in
+  DEPLOY_PATH: /var/www/passive.hardikkanajariya.in
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,8 +30,24 @@ jobs:
           rsync -avz --delete \
             --exclude '.git' \
             --exclude '.github' \
+            --exclude 'scripts' \
+            --exclude 'nginx' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/passive.hardikkanajariya.in/
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.DEPLOY_PATH }}/
+
+      - name: Deploy nginx config
+        run: |
+          # Copy nginx config file to VPS
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ./nginx/${{ env.DOMAIN }}.conf \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/${{ env.DOMAIN }}.conf
+
+      - name: Deploy setup script
+        run: |
+          # Copy setup script to VPS
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ./scripts/setup-nginx.sh \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/setup-nginx.sh
 
       - name: Configure Nginx
         run: |
@@ -37,42 +57,8 @@ jobs:
           sudo mkdir -p /var/www/passive.hardikkanajariya.in
           sudo chown -R $USER:$USER /var/www/passive.hardikkanajariya.in
           
-          # Create Nginx config using cat with sudo tee
-          cat << 'NGINX_CONFIG' | sudo tee /etc/nginx/sites-available/passive.hardikkanajariya.in
-          server {
-              listen 80;
-              listen [::]:80;
-              
-              server_name passive.hardikkanajariya.in;
-              root /var/www/passive.hardikkanajariya.in;
-              index index.html landing-page.html;
-              
-              location / {
-                  try_files $uri $uri/ =404;
-              }
-              
-              # Cache static assets
-              location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$ {
-                  expires 30d;
-                  add_header Cache-Control "public, immutable";
-              }
-              
-              # Security headers
-              add_header X-Frame-Options "SAMEORIGIN" always;
-              add_header X-Content-Type-Options "nosniff" always;
-              add_header X-XSS-Protection "1; mode=block" always;
-              
-              # Gzip compression
-              gzip on;
-              gzip_vary on;
-              gzip_min_length 1024;
-              gzip_types text/plain text/css text/xml text/javascript application/javascript application/json application/xml;
-              
-              # Error pages
-              error_page 404 /404.html;
-              error_page 500 502 503 504 /50x.html;
-          }
-          NGINX_CONFIG
+          # Install nginx config using cat with sudo tee
+          cat /tmp/passive.hardikkanajariya.in.conf | sudo tee /etc/nginx/sites-available/passive.hardikkanajariya.in > /dev/null
           
           # Enable the site by creating symlink
           sudo ln -sf /etc/nginx/sites-available/passive.hardikkanajariya.in /etc/nginx/sites-enabled/
@@ -83,9 +69,12 @@ jobs:
           # Reload Nginx to apply changes
           sudo systemctl reload nginx
           
+          # Cleanup temp files
+          rm -f /tmp/passive.hardikkanajariya.in.conf /tmp/setup-nginx.sh
+          
           ENDSSH
 
-      - name: Setup SSL with Certbot (optional - runs only if certbot is installed)
+      - name: Setup SSL with Certbot (optional)
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
           
