@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Minifier - Minify JS Online | PassiveTools</title>
+    <meta name="description"
+        content="Minify JavaScript code online for free. Reduce file size by removing whitespace, comments, and optimizing code.">
+    <meta name="keywords"
+        content="javascript minifier, js minifier, minify javascript, compress js, uglify js, js compressor">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/js-minifier/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">JavaScript Minifier</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">JavaScript Minifier</h1>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Input JavaScript</label>
+                                <span id="inputSize" class="text-sm text-gray-500">0 bytes</span>
+                            </div>
+                            <textarea id="input" rows="12" placeholder="// Paste your JavaScript code here..."
+                                class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                                oninput="updateInputSize()"></textarea>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Minified Output</label>
+                                <span id="outputSize" class="text-sm text-gray-500">0 bytes</span>
+                            </div>
+                            <textarea id="output" rows="12" readonly
+                                class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-4 mb-6">
+                        <button onclick="minify()"
+                            class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl">Minify
+                            JavaScript</button>
+                        <button onclick="copyOutput()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Copy
+                            Output</button>
+                        <button onclick="downloadOutput()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Download</button>
+                        <button onclick="clearAll()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Clear</button>
+                        <button onclick="loadSample()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Sample</button>
+                    </div>
+
+                    <div id="statsSection" class="hidden">
+                        <div class="p-4 bg-green-50 border border-green-200 rounded-xl">
+                            <div class="flex items-center justify-between flex-wrap gap-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-green-600 text-lg">✓</span>
+                                    <span class="text-green-700 font-medium">Minification complete!</span>
+                                </div>
+                                <div class="flex items-center gap-6 text-sm">
+                                    <span class="text-gray-600">Original: <strong id="originalSize">0</strong></span>
+                                    <span class="text-gray-600">Minified: <strong id="minifiedSize">0</strong></span>
+                                    <span class="text-green-600 font-medium">Saved: <strong
+                                            id="savedPercent">0%</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">What Gets Removed</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>✓ Comments</li>
+                        <li>✓ Whitespace</li>
+                        <li>✓ Line breaks</li>
+                        <li>✓ Unnecessary semicolons</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/css-minifier/" class="text-violet-600 hover:underline text-sm">CSS Minifier</a>
+                        </li>
+                        <li><a href="/html-minifier/" class="text-violet-600 hover:underline text-sm">HTML Minifier</a>
+                        </li>
+                        <li><a href="/json-minifier/" class="text-violet-600 hover:underline text-sm">JSON Minifier</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function updateInputSize() {
+            const input = document.getElementById('input').value;
+            document.getElementById('inputSize').textContent = formatSize(input.length);
+        }
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            return (bytes / 1024).toFixed(2) + ' KB';
+        }
+
+        function minify() {
+            const input = document.getElementById('input').value;
+
+            if (!input.trim()) {
+                showToast('Please enter JavaScript code');
+                return;
+            }
+
+            try {
+                // Basic JavaScript minification
+                let minified = input
+                    // Remove single-line comments (but not URLs)
+                    .replace(/(?<!:)\/\/.*$/gm, '')
+                    // Remove multi-line comments
+                    .replace(/\/\*[\s\S]*?\*\//g, '')
+                    // Remove leading/trailing whitespace from lines
+                    .replace(/^\s+/gm, '')
+                    .replace(/\s+$/gm, '')
+                    // Remove multiple spaces
+                    .replace(/\s+/g, ' ')
+                    // Remove spaces around operators (carefully)
+                    .replace(/\s*([=+\-*/%<>!&|^~?:,;{}()[\]])\s*/g, '$1')
+                    // Add back space after keywords
+                    .replace(/(return|var|let|const|if|else|for|while|do|switch|case|break|continue|function|typeof|instanceof|new|delete|void|throw|try|catch|finally|class|extends|import|export|from|default|async|await|yield|in|of)\{/g, '$1 {')
+                    .replace(/(return|typeof|void|throw|new|delete|instanceof)\(/g, '$1 (')
+                    .replace(/(return|var|let|const)([a-zA-Z_$])/g, '$1 $2')
+                    // Remove newlines
+                    .replace(/\n/g, '')
+                    // Clean up semicolons
+                    .replace(/;+/g, ';')
+                    .replace(/;\}/g, '}')
+                    .trim();
+
+                document.getElementById('output').value = minified;
+                document.getElementById('outputSize').textContent = formatSize(minified.length);
+
+                // Show stats
+                const originalSize = input.length;
+                const minifiedSize = minified.length;
+                const saved = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
+
+                document.getElementById('originalSize').textContent = formatSize(originalSize);
+                document.getElementById('minifiedSize').textContent = formatSize(minifiedSize);
+                document.getElementById('savedPercent').textContent = saved + '%';
+                document.getElementById('statsSection').classList.remove('hidden');
+
+                showToast('JavaScript minified successfully');
+
+            } catch (e) {
+                showToast('Error minifying JavaScript: ' + e.message);
+            }
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output').value;
+            if (!output) {
+                showToast('Nothing to copy');
+                return;
+            }
+            navigator.clipboard.writeText(output);
+            showToast('Copied to clipboard');
+        }
+
+        function downloadOutput() {
+            const output = document.getElementById('output').value;
+            if (!output) {
+                showToast('Nothing to download');
+                return;
+            }
+
+            const blob = new Blob([output], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'script.min.js';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded script.min.js');
+        }
+
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('inputSize').textContent = '0 bytes';
+            document.getElementById('outputSize').textContent = '0 bytes';
+            document.getElementById('statsSection').classList.add('hidden');
+        }
+
+        function loadSample() {
+            const sample = `// This is a sample JavaScript file
+// It demonstrates various features
+
+/**
+ * Calculate the factorial of a number
+ * @param {number} n - The number to calculate factorial for
+ * @returns {number} The factorial
+ */
+function factorial(n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+// Array manipulation example
+const numbers = [1, 2, 3, 4, 5];
+
+const doubled = numbers.map(function(num) {
+    return num * 2;
+});
+
+// Modern arrow function syntax
+const tripled = numbers.map(num => num * 3);
+
+// Object example
+const person = {
+    name: "John",
+    age: 30,
+    greet: function() {
+        console.log("Hello, my name is " + this.name);
+    }
+};
+
+// Conditional
+if (person.age >= 18) {
+    console.log("Adult");
+} else {
+    console.log("Minor");
+}
+
+// Export function
+export { factorial, doubled, tripled };`;
+
+            document.getElementById('input').value = sample;
+            updateInputSize();
+        }
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JavaScript Minifier","description":"Minify JavaScript code to reduce file size.","url":"https://passive.hardikkanajariya.in/js-minifier/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test - Test WPM Online | PassiveTools</title>
+    <meta name="description"
+        content="Test your typing speed with our free typing test. Measure words per minute (WPM), accuracy, and improve your typing skills.">
+    <meta name="keywords"
+        content="typing test, wpm test, typing speed, words per minute, typing practice, keyboard test">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/typing-test/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+
+        .correct {
+            color: #22c55e
+        }
+
+        .incorrect {
+            color: #ef4444;
+            text-decoration: underline
+        }
+
+        .current {
+            background: #ddd6fe;
+            border-radius: 2px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Typing Test</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Typing Speed Test</h1>
+
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <select id="duration"
+                            class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                            onchange="resetTest()">
+                            <option value="30">30 seconds</option>
+                            <option value="60" selected>1 minute</option>
+                            <option value="120">2 minutes</option>
+                            <option value="300">5 minutes</option>
+                        </select>
+                        <button onclick="resetTest()"
+                            class="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl">New
+                            Test</button>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-4 mb-6 text-center">
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <p id="timer" class="text-3xl font-bold text-violet-600">60</p>
+                            <p class="text-sm text-gray-600">Seconds</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <p id="wpm" class="text-3xl font-bold text-violet-600">0</p>
+                            <p class="text-sm text-gray-600">WPM</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <p id="accuracy" class="text-3xl font-bold text-violet-600">100%</p>
+                            <p class="text-sm text-gray-600">Accuracy</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <p id="errors" class="text-3xl font-bold text-red-500">0</p>
+                            <p class="text-sm text-gray-600">Errors</p>
+                        </div>
+                    </div>
+
+                    <div id="textDisplay"
+                        class="p-6 bg-gray-50 rounded-xl mb-6 text-xl leading-relaxed font-mono select-none"></div>
+
+                    <input type="text" id="inputField"
+                        class="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                        placeholder="Click here and start typing..." autocomplete="off" autocorrect="off"
+                        autocapitalize="off" spellcheck="false">
+
+                    <div id="results" class="hidden mt-6 p-6 bg-violet-50 rounded-xl">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🎉 Test Complete!</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div>
+                                <p id="finalWpm" class="text-3xl font-bold text-violet-600">0</p>
+                                <p class="text-sm text-gray-600">Final WPM</p>
+                            </div>
+                            <div>
+                                <p id="finalAccuracy" class="text-3xl font-bold text-green-600">0%</p>
+                                <p class="text-sm text-gray-600">Accuracy</p>
+                            </div>
+                            <div>
+                                <p id="totalChars" class="text-3xl font-bold text-gray-700">0</p>
+                                <p class="text-sm text-gray-600">Characters</p>
+                            </div>
+                            <div>
+                                <p id="totalWords" class="text-3xl font-bold text-gray-700">0</p>
+                                <p class="text-sm text-gray-600">Words</p>
+                            </div>
+                        </div>
+                        <button onclick="resetTest()"
+                            class="mt-4 px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl">Try
+                            Again</button>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">WPM Ratings</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li><span class="text-red-500">●</span> 0-20: Beginner</li>
+                        <li><span class="text-orange-500">●</span> 20-40: Average</li>
+                        <li><span class="text-yellow-500">●</span> 40-60: Good</li>
+                        <li><span class="text-green-500">●</span> 60-80: Fast</li>
+                        <li><span class="text-violet-500">●</span> 80+: Professional</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Tips</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Keep eyes on text</li>
+                        <li>• Use all fingers</li>
+                        <li>• Practice regularly</li>
+                        <li>• Maintain posture</li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const sampleTexts = [
+            "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump! The five boxing wizards jump quickly.",
+            "Programming is the process of creating a set of instructions that tell a computer how to perform a task. Programming can be done using a variety of computer languages.",
+            "Technology has revolutionized the way we live and work. From smartphones to artificial intelligence, innovations continue to shape our daily experiences and future possibilities.",
+            "The internet has transformed how we communicate, learn, and do business. It connects billions of people worldwide, enabling instant access to information and global collaboration.",
+            "Success is not final, failure is not fatal. It is the courage to continue that counts. Every accomplishment starts with the decision to try. Believe in yourself and all that you are."
+        ];
+
+        let currentText = '';
+        let charIndex = 0;
+        let mistakes = 0;
+        let isTyping = false;
+        let timer = null;
+        let timeLeft = 60;
+        let correctChars = 0;
+        let totalTyped = 0;
+
+        const inputField = document.getElementById('inputField');
+        const textDisplay = document.getElementById('textDisplay');
+
+        function initTest() {
+            currentText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+            // Repeat text to ensure enough content
+            while (currentText.length < 500) {
+                currentText += ' ' + sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+            }
+            renderText();
+
+            timeLeft = parseInt(document.getElementById('duration').value);
+            document.getElementById('timer').textContent = timeLeft;
+        }
+
+        function renderText() {
+            let html = '';
+            for (let i = 0; i < currentText.length; i++) {
+                let className = '';
+                if (i < charIndex) {
+                    // Already typed
+                    className = inputField.value[i] === currentText[i] ? 'correct' : 'incorrect';
+                } else if (i === charIndex) {
+                    className = 'current';
+                }
+
+                const char = currentText[i] === ' ' ? '&nbsp;' : currentText[i];
+                html += `<span class="${className}">${char}</span>`;
+            }
+            textDisplay.innerHTML = html;
+        }
+
+        function startTimer() {
+            if (timer) return;
+
+            isTyping = true;
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+
+                // Calculate WPM
+                const minutes = (parseInt(document.getElementById('duration').value) - timeLeft) / 60;
+                if (minutes > 0) {
+                    const wpm = Math.round((correctChars / 5) / minutes);
+                    document.getElementById('wpm').textContent = wpm;
+                }
+
+                // Calculate accuracy
+                if (totalTyped > 0) {
+                    const accuracy = Math.round((correctChars / totalTyped) * 100);
+                    document.getElementById('accuracy').textContent = accuracy + '%';
+                }
+
+                if (timeLeft <= 0) {
+                    endTest();
+                }
+            }, 1000);
+        }
+
+        function endTest() {
+            clearInterval(timer);
+            timer = null;
+            isTyping = false;
+            inputField.disabled = true;
+
+            // Calculate final stats
+            const duration = parseInt(document.getElementById('duration').value);
+            const minutes = duration / 60;
+            const finalWpm = Math.round((correctChars / 5) / minutes);
+            const finalAccuracy = totalTyped > 0 ? Math.round((correctChars / totalTyped) * 100) : 0;
+
+            document.getElementById('finalWpm').textContent = finalWpm;
+            document.getElementById('finalAccuracy').textContent = finalAccuracy + '%';
+            document.getElementById('totalChars').textContent = correctChars;
+            document.getElementById('totalWords').textContent = Math.round(correctChars / 5);
+
+            document.getElementById('results').classList.remove('hidden');
+        }
+
+        function resetTest() {
+            clearInterval(timer);
+            timer = null;
+            isTyping = false;
+            charIndex = 0;
+            mistakes = 0;
+            correctChars = 0;
+            totalTyped = 0;
+
+            inputField.value = '';
+            inputField.disabled = false;
+
+            document.getElementById('wpm').textContent = '0';
+            document.getElementById('accuracy').textContent = '100%';
+            document.getElementById('errors').textContent = '0';
+            document.getElementById('results').classList.add('hidden');
+
+            initTest();
+            inputField.focus();
+        }
+
+        inputField.addEventListener('input', (e) => {
+            if (!isTyping) {
+                startTimer();
+            }
+
+            const typedValue = e.target.value;
+            charIndex = typedValue.length;
+            totalTyped = charIndex;
+
+            // Count correct characters
+            correctChars = 0;
+            mistakes = 0;
+            for (let i = 0; i < typedValue.length; i++) {
+                if (typedValue[i] === currentText[i]) {
+                    correctChars++;
+                } else {
+                    mistakes++;
+                }
+            }
+
+            document.getElementById('errors').textContent = mistakes;
+
+            renderText();
+
+            // Check if completed all text
+            if (charIndex >= currentText.length) {
+                endTest();
+            }
+        });
+
+        inputField.addEventListener('keydown', (e) => {
+            // Prevent backspace beyond what's typed
+            if (e.key === 'Backspace' && charIndex === 0) {
+                e.preventDefault();
+            }
+        });
+
+        // Initialize
+        initTest();
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Typing Speed Test","description":"Test your typing speed and accuracy with WPM measurement.","url":"https://passive.hardikkanajariya.in/typing-test/","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

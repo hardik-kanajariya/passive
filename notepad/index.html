@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad - Online Text Editor | PassiveTools</title>
+    <meta name="description"
+        content="Free online notepad with auto-save. Write notes, code snippets, and text. No sign-up required.">
+    <meta name="keywords" content="notepad, online notepad, text editor, notes, scratch pad, save text">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/notepad/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/text-tools/" class="text-gray-500 hover:text-violet-600">Text Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Notepad</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                        <h1 class="text-3xl font-bold text-gray-900">Notepad</h1>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span id="saveStatus" class="text-gray-500">Auto-save enabled</span>
+                            <span id="charCount" class="text-gray-500">0 characters</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 flex flex-wrap gap-2">
+                        <button onclick="newNote()"
+                            class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded text-sm">New</button>
+                        <button onclick="downloadNote()"
+                            class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded text-sm">Download</button>
+                        <button onclick="copyAll()"
+                            class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded text-sm">Copy All</button>
+                        <button onclick="clearNote()"
+                            class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded text-sm">Clear</button>
+                        <select id="fontSize" onchange="changeFontSize()"
+                            class="px-3 py-1.5 bg-gray-100 rounded text-sm">
+                            <option value="14">14px</option>
+                            <option value="16" selected>16px</option>
+                            <option value="18">18px</option>
+                            <option value="20">20px</option>
+                        </select>
+                        <label class="flex items-center gap-2 text-sm">
+                            <input type="checkbox" id="lineNumbers" onchange="toggleLineNumbers()" class="rounded">
+                            Line Numbers
+                        </label>
+                    </div>
+
+                    <div class="relative">
+                        <div id="lineNumbersDiv"
+                            class="absolute left-0 top-0 p-4 text-right text-gray-400 font-mono text-sm select-none hidden"
+                            style="width: 40px; background: #f9fafb; border-radius: 12px 0 0 12px;"></div>
+                        <textarea id="notepad" placeholder="Start typing..."
+                            class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent font-mono resize-none"
+                            style="min-height: 500px; font-size: 16px;" oninput="autoSave()"></textarea>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Features</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>✓ Auto-save to browser</li>
+                        <li>✓ Download as .txt</li>
+                        <li>✓ Adjustable font size</li>
+                        <li>✓ Line numbers</li>
+                        <li>✓ Works offline</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Keyboard Shortcuts</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><kbd class="px-2 py-1 bg-gray-100 rounded">Ctrl+S</kbd> Download</li>
+                        <li><kbd class="px-2 py-1 bg-gray-100 rounded">Ctrl+N</kbd> New</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/word-counter/" class="text-violet-600 hover:underline text-sm">Word Counter</a>
+                        </li>
+                        <li><a href="/markdown-to-html/" class="text-violet-600 hover:underline text-sm">Markdown to
+                                HTML</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const notepad = document.getElementById('notepad');
+        let saveTimeout = null;
+
+        // Load saved note
+        window.addEventListener('load', () => {
+            const savedNote = localStorage.getItem('notepad_content');
+            if (savedNote) {
+                notepad.value = savedNote;
+                updateCharCount();
+            }
+        });
+
+        function autoSave() {
+            updateCharCount();
+
+            // Update status
+            document.getElementById('saveStatus').textContent = 'Saving...';
+
+            // Debounce save
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                localStorage.setItem('notepad_content', notepad.value);
+                document.getElementById('saveStatus').textContent = 'Saved';
+                setTimeout(() => {
+                    document.getElementById('saveStatus').textContent = 'Auto-save enabled';
+                }, 2000);
+            }, 500);
+
+            // Update line numbers
+            if (document.getElementById('lineNumbers').checked) {
+                updateLineNumbers();
+            }
+        }
+
+        function updateCharCount() {
+            const text = notepad.value;
+            const chars = text.length;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const lines = text.split('\n').length;
+
+            document.getElementById('charCount').textContent = `${chars} chars | ${words} words | ${lines} lines`;
+        }
+
+        function newNote() {
+            if (notepad.value && !confirm('Create a new note? Current note will be saved.')) {
+                return;
+            }
+            notepad.value = '';
+            localStorage.setItem('notepad_content', '');
+            updateCharCount();
+            updateLineNumbers();
+            showToast('New note created');
+        }
+
+        function downloadNote() {
+            const text = notepad.value;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.download = `note-${new Date().toISOString().slice(0, 10)}.txt`;
+            link.href = url;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            showToast('Note downloaded');
+        }
+
+        function copyAll() {
+            notepad.select();
+            navigator.clipboard.writeText(notepad.value);
+            showToast('Copied to clipboard');
+        }
+
+        function clearNote() {
+            if (confirm('Clear all text?')) {
+                notepad.value = '';
+                localStorage.setItem('notepad_content', '');
+                updateCharCount();
+                updateLineNumbers();
+            }
+        }
+
+        function changeFontSize() {
+            const size = document.getElementById('fontSize').value;
+            notepad.style.fontSize = size + 'px';
+        }
+
+        function toggleLineNumbers() {
+            const lineDiv = document.getElementById('lineNumbersDiv');
+            const enabled = document.getElementById('lineNumbers').checked;
+
+            if (enabled) {
+                lineDiv.classList.remove('hidden');
+                notepad.style.paddingLeft = '50px';
+                updateLineNumbers();
+            } else {
+                lineDiv.classList.add('hidden');
+                notepad.style.paddingLeft = '16px';
+            }
+        }
+
+        function updateLineNumbers() {
+            const lineDiv = document.getElementById('lineNumbersDiv');
+            const lines = notepad.value.split('\n').length;
+
+            let html = '';
+            for (let i = 1; i <= lines; i++) {
+                html += i + '<br>';
+            }
+            lineDiv.innerHTML = html;
+        }
+
+        // Sync scroll for line numbers
+        notepad.addEventListener('scroll', () => {
+            document.getElementById('lineNumbersDiv').style.paddingTop = (16 - notepad.scrollTop) + 'px';
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key.toLowerCase()) {
+                    case 's':
+                        e.preventDefault();
+                        downloadNote();
+                        break;
+                    case 'n':
+                        e.preventDefault();
+                        newNote();
+                        break;
+                }
+            }
+        });
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Notepad","description":"Free online notepad with auto-save feature.","url":"https://passive.hardikkanajariya.in/notepad/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

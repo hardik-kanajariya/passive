@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer - Set Custom Timers | PassiveTools</title>
+    <meta name="description"
+        content="Set custom countdown timers online. Free countdown timer with alarms for any event or deadline.">
+    <meta name="keywords" content="countdown timer, timer, countdown clock, event timer, deadline timer, alarm timer">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/countdown-timer/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Countdown Timer</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Countdown Timer</h1>
+
+                    <div id="setupView">
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Hours</label>
+                                <input type="number" id="hours" value="0" min="0" max="99"
+                                    class="w-full px-4 py-3 text-2xl text-center border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Minutes</label>
+                                <input type="number" id="minutes" value="5" min="0" max="59"
+                                    class="w-full px-4 py-3 text-2xl text-center border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Seconds</label>
+                                <input type="number" id="seconds" value="0" min="0" max="59"
+                                    class="w-full px-4 py-3 text-2xl text-center border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <button onclick="setQuick(1)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">1 min</button>
+                            <button onclick="setQuick(5)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">5 min</button>
+                            <button onclick="setQuick(10)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">10 min</button>
+                            <button onclick="setQuick(15)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">15 min</button>
+                            <button onclick="setQuick(30)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">30 min</button>
+                            <button onclick="setQuick(60)"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">1 hour</button>
+                        </div>
+
+                        <button onclick="startTimer()"
+                            class="w-full py-4 bg-violet-600 hover:bg-violet-700 text-white text-xl font-medium rounded-xl">Start
+                            Timer</button>
+                    </div>
+
+                    <div id="timerView" class="hidden">
+                        <div class="text-center mb-8">
+                            <div id="display" class="text-7xl font-mono font-bold text-gray-900 mb-4">00:05:00</div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div id="progress" class="bg-violet-600 h-2 rounded-full transition-all duration-1000"
+                                    style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center gap-4">
+                            <button onclick="pauseResume()" id="pauseBtn"
+                                class="px-8 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-xl text-lg">Pause</button>
+                            <button onclick="resetTimer()"
+                                class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl text-lg">Reset</button>
+                        </div>
+                    </div>
+
+                    <div id="completeView" class="hidden text-center">
+                        <div class="text-6xl mb-4">⏰</div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Time's Up!</h2>
+                        <button onclick="resetTimer()"
+                            class="px-8 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl text-lg">Start
+                            New Timer</button>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Tips</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Timer runs in background</li>
+                        <li>• Audio alert when done</li>
+                        <li>• Works offline</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/stopwatch/" class="text-violet-600 hover:underline text-sm">Stopwatch</a></li>
+                        <li><a href="/pomodoro-timer/" class="text-violet-600 hover:underline text-sm">Pomodoro
+                                Timer</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let timerInterval = null;
+        let totalSeconds = 0;
+        let remainingSeconds = 0;
+        let isPaused = false;
+
+        function setQuick(minutes) {
+            document.getElementById('hours').value = Math.floor(minutes / 60);
+            document.getElementById('minutes').value = minutes % 60;
+            document.getElementById('seconds').value = 0;
+        }
+
+        function startTimer() {
+            const hours = parseInt(document.getElementById('hours').value) || 0;
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+            const seconds = parseInt(document.getElementById('seconds').value) || 0;
+
+            totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+            if (totalSeconds <= 0) {
+                showToast('Please set a time');
+                return;
+            }
+
+            remainingSeconds = totalSeconds;
+            isPaused = false;
+
+            document.getElementById('setupView').classList.add('hidden');
+            document.getElementById('timerView').classList.remove('hidden');
+            document.getElementById('completeView').classList.add('hidden');
+            document.getElementById('pauseBtn').textContent = 'Pause';
+
+            updateDisplay();
+
+            timerInterval = setInterval(() => {
+                if (!isPaused) {
+                    remainingSeconds--;
+                    updateDisplay();
+
+                    if (remainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        timerComplete();
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateDisplay() {
+            const hours = Math.floor(remainingSeconds / 3600);
+            const minutes = Math.floor((remainingSeconds % 3600) / 60);
+            const seconds = remainingSeconds % 60;
+
+            const pad = (n) => n.toString().padStart(2, '0');
+            document.getElementById('display').textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+            // Update progress bar
+            const progress = (remainingSeconds / totalSeconds) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+
+            // Update page title
+            document.title = `${pad(hours)}:${pad(minutes)}:${pad(seconds)} - Countdown Timer`;
+        }
+
+        function pauseResume() {
+            isPaused = !isPaused;
+            document.getElementById('pauseBtn').textContent = isPaused ? 'Resume' : 'Pause';
+            document.getElementById('pauseBtn').classList.toggle('bg-green-500', isPaused);
+            document.getElementById('pauseBtn').classList.toggle('hover:bg-green-600', isPaused);
+            document.getElementById('pauseBtn').classList.toggle('bg-yellow-500', !isPaused);
+            document.getElementById('pauseBtn').classList.toggle('hover:bg-yellow-600', !isPaused);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            document.getElementById('setupView').classList.remove('hidden');
+            document.getElementById('timerView').classList.add('hidden');
+            document.getElementById('completeView').classList.add('hidden');
+            document.title = 'Countdown Timer - PassiveTools';
+        }
+
+        function timerComplete() {
+            document.getElementById('timerView').classList.add('hidden');
+            document.getElementById('completeView').classList.remove('hidden');
+
+            // Play sound
+            playAlarm();
+
+            // Browser notification
+            if (Notification.permission === 'granted') {
+                new Notification('Timer Complete!', { body: 'Your countdown timer has finished.' });
+            }
+        }
+
+        function playAlarm() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+                // Play beeps
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+
+                        oscillator.frequency.value = 800;
+                        oscillator.type = 'sine';
+                        gainNode.gain.value = 0.3;
+
+                        oscillator.start();
+                        setTimeout(() => oscillator.stop(), 200);
+                    }, i * 300);
+                }
+            } catch (e) {
+                // Audio not available
+            }
+        }
+
+        // Request notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Countdown Timer","description":"Set custom countdown timers with alarms.","url":"https://passive.hardikkanajariya.in/countdown-timer/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

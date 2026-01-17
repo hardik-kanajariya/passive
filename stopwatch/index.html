@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch - Online Timer | PassiveTools</title>
+    <meta name="description"
+        content="Free online stopwatch with lap times. Accurate millisecond timing for any purpose. Simple and easy to use.">
+    <meta name="keywords" content="stopwatch, online timer, lap timer, chronometer, time tracker, millisecond timer">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/stopwatch/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Stopwatch</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Stopwatch</h1>
+
+                    <div class="text-center mb-8">
+                        <div id="display" class="text-7xl font-mono font-bold text-gray-900 mb-2">00:00:00<span
+                                class="text-4xl text-gray-500">.00</span></div>
+                    </div>
+
+                    <div class="flex justify-center gap-4 mb-8">
+                        <button onclick="startStop()" id="startStopBtn"
+                            class="px-8 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl text-lg flex items-center gap-2">
+                            <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                            </svg>
+                            <span id="startStopText">Start</span>
+                        </button>
+                        <button onclick="lap()" id="lapBtn"
+                            class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl text-lg disabled:opacity-50"
+                            disabled>Lap</button>
+                        <button onclick="reset()"
+                            class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl text-lg">Reset</button>
+                    </div>
+
+                    <div id="lapsContainer" class="hidden">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-semibold text-gray-900">Lap Times</h3>
+                            <button onclick="clearLaps()" class="text-sm text-violet-600 hover:underline">Clear
+                                All</button>
+                        </div>
+                        <div id="laps" class="max-h-64 overflow-y-auto space-y-2"></div>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Keyboard Shortcuts</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><kbd class="px-2 py-1 bg-gray-100 rounded">Space</kbd> Start/Stop</li>
+                        <li><kbd class="px-2 py-1 bg-gray-100 rounded">L</kbd> Lap</li>
+                        <li><kbd class="px-2 py-1 bg-gray-100 rounded">R</kbd> Reset</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/pomodoro-timer/" class="text-violet-600 hover:underline text-sm">Pomodoro
+                                Timer</a></li>
+                        <li><a href="/timestamp-converter/" class="text-violet-600 hover:underline text-sm">Timestamp
+                                Converter</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let startTime = 0;
+        let elapsedTime = 0;
+        let timerInterval = null;
+        let isRunning = false;
+        let laps = [];
+        let lastLapTime = 0;
+
+        function startStop() {
+            if (isRunning) {
+                // Stop
+                clearInterval(timerInterval);
+                elapsedTime += Date.now() - startTime;
+                isRunning = false;
+
+                document.getElementById('playIcon').classList.remove('hidden');
+                document.getElementById('pauseIcon').classList.add('hidden');
+                document.getElementById('startStopText').textContent = 'Resume';
+                document.getElementById('startStopBtn').classList.remove('bg-red-500', 'hover:bg-red-600');
+                document.getElementById('startStopBtn').classList.add('bg-violet-600', 'hover:bg-violet-700');
+            } else {
+                // Start
+                startTime = Date.now();
+                timerInterval = setInterval(updateDisplay, 10);
+                isRunning = true;
+
+                document.getElementById('playIcon').classList.add('hidden');
+                document.getElementById('pauseIcon').classList.remove('hidden');
+                document.getElementById('startStopText').textContent = 'Stop';
+                document.getElementById('startStopBtn').classList.add('bg-red-500', 'hover:bg-red-600');
+                document.getElementById('startStopBtn').classList.remove('bg-violet-600', 'hover:bg-violet-700');
+                document.getElementById('lapBtn').disabled = false;
+            }
+        }
+
+        function updateDisplay() {
+            const currentTime = elapsedTime + (isRunning ? Date.now() - startTime : 0);
+            document.getElementById('display').innerHTML = formatTime(currentTime);
+        }
+
+        function formatTime(ms) {
+            const centiseconds = Math.floor((ms % 1000) / 10);
+            const seconds = Math.floor((ms / 1000) % 60);
+            const minutes = Math.floor((ms / (1000 * 60)) % 60);
+            const hours = Math.floor(ms / (1000 * 60 * 60));
+
+            const pad = (n) => n.toString().padStart(2, '0');
+
+            return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}<span class="text-4xl text-gray-500">.${pad(centiseconds)}</span>`;
+        }
+
+        function formatTimeSimple(ms) {
+            const centiseconds = Math.floor((ms % 1000) / 10);
+            const seconds = Math.floor((ms / 1000) % 60);
+            const minutes = Math.floor((ms / (1000 * 60)) % 60);
+            const hours = Math.floor(ms / (1000 * 60 * 60));
+
+            const pad = (n) => n.toString().padStart(2, '0');
+
+            return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(centiseconds)}`;
+        }
+
+        function lap() {
+            if (!isRunning) return;
+
+            const currentTime = elapsedTime + Date.now() - startTime;
+            const lapTime = currentTime - lastLapTime;
+            lastLapTime = currentTime;
+
+            laps.push({
+                number: laps.length + 1,
+                lapTime: lapTime,
+                totalTime: currentTime
+            });
+
+            renderLaps();
+            document.getElementById('lapsContainer').classList.remove('hidden');
+        }
+
+        function renderLaps() {
+            const container = document.getElementById('laps');
+
+            // Find fastest and slowest laps
+            const lapTimes = laps.map(l => l.lapTime);
+            const fastest = Math.min(...lapTimes);
+            const slowest = laps.length > 1 ? Math.max(...lapTimes) : null;
+
+            container.innerHTML = [...laps].reverse().map(lap => {
+                let bgClass = 'bg-gray-50';
+                let badge = '';
+
+                if (lap.lapTime === fastest && laps.length > 1) {
+                    bgClass = 'bg-green-50';
+                    badge = '<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full ml-2">Fastest</span>';
+                } else if (lap.lapTime === slowest && laps.length > 2) {
+                    bgClass = 'bg-red-50';
+                    badge = '<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full ml-2">Slowest</span>';
+                }
+
+                return `<div class="flex justify-between items-center p-3 ${bgClass} rounded-lg">
+                    <span class="font-medium text-gray-700">Lap ${lap.number}${badge}</span>
+                    <div class="text-right">
+                        <span class="font-mono text-gray-900">${formatTimeSimple(lap.lapTime)}</span>
+                        <span class="text-sm text-gray-500 ml-3">${formatTimeSimple(lap.totalTime)}</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function reset() {
+            clearInterval(timerInterval);
+            startTime = 0;
+            elapsedTime = 0;
+            isRunning = false;
+            lastLapTime = 0;
+
+            document.getElementById('display').innerHTML = '00:00:00<span class="text-4xl text-gray-500">.00</span>';
+            document.getElementById('playIcon').classList.remove('hidden');
+            document.getElementById('pauseIcon').classList.add('hidden');
+            document.getElementById('startStopText').textContent = 'Start';
+            document.getElementById('startStopBtn').classList.remove('bg-red-500', 'hover:bg-red-600');
+            document.getElementById('startStopBtn').classList.add('bg-violet-600', 'hover:bg-violet-700');
+            document.getElementById('lapBtn').disabled = true;
+        }
+
+        function clearLaps() {
+            laps = [];
+            lastLapTime = 0;
+            document.getElementById('laps').innerHTML = '';
+            document.getElementById('lapsContainer').classList.add('hidden');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            switch (e.key.toLowerCase()) {
+                case ' ':
+                    e.preventDefault();
+                    startStop();
+                    break;
+                case 'l':
+                    lap();
+                    break;
+                case 'r':
+                    reset();
+                    break;
+            }
+        });
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Stopwatch","description":"Online stopwatch with lap times and millisecond precision.","url":"https://passive.hardikkanajariya.in/stopwatch/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

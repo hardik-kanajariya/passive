@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Graph Generator - OG Tag Creator | PassiveTools</title>
+    <meta name="description"
+        content="Generate Open Graph meta tags for social media sharing. Preview how your content appears on Facebook, Twitter, LinkedIn.">
+    <meta name="keywords"
+        content="open graph generator, og tags, meta tags, social media preview, facebook og, twitter cards">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/og-generator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">OG Generator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Open Graph Generator</h1>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Page Title *</label>
+                            <input type="text" id="title" placeholder="My Awesome Page"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                            <select id="type"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                onchange="generate()">
+                                <option value="website">Website</option>
+                                <option value="article">Article</option>
+                                <option value="product">Product</option>
+                                <option value="video">Video</option>
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <textarea id="description" rows="2" placeholder="A brief description of your page"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()"></textarea>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Page URL *</label>
+                            <input type="url" id="url" placeholder="https://example.com/page"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Image URL (1200x630
+                                recommended)</label>
+                            <input type="url" id="image" placeholder="https://example.com/image.jpg"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Site Name</label>
+                            <input type="text" id="siteName" placeholder="My Website"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Locale</label>
+                            <select id="locale"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                onchange="generate()">
+                                <option value="en_US">English (US)</option>
+                                <option value="en_GB">English (UK)</option>
+                                <option value="es_ES">Spanish</option>
+                                <option value="fr_FR">French</option>
+                                <option value="de_DE">German</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Twitter Card Settings</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 rounded-xl">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Card Type</label>
+                            <select id="twitterCard"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                onchange="generate()">
+                                <option value="summary_large_image">Summary Large Image</option>
+                                <option value="summary">Summary</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Twitter @username</label>
+                            <input type="text" id="twitterSite" placeholder="@yourusername"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Preview</h3>
+                    <div class="mb-6">
+                        <div class="flex gap-2 mb-3">
+                            <button onclick="showPreview('facebook')"
+                                class="px-4 py-2 bg-violet-100 text-violet-700 rounded-lg text-sm font-medium"
+                                id="btnFacebook">Facebook</button>
+                            <button onclick="showPreview('twitter')"
+                                class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium"
+                                id="btnTwitter">Twitter</button>
+                            <button onclick="showPreview('linkedin')"
+                                class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium"
+                                id="btnLinkedin">LinkedIn</button>
+                        </div>
+
+                        <div id="previewFacebook" class="max-w-lg border rounded-lg overflow-hidden bg-white">
+                            <div id="previewImage"
+                                class="h-52 bg-gray-200 flex items-center justify-center text-gray-400">1200 x 630 Image
+                            </div>
+                            <div class="p-3 border-t">
+                                <p id="previewSiteName" class="text-xs text-gray-500 uppercase">EXAMPLE.COM</p>
+                                <p id="previewTitle" class="font-semibold text-gray-900 line-clamp-2">Page Title</p>
+                                <p id="previewDesc" class="text-sm text-gray-500 line-clamp-2">Page description goes
+                                    here...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Generated Meta Tags</h3>
+                    <div class="relative">
+                        <pre id="output" class="p-4 bg-gray-900 text-gray-100 rounded-xl overflow-x-auto text-sm"></pre>
+                        <button onclick="copyOutput()"
+                            class="absolute top-2 right-2 px-3 py-1 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded">Copy</button>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">OG Image Tips</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Size: 1200 x 630px</li>
+                        <li>• Format: JPG or PNG</li>
+                        <li>• Max size: 8MB</li>
+                        <li>• Text in safe area</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/meta-tag-generator/" class="text-violet-600 hover:underline text-sm">Meta Tag
+                                Generator</a></li>
+                        <li><a href="/sitemap-generator/" class="text-violet-600 hover:underline text-sm">Sitemap
+                                Generator</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let currentPreview = 'facebook';
+
+        function generate() {
+            const title = document.getElementById('title').value;
+            const type = document.getElementById('type').value;
+            const description = document.getElementById('description').value;
+            const url = document.getElementById('url').value;
+            const image = document.getElementById('image').value;
+            const siteName = document.getElementById('siteName').value;
+            const locale = document.getElementById('locale').value;
+            const twitterCard = document.getElementById('twitterCard').value;
+            const twitterSite = document.getElementById('twitterSite').value;
+
+            // Generate tags
+            let tags = `<!-- Open Graph / Facebook -->\n`;
+            tags += `<meta property="og:type" content="${type}">\n`;
+            if (url) tags += `<meta property="og:url" content="${escapeHtml(url)}">\n`;
+            if (title) tags += `<meta property="og:title" content="${escapeHtml(title)}">\n`;
+            if (description) tags += `<meta property="og:description" content="${escapeHtml(description)}">\n`;
+            if (image) tags += `<meta property="og:image" content="${escapeHtml(image)}">\n`;
+            if (siteName) tags += `<meta property="og:site_name" content="${escapeHtml(siteName)}">\n`;
+            tags += `<meta property="og:locale" content="${locale}">\n`;
+
+            tags += `\n<!-- Twitter -->\n`;
+            tags += `<meta name="twitter:card" content="${twitterCard}">\n`;
+            if (url) tags += `<meta name="twitter:url" content="${escapeHtml(url)}">\n`;
+            if (title) tags += `<meta name="twitter:title" content="${escapeHtml(title)}">\n`;
+            if (description) tags += `<meta name="twitter:description" content="${escapeHtml(description)}">\n`;
+            if (image) tags += `<meta name="twitter:image" content="${escapeHtml(image)}">\n`;
+            if (twitterSite) tags += `<meta name="twitter:site" content="${escapeHtml(twitterSite)}">\n`;
+
+            document.getElementById('output').textContent = tags;
+
+            // Update preview
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const title = document.getElementById('title').value || 'Page Title';
+            const description = document.getElementById('description').value || 'Page description goes here...';
+            const url = document.getElementById('url').value;
+            const image = document.getElementById('image').value;
+            const siteName = document.getElementById('siteName').value;
+
+            // Update preview elements
+            document.getElementById('previewTitle').textContent = title;
+            document.getElementById('previewDesc').textContent = description;
+
+            let domain = 'EXAMPLE.COM';
+            if (url) {
+                try {
+                    domain = new URL(url).hostname.toUpperCase();
+                } catch (e) { }
+            }
+            document.getElementById('previewSiteName').textContent = siteName || domain;
+
+            const imageContainer = document.getElementById('previewImage');
+            if (image) {
+                imageContainer.innerHTML = `<img src="${escapeHtml(image)}" alt="Preview" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='Invalid Image URL'">`;
+            } else {
+                imageContainer.innerHTML = '<span class="text-gray-400">1200 x 630 Image</span>';
+            }
+        }
+
+        function showPreview(platform) {
+            currentPreview = platform;
+
+            // Update button states
+            ['facebook', 'twitter', 'linkedin'].forEach(p => {
+                const btn = document.getElementById('btn' + p.charAt(0).toUpperCase() + p.slice(1));
+                if (p === platform) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-violet-100', 'text-violet-700');
+                } else {
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                    btn.classList.remove('bg-violet-100', 'text-violet-700');
+                }
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(output);
+            showToast('Meta tags copied!');
+        }
+
+        // Initialize
+        generate();
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Open Graph Generator","description":"Generate Open Graph meta tags for social media sharing.","url":"https://passive.hardikkanajariya.in/og-generator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

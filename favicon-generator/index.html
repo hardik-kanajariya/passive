@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator - Create Favicons Online | PassiveTools</title>
+    <meta name="description"
+        content="Generate favicons from images. Create ICO, PNG favicons in multiple sizes for websites. Free online favicon generator.">
+    <meta name="keywords"
+        content="favicon generator, favicon creator, ico generator, website icon, favicon converter, favicon maker">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/favicon-generator/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Favicon Generator</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Favicon Generator</h1>
+
+                    <div class="mb-6">
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center" id="dropZone">
+                            <input type="file" id="imageInput" accept="image/*" class="hidden"
+                                onchange="loadImage(event)">
+                            <label for="imageInput" class="cursor-pointer">
+                                <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p class="text-gray-600">Click to upload or drag and drop</p>
+                                <p class="text-sm text-gray-500 mt-1">PNG, JPG, SVG (Recommended: Square image)</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="preview" class="hidden mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Preview</h3>
+                        <div class="flex items-center gap-6 p-4 bg-gray-50 rounded-xl">
+                            <div class="text-center">
+                                <canvas id="canvas16" width="16" height="16"
+                                    class="border border-gray-300 bg-white"></canvas>
+                                <p class="text-xs text-gray-500 mt-1">16x16</p>
+                            </div>
+                            <div class="text-center">
+                                <canvas id="canvas32" width="32" height="32"
+                                    class="border border-gray-300 bg-white"></canvas>
+                                <p class="text-xs text-gray-500 mt-1">32x32</p>
+                            </div>
+                            <div class="text-center">
+                                <canvas id="canvas48" width="48" height="48"
+                                    class="border border-gray-300 bg-white"></canvas>
+                                <p class="text-xs text-gray-500 mt-1">48x48</p>
+                            </div>
+                            <div class="text-center">
+                                <canvas id="canvas64" width="64" height="64"
+                                    class="border border-gray-300 bg-white"></canvas>
+                                <p class="text-xs text-gray-500 mt-1">64x64</p>
+                            </div>
+                            <div class="text-center">
+                                <canvas id="canvas128" width="128" height="128"
+                                    class="border border-gray-300 bg-white"></canvas>
+                                <p class="text-xs text-gray-500 mt-1">128x128</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="downloads" class="hidden mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Download Favicons</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button onclick="download(16)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">16x16
+                                PNG</button>
+                            <button onclick="download(32)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">32x32
+                                PNG</button>
+                            <button onclick="download(48)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">48x48
+                                PNG</button>
+                            <button onclick="download(64)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">64x64
+                                PNG</button>
+                            <button onclick="download(128)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">128x128
+                                PNG</button>
+                            <button onclick="download(180)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">Apple
+                                Touch</button>
+                            <button onclick="download(192)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">Android</button>
+                            <button onclick="download(512)"
+                                class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg text-sm">512x512
+                                PNG</button>
+                        </div>
+                    </div>
+
+                    <div id="code" class="hidden">
+                        <h3 class="font-semibold text-gray-900 mb-3">HTML Code</h3>
+                        <pre class="p-4 bg-gray-900 text-gray-100 rounded-xl overflow-x-auto text-sm"><code>&lt;!-- Favicon --&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"&gt;
+
+&lt;!-- Apple Touch Icon --&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;
+
+&lt;!-- Android/Chrome --&gt;
+&lt;link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"&gt;</code></pre>
+                        <button onclick="copyCode()"
+                            class="mt-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm">Copy
+                            Code</button>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Favicon Sizes</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li><strong>16x16</strong> - Standard</li>
+                        <li><strong>32x32</strong> - Retina</li>
+                        <li><strong>180x180</strong> - Apple Touch</li>
+                        <li><strong>192x192</strong> - Android</li>
+                        <li><strong>512x512</strong> - PWA</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/image-compressor/" class="text-violet-600 hover:underline text-sm">Image
+                                Compressor</a></li>
+                        <li><a href="/image-resizer/" class="text-violet-600 hover:underline text-sm">Image Resizer</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        let loadedImage = null;
+
+        // Drag and drop
+        const dropZone = document.getElementById('dropZone');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-violet-500', 'bg-violet-50');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-violet-500', 'bg-violet-50');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-violet-500', 'bg-violet-50');
+
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                processFile(file);
+            }
+        });
+
+        function loadImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        function processFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedImage = img;
+                    generatePreviews();
+                    document.getElementById('preview').classList.remove('hidden');
+                    document.getElementById('downloads').classList.remove('hidden');
+                    document.getElementById('code').classList.remove('hidden');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function generatePreviews() {
+            const sizes = [16, 32, 48, 64, 128];
+
+            sizes.forEach(size => {
+                const canvas = document.getElementById(`canvas${size}`);
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, size, size);
+
+                // Draw image maintaining aspect ratio and centering
+                const scale = Math.min(size / loadedImage.width, size / loadedImage.height);
+                const w = loadedImage.width * scale;
+                const h = loadedImage.height * scale;
+                const x = (size - w) / 2;
+                const y = (size - h) / 2;
+
+                ctx.drawImage(loadedImage, x, y, w, h);
+            });
+        }
+
+        function download(size) {
+            if (!loadedImage) return;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Draw image
+            const scale = Math.min(size / loadedImage.width, size / loadedImage.height);
+            const w = loadedImage.width * scale;
+            const h = loadedImage.height * scale;
+            const x = (size - w) / 2;
+            const y = (size - h) / 2;
+
+            ctx.drawImage(loadedImage, x, y, w, h);
+
+            // Download
+            const link = document.createElement('a');
+            let filename;
+
+            switch (size) {
+                case 180: filename = 'apple-touch-icon.png'; break;
+                case 192: filename = 'android-chrome-192x192.png'; break;
+                case 512: filename = 'android-chrome-512x512.png'; break;
+                default: filename = `favicon-${size}x${size}.png`;
+            }
+
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            showToast(`Downloaded ${filename}`);
+        }
+
+        function copyCode() {
+            const code = document.querySelector('#code code').textContent;
+            navigator.clipboard.writeText(code);
+            showToast('Code copied!');
+        }
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Favicon Generator","description":"Generate favicons in multiple sizes from images.","url":"https://passive.hardikkanajariya.in/favicon-generator/","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

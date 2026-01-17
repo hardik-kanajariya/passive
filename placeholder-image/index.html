@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placeholder Image Generator - Generate Dummy Images | PassiveTools</title>
+    <meta name="description"
+        content="Generate placeholder images for your designs and mockups. Create custom size dummy images with text overlay.">
+    <meta name="keywords"
+        content="placeholder image, dummy image, lorem picsum, image placeholder, mockup image, design placeholder">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/placeholder-image/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/generators/" class="text-gray-500 hover:text-violet-600">Generators</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Placeholder Image</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Placeholder Image Generator</h1>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Width (px)</label>
+                            <input type="number" id="width" value="800" min="1" max="4000"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Height (px)</label>
+                            <input type="number" id="height" value="600" min="1" max="4000"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
+                            <div class="flex gap-2">
+                                <input type="color" id="bgColor" value="#cccccc"
+                                    class="h-10 w-14 rounded cursor-pointer" oninput="generate()">
+                                <input type="text" id="bgColorText" value="#cccccc"
+                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-xl"
+                                    oninput="syncColor('bg')">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Text Color</label>
+                            <div class="flex gap-2">
+                                <input type="color" id="textColor" value="#666666"
+                                    class="h-10 w-14 rounded cursor-pointer" oninput="generate()">
+                                <input type="text" id="textColorText" value="#666666"
+                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-xl"
+                                    oninput="syncColor('text')">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Custom Text (optional)</label>
+                            <input type="text" id="customText" placeholder="Leave empty for dimensions text"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Format</label>
+                            <select id="format"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                onchange="generate()">
+                                <option value="png">PNG</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Quick Sizes</label>
+                            <select id="quickSize" class="w-full px-4 py-2 border border-gray-300 rounded-xl"
+                                onchange="setQuickSize()">
+                                <option value="">Custom</option>
+                                <option value="1920x1080">1920 × 1080 (Full HD)</option>
+                                <option value="1280x720">1280 × 720 (HD)</option>
+                                <option value="800x600">800 × 600</option>
+                                <option value="400x300">400 × 300</option>
+                                <option value="300x250">300 × 250 (Ad)</option>
+                                <option value="728x90">728 × 90 (Banner)</option>
+                                <option value="160x600">160 × 600 (Skyscraper)</option>
+                                <option value="1200x630">1200 × 630 (OG Image)</option>
+                                <option value="1080x1080">1080 × 1080 (Instagram)</option>
+                                <option value="1080x1920">1080 × 1920 (Story)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Preview</h3>
+                        <div class="p-4 bg-gray-100 rounded-xl overflow-auto" style="max-height: 400px;">
+                            <canvas id="canvas" class="mx-auto shadow-lg"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button onclick="download()"
+                            class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl">Download
+                            Image</button>
+                        <button onclick="copyUrl()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Copy
+                            Data URL</button>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 mb-2">HTML Code</h3>
+                        <code id="htmlCode" class="text-sm text-gray-700 break-all"></code>
+                        <button onclick="copyHtml()"
+                            class="mt-2 px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">Copy HTML</button>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Use Cases</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Website mockups</li>
+                        <li>• App prototypes</li>
+                        <li>• Design templates</li>
+                        <li>• Testing layouts</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/image-resizer/" class="text-violet-600 hover:underline text-sm">Image Resizer</a>
+                        </li>
+                        <li><a href="/favicon-generator/" class="text-violet-600 hover:underline text-sm">Favicon
+                                Generator</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        function syncColor(type) {
+            if (type === 'bg') {
+                const value = document.getElementById('bgColorText').value;
+                if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+                    document.getElementById('bgColor').value = value;
+                    generate();
+                }
+            } else {
+                const value = document.getElementById('textColorText').value;
+                if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+                    document.getElementById('textColor').value = value;
+                    generate();
+                }
+            }
+        }
+
+        function setQuickSize() {
+            const size = document.getElementById('quickSize').value;
+            if (size) {
+                const [w, h] = size.split('x');
+                document.getElementById('width').value = w;
+                document.getElementById('height').value = h;
+                generate();
+            }
+        }
+
+        function generate() {
+            const width = Math.min(4000, Math.max(1, parseInt(document.getElementById('width').value) || 100));
+            const height = Math.min(4000, Math.max(1, parseInt(document.getElementById('height').value) || 100));
+            const bgColor = document.getElementById('bgColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const customText = document.getElementById('customText').value;
+
+            // Update color text inputs
+            document.getElementById('bgColorText').value = bgColor;
+            document.getElementById('textColorText').value = textColor;
+
+            // Scale down for preview if too large
+            const maxPreview = 500;
+            const scale = Math.min(1, maxPreview / Math.max(width, height));
+
+            canvas.width = width * scale;
+            canvas.height = height * scale;
+
+            // Draw background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw text
+            const text = customText || `${width} × ${height}`;
+            const fontSize = Math.min(canvas.width, canvas.height) / 8;
+
+            ctx.fillStyle = textColor;
+            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+            // Update HTML code
+            document.getElementById('htmlCode').textContent = `<img src="placeholder.${document.getElementById('format').value}" width="${width}" height="${height}" alt="Placeholder">`;
+        }
+
+        function getFullCanvas() {
+            const width = parseInt(document.getElementById('width').value) || 100;
+            const height = parseInt(document.getElementById('height').value) || 100;
+            const bgColor = document.getElementById('bgColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const customText = document.getElementById('customText').value;
+
+            const fullCanvas = document.createElement('canvas');
+            fullCanvas.width = width;
+            fullCanvas.height = height;
+            const fullCtx = fullCanvas.getContext('2d');
+
+            // Draw background
+            fullCtx.fillStyle = bgColor;
+            fullCtx.fillRect(0, 0, width, height);
+
+            // Draw text
+            const text = customText || `${width} × ${height}`;
+            const fontSize = Math.min(width, height) / 8;
+
+            fullCtx.fillStyle = textColor;
+            fullCtx.font = `bold ${fontSize}px Arial, sans-serif`;
+            fullCtx.textAlign = 'center';
+            fullCtx.textBaseline = 'middle';
+            fullCtx.fillText(text, width / 2, height / 2);
+
+            return fullCanvas;
+        }
+
+        function download() {
+            const fullCanvas = getFullCanvas();
+            const format = document.getElementById('format').value;
+            const mimeType = `image/${format === 'jpg' ? 'jpeg' : format}`;
+
+            const link = document.createElement('a');
+            link.download = `placeholder-${document.getElementById('width').value}x${document.getElementById('height').value}.${format}`;
+            link.href = fullCanvas.toDataURL(mimeType, 0.9);
+            link.click();
+
+            showToast('Image downloaded');
+        }
+
+        function copyUrl() {
+            const fullCanvas = getFullCanvas();
+            const format = document.getElementById('format').value;
+            const mimeType = `image/${format === 'jpg' ? 'jpeg' : format}`;
+
+            navigator.clipboard.writeText(fullCanvas.toDataURL(mimeType, 0.9));
+            showToast('Data URL copied');
+        }
+
+        function copyHtml() {
+            const html = document.getElementById('htmlCode').textContent;
+            navigator.clipboard.writeText(html);
+            showToast('HTML copied');
+        }
+
+        // Initialize
+        generate();
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Placeholder Image Generator","description":"Generate placeholder images for designs and mockups.","url":"https://passive.hardikkanajariya.in/placeholder-image/","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>

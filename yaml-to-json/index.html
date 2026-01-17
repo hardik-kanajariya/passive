@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAML to JSON Converter - Convert YAML Online | PassiveTools</title>
+    <meta name="description"
+        content="Convert YAML to JSON format online for free. Easy YAML to JSON transformation with validation and error checking.">
+    <meta name="keywords"
+        content="yaml to json, yaml converter, convert yaml, json converter, yaml parser, yaml validation">
+    <link rel="canonical" href="https://passive.hardikkanajariya.in/yaml-to-json/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            background: #f9fafb;
+            border-radius: 8px
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/converters/" class="text-gray-500 hover:text-violet-600">Converters</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">YAML to JSON</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">YAML to JSON Converter</h1>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Input YAML</label>
+                                <button onclick="loadSample()" class="text-xs text-violet-600 hover:underline">Load
+                                    Sample</button>
+                            </div>
+                            <textarea id="input" rows="15" placeholder="name: John Doe
+age: 30
+email: john@example.com" class="w-full px-4 py-3 font-mono text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent"></textarea>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Output JSON</label>
+                                <button onclick="copyOutput()"
+                                    class="text-xs text-violet-600 hover:underline">Copy</button>
+                            </div>
+                            <textarea id="output" rows="15" readonly
+                                class="w-full px-4 py-3 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-4 mb-6">
+                        <button onclick="convert()"
+                            class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl">Convert
+                            to JSON</button>
+                        <button onclick="downloadOutput()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Download
+                            JSON</button>
+                        <button onclick="clearAll()"
+                            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Clear</button>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="minify" class="rounded">
+                            <span class="text-sm text-gray-700">Minify output</span>
+                        </label>
+                    </div>
+
+                    <div id="error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">YAML Syntax</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Use spaces for indentation</li>
+                        <li>• Key: value pairs</li>
+                        <li>• Lists with - prefix</li>
+                        <li>• Comments with #</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/json-formatter/" class="text-violet-600 hover:underline text-sm">JSON
+                                Formatter</a></li>
+                        <li><a href="/json-to-csv/" class="text-violet-600 hover:underline text-sm">JSON to CSV</a></li>
+                        <li><a href="/xml-to-json/" class="text-violet-600 hover:underline text-sm">XML to JSON</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        function convert() {
+            const input = document.getElementById('input').value.trim();
+            const errorDiv = document.getElementById('error');
+            const minify = document.getElementById('minify').checked;
+
+            errorDiv.classList.add('hidden');
+
+            if (!input) {
+                showToast('Please enter YAML data');
+                return;
+            }
+
+            try {
+                const parsed = jsyaml.load(input);
+                const json = minify ? JSON.stringify(parsed) : JSON.stringify(parsed, null, 2);
+                document.getElementById('output').value = json;
+                showToast('Converted successfully');
+            } catch (e) {
+                errorDiv.textContent = 'YAML Error: ' + e.message;
+                errorDiv.classList.remove('hidden');
+                document.getElementById('output').value = '';
+            }
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output').value;
+            if (!output) {
+                showToast('Nothing to copy');
+                return;
+            }
+            navigator.clipboard.writeText(output);
+            showToast('Copied to clipboard');
+        }
+
+        function downloadOutput() {
+            const output = document.getElementById('output').value;
+            if (!output) {
+                showToast('Nothing to download');
+                return;
+            }
+
+            const blob = new Blob([output], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'converted.json';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded converted.json');
+        }
+
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('error').classList.add('hidden');
+        }
+
+        function loadSample() {
+            const sample = `# User Configuration
+name: John Doe
+age: 30
+email: john@example.com
+active: true
+
+# Address Details
+address:
+  street: 123 Main Street
+  city: New York
+  country: USA
+  zip: "10001"
+
+# Skills List
+skills:
+  - JavaScript
+  - Python
+  - Docker
+  - Kubernetes
+
+# Work Experience
+experience:
+  - company: Tech Corp
+    position: Senior Developer
+    years: 5
+  - company: Startup Inc
+    position: Full Stack Developer
+    years: 3
+
+# Preferences
+preferences:
+  theme: dark
+  notifications: true
+  language: en`;
+
+            document.getElementById('input').value = sample;
+        }
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"YAML to JSON Converter","description":"Convert YAML data to JSON format online.","url":"https://passive.hardikkanajariya.in/yaml-to-json/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>
