@@ -129,7 +129,7 @@ const AdManager = {
         iframe.style.overflow = 'hidden';
         iframe.scrolling = 'no';
         iframe.frameBorder = '0';
-        
+
         container.innerHTML = ''; // Clear container
         container.appendChild(iframe);
 
@@ -162,7 +162,7 @@ const AdManager = {
 
         this.loaded[containerId] = true;
         this.adsterraLoading = false;
-        
+
         // Process next ad with a small delay
         setTimeout(() => this.processAdsterraQueue(), 100);
     },
@@ -216,16 +216,18 @@ const AdManager = {
         const container = document.getElementById(containerId);
         if (!container) return;
 
+        // Create the target div first (required by Adsterra native ads)
+        const adDiv = document.createElement('div');
+        adDiv.id = 'container-3fecabf66e493c7e25b0b3150e5b5adb';
+        container.appendChild(adDiv);
+
+        // Then load the script
         const script = document.createElement('script');
         script.async = true;
         script.setAttribute('data-cfasync', 'false');
         script.src = 'https://pl28503854.effectivegatecpm.com/3fecabf66e493c7e25b0b3150e5b5adb/invoke.js';
-
-        const adDiv = document.createElement('div');
-        adDiv.id = 'container-3fecabf66e493c7e25b0b3150e5b5adb';
-
         container.appendChild(script);
-        container.appendChild(adDiv);
+
         this.loaded[containerId] = true;
     },
 
@@ -388,111 +390,37 @@ const AdManager = {
     }
 };
 
-// List of tool pages for random redirect
-const toolPages = [
-    '/age-calculator/',
-    '/ascii-art/',
-    '/barcode-generator/',
-    '/base64-encoder/',
-    '/base64-to-image/',
-    '/binary-converter/',
-    '/bmi-calculator/',
-    '/case-converter/',
-    '/character-counter/',
-    '/color-converter/',
-    '/color-palette/',
-    '/color-picker/',
-    '/countdown-timer/',
-    '/cron-generator/',
-    '/css-minifier/',
-    '/csv-to-json/',
-    '/currency-converter/',
-    '/date-difference/',
-    '/diff-checker/',
-    '/discount-calculator/',
-    '/emoji-picker/',
-    '/fake-identity/',
-    '/favicon-generator/',
-    '/gradient-generator/',
-    '/hash-generator/',
-    '/hex-converter/',
-    '/html-encoder/',
-    '/html-minifier/',
-    '/html-to-markdown/',
-    '/image-compressor/',
-    '/image-converter/',
-    '/image-resizer/',
-    '/image-to-base64/',
-    '/ip-lookup/',
-    '/js-minifier/',
-    '/json-formatter/',
-    '/json-minifier/',
-    '/json-to-csv/',
-    '/json-validator/',
-    '/jwt-decoder/',
-    '/loan-calculator/',
-    '/lorem-ipsum/',
-    '/markdown-to-html/',
-    '/meta-tag-generator/',
-    '/notepad/',
-    '/og-generator/',
-    '/password-generator/',
-    '/percentage-calculator/',
-    '/placeholder-image/',
-    '/pomodoro-timer/',
-    '/qr-code-generator/',
-    '/random-number/',
-    '/regex-tester/',
-    '/remove-line-breaks/',
-    '/robots-txt-generator/',
-    '/site-analyzer/',
-    '/sitemap-generator/',
-    '/sql-formatter/',
-    '/stopwatch/',
-    '/temp-email/',
-    '/text-repeater/',
-    '/text-reverser/',
-    '/text-to-slug/',
-    '/text-to-speech/',
-    '/timestamp-converter/',
-    '/tip-calculator/',
-    '/typing-test/',
-    '/unit-converter/',
-    '/url-encoder/',
-    '/username-generator/',
-    '/uuid-generator/',
-    '/word-counter/',
-    '/xml-to-json/',
-    '/yaml-to-json/'
-];
-
-// Redirect to random tool page after delay (only on landing page)
-function setupLandingPageRedirect() {
-    // Check if user is on the landing page (root index.html)
-    const path = window.location.pathname;
-    const isLandingPage = path === '/' || path === '/index.html' || path.endsWith('/passive/') || path.endsWith('/passive/index.html');
-
-    if (isLandingPage) {
-        // Redirect after 8 seconds
-        setTimeout(() => {
-            const randomTool = toolPages[Math.floor(Math.random() * toolPages.length)];
-            window.location.href = randomTool;
-        }, 8000);
-    }
-}
+// Track if AdManager has been initialized
+let adManagerInitialized = false;
 
 // Auto-initialize when components are loaded
 document.addEventListener('componentsLoaded', () => {
+    if (adManagerInitialized) return;
+    adManagerInitialized = true;
+
     const pageType = document.body.dataset.pageType || 'default';
     AdManager.init(pageType);
-    setupLandingPageRedirect();
 });
 
-// Fallback if no components used
+// Fallback if no components used or componentsLoaded doesn't fire
 document.addEventListener('DOMContentLoaded', () => {
-    if (!document.querySelector('[data-component]')) {
-        const pageType = document.body.dataset.pageType || 'default';
-        AdManager.init(pageType);
+    // If there are components, wait for componentsLoaded event (with timeout fallback)
+    if (document.querySelector('[data-component]')) {
+        // Set a timeout fallback in case componentsLoaded never fires
+        setTimeout(() => {
+            if (!adManagerInitialized) {
+                console.warn('[AdManager] componentsLoaded event not received, initializing anyway');
+                adManagerInitialized = true;
+                const pageType = document.body.dataset.pageType || 'default';
+                AdManager.init(pageType);
+            }
+        }, 3000);
+    } else {
+        // No components, initialize immediately
+        if (!adManagerInitialized) {
+            adManagerInitialized = true;
+            const pageType = document.body.dataset.pageType || 'default';
+            AdManager.init(pageType);
+        }
     }
-    setupLandingPageRedirect();
 });
