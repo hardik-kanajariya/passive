@@ -26,8 +26,8 @@ const AdManager = {
         enableTimeDelayedAds: true,  // Show additional ads after time
         enableDirectLinks: true,     // Monetize outbound links
         popunderFrequencyHours: 4,   // Hours between popunders (lower = more revenue)
-        scrollAdThreshold: 50,       // Scroll % to trigger more ads
-        timeDelaySeconds: 30         // Seconds before showing delayed ad
+        scrollAdThreshold: 30,       // Scroll % to trigger more ads (lowered for faster trigger)
+        timeDelaySeconds: 10         // Seconds before showing delayed ad (reduced for more impressions)
     },
     loaded: {},
     errors: [],
@@ -177,14 +177,14 @@ const AdManager = {
         script.onload = () => {
             this.loaded[containerId] = true;
             this.adsterraLoading = false;
-            // Process next ad after a delay to ensure proper initialization
-            setTimeout(() => this.processAdsterraQueue(), 300);
+            // Process next ad quickly for faster loading
+            setTimeout(() => this.processAdsterraQueue(), 50);
         };
 
         script.onerror = () => {
             this.logError(containerId, 'Script failed to load');
             this.adsterraLoading = false;
-            setTimeout(() => this.processAdsterraQueue(), 100);
+            setTimeout(() => this.processAdsterraQueue(), 25);
         };
 
         container.appendChild(script);
@@ -523,10 +523,15 @@ const AdManager = {
         // Load PopUnder (frequency limited)
         this.loadJuicyPopunder();
 
-        // Load sidebar ads (these are the actual container IDs used in HTML pages)
-        // ad-sidebar is typically 300x250 or similar
+        // Load ALL sidebar ads immediately (3-4 banner slots)
         this.loadAdsterra300x250('ad-sidebar');
         this.loadAdsterra300x250('ad-sidebar-2');
+        this.loadAdsterra300x250('ad-sidebar-3');
+        this.loadAdsterra300x250('ad-sidebar-4');
+
+        // Load content area ads
+        this.loadAdsterra300x250('ad-content');
+        this.loadAdsterra300x250('ad-content-2');
 
         // Always load Native Banner in footer (4 cards style)
         this.loadAdsterraNativeFooter();
@@ -534,31 +539,41 @@ const AdManager = {
         // Middle page banner ads (homepage)
         if (!isMobile) {
             this.loadAdsterra468x60('ad-banner-middle');
+            this.loadAdsterra468x60('ad-banner-middle-2');
         } else {
             this.loadAdsterra300x250('ad-banner-middle-mobile');
+            this.loadAdsterra300x250('ad-banner-middle-mobile-2');
         }
 
-        // Desktop-specific ads
+        // Desktop-specific ads - load 4 banners at once
         if (!isMobile) {
             this.loadAdsterra468x60('ad-header');
+            this.loadAdsterra468x60('ad-header-2');
             this.loadAdsterra160x300('ad-sidebar-skyscraper');
             this.loadAdsterra300x250('ad-sidebar-rectangle');
+            this.loadAdsterra300x250('ad-sidebar-rectangle-2');
             this.loadAdsterra468x60('ad-footer');
+            this.loadAdsterra468x60('ad-footer-2');
         }
 
-        // Mobile ads - load more banners for increased impressions
+        // Mobile ads - load 4+ banners immediately for maximum impressions
         if (isMobile) {
+            // Adsterra mobile banners (4 at once)
             this.loadAdsterra320x50('ad-mobile-top');
+            this.loadAdsterra320x50('ad-mobile-top-2');
             this.loadAdsterra300x250('ad-mobile-content');
+            this.loadAdsterra300x250('ad-mobile-content-2');
             this.loadAdsterra320x50('ad-mobile-sticky');
             this.loadAdsterra320x50('ad-mobile-bottom');
             this.loadAdsterra300x250('ad-mobile-mid');
+            this.loadAdsterra300x250('ad-mobile-mid-2');
 
-            // Load JuicyAds on mobile too
+            // Load JuicyAds on mobile too (4 placements)
             this.loadJuicyBanner('juicy-mobile-1');
             this.loadJuicyBanner('juicy-mobile-2');
             this.loadJuicyBanner('juicy-mobile-3');
             this.loadJuicyBanner('juicy-mobile-mid');
+            this.loadJuicyBanner('juicy-mobile-4');
         }
 
         // Tool pages get extra ads
@@ -569,11 +584,15 @@ const AdManager = {
             this.setupToolInterstitial();
         }
 
-        // Load JuicyAds on all pages
+        // Load JuicyAds on all pages - multiple placements for more impressions
         if (this.config.enableJuicyAds) {
-            // Load JuicyAds banner if container exists
+            // Load all JuicyAds banners immediately
             this.loadJuicyBanner('ad-juicy-banner');
+            this.loadJuicyBanner('ad-juicy-banner-2');
             this.loadJuicyBanner('ad-juicy-content');
+            this.loadJuicyBanner('ad-juicy-content-2');
+            this.loadJuicyBanner('ad-juicy-sidebar');
+            this.loadJuicyBanner('ad-juicy-footer');
         }
 
         // Processing pages get interstitial
@@ -598,8 +617,8 @@ const AdManager = {
         // Log initialization
         console.log('[AdManager] Initialized for page type:', pageType, 'Mobile:', window.innerWidth < 768);
 
-        // Check ad loading status after 5 seconds
-        setTimeout(() => this.checkAdStatus(), 5000);
+        // Check ad loading status faster (2 seconds instead of 5)
+        setTimeout(() => this.checkAdStatus(), 2000);
     },
 
     // Setup interstitial to show after tool usage
@@ -613,10 +632,10 @@ const AdManager = {
                     target.textContent.toLowerCase().includes('copy') ||
                     target.textContent.toLowerCase().includes('generate') ||
                     target.textContent.toLowerCase().includes('convert'))) {
-                // Show interstitial after action (delayed to not interrupt UX)
+                // Show interstitial after action (reduced delay for faster ad display)
                 setTimeout(() => {
                     this.loadAdsterraInterstitial();
-                }, 2000);
+                }, 1000);
             }
         });
     },
@@ -643,11 +662,11 @@ const AdManager = {
             console.log('[AdManager] Ads appear to be blocked. Popunders will still work on click.');
         }
 
-        // Retry failed ads once
+        // Retry failed ads quickly (reduced from 2s to 500ms)
         if (loadedCount < totalFound && !this.retried) {
             this.retried = true;
             console.log('[AdManager] Retrying failed ads...');
-            setTimeout(() => this.retryFailedAds(), 2000);
+            setTimeout(() => this.retryFailedAds(), 500);
         }
     },
 
@@ -655,19 +674,29 @@ const AdManager = {
     retryFailedAds() {
         const isMobile = window.innerWidth < 768;
 
-        // Check each container and retry if empty
+        // Check each container and retry if empty - expanded list
         const retryMap = {
             'ad-sidebar': () => this.loadAdsterraDirect('ad-sidebar', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
             'ad-sidebar-2': () => this.loadAdsterraDirect('ad-sidebar-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-sidebar-3': () => this.loadAdsterraDirect('ad-sidebar-3', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-sidebar-4': () => this.loadAdsterraDirect('ad-sidebar-4', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-content': () => this.loadAdsterraDirect('ad-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-content-2': () => this.loadAdsterraDirect('ad-content-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
             'ad-header': () => this.loadAdsterraDirect('ad-header', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
+            'ad-header-2': () => this.loadAdsterraDirect('ad-header-2', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
             'ad-footer': () => this.loadAdsterraDirect('ad-footer', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
+            'ad-footer-2': () => this.loadAdsterraDirect('ad-footer-2', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
             'ad-sidebar-skyscraper': () => this.loadAdsterraDirect('ad-sidebar-skyscraper', '820015608f3c05c78d776d295a0323a9', 160, 300),
             'ad-sidebar-rectangle': () => this.loadAdsterraDirect('ad-sidebar-rectangle', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-sidebar-rectangle-2': () => this.loadAdsterraDirect('ad-sidebar-rectangle-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
             'ad-mobile-top': () => this.loadAdsterraDirect('ad-mobile-top', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
+            'ad-mobile-top-2': () => this.loadAdsterraDirect('ad-mobile-top-2', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
             'ad-mobile-content': () => this.loadAdsterraDirect('ad-mobile-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-mobile-content-2': () => this.loadAdsterraDirect('ad-mobile-content-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
             'ad-mobile-sticky': () => this.loadAdsterraDirect('ad-mobile-sticky', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
             'ad-mobile-bottom': () => this.loadAdsterraDirect('ad-mobile-bottom', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
-            'ad-mobile-mid': () => this.loadAdsterraDirect('ad-mobile-mid', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250)
+            'ad-mobile-mid': () => this.loadAdsterraDirect('ad-mobile-mid', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-mobile-mid-2': () => this.loadAdsterraDirect('ad-mobile-mid-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250)
         };
 
         Object.keys(retryMap).forEach(id => {
@@ -679,16 +708,18 @@ const AdManager = {
             }
         });
 
-        // Also retry JuicyAds mobile banners
-        if (isMobile) {
-            ['juicy-mobile-1', 'juicy-mobile-2', 'juicy-mobile-3', 'juicy-mobile-mid'].forEach(id => {
-                const container = document.getElementById(id);
-                if (container && container.children.length === 0) {
-                    this.loaded[id] = false;
-                    this.loadJuicyBanner(id);
-                }
-            });
-        }
+        // Also retry JuicyAds banners
+        const juicyContainers = isMobile
+            ? ['juicy-mobile-1', 'juicy-mobile-2', 'juicy-mobile-3', 'juicy-mobile-mid', 'juicy-mobile-4']
+            : ['ad-juicy-banner', 'ad-juicy-banner-2', 'ad-juicy-content', 'ad-juicy-content-2', 'ad-juicy-sidebar', 'ad-juicy-footer'];
+
+        juicyContainers.forEach(id => {
+            const container = document.getElementById(id);
+            if (container && container.children.length === 0) {
+                this.loaded[id] = false;
+                this.loadJuicyBanner(id);
+            }
+        });
     },
 
     // Debug function - call AdManager.debug() in console
@@ -798,10 +829,10 @@ const AdManager = {
         `;
         document.body.appendChild(adContainer);
 
-        // Load ad into container
+        // Load ad into container immediately
         setTimeout(() => {
             this.loadAdsterraDirect('ad-scroll-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
-        }, 100);
+        }, 10);
 
         // Auto-close after 30 seconds
         setTimeout(() => {
