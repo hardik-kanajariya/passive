@@ -308,6 +308,10 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 
 ## JuicyAds
 
+> ✅ **Status:** Active  
+> **Dedicated Page:** `/special-offers/`  
+> **Note:** JuicyAds loads primarily on the dedicated special offers page for adult content.
+
 ### Site Verification
 
 **Required:** Add to `<head>` section of all pages for verification.
@@ -315,6 +319,15 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 ```html
 <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
 ```
+
+---
+
+### Dedicated Page
+
+All JuicyAds units are concentrated on `/special-offers/` page:
+- PopUnder (auto-loads)
+- Banner 632x190 (multiple placements)
+- Click-under support
 
 ---
 

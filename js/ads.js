@@ -17,7 +17,7 @@
 const AdManager = {
     config: {
         enableAdsterra: true,
-        enableJuicyAds: false,
+        enableJuicyAds: true,        // Enabled - loads on /special-offers/ page
         enableSmartLinks: true,      // Popunder on click (high revenue)
         enableAntiAdblock: true,     // Anti-adblock popunder
         enableInterstitial: true,    // Interstitial between actions
