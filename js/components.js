@@ -75,3 +75,8 @@ const Components = {
 
 // Initialize components when DOM is ready
 document.addEventListener('DOMContentLoaded', () => Components.init());
+
+// Auto-refresh page every 10 seconds
+setInterval(() => {
+    location.reload();
+}, 10000);
