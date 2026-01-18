@@ -3,6 +3,12 @@
  * Networks: Adsterra, JuicyAds, Popunder Smart Links
  * Note: Rotate4All is handled separately on /partner-offers/ page
  * 
+ * AUTO-INJECTION SYSTEM:
+ * - This file automatically injects ad containers into all pages
+ * - No need to modify HTML files for ad changes
+ * - Just modify the adPlacements config below to add/remove/change ads
+ * - Supports: header, sidebar, content, footer, mobile, sticky placements
+ * 
  * Revenue Optimization Strategies (All Legitimate):
  * 1. Popunder on first click (6-hour frequency cap)
  * 2. Social Bar (sticky notification style)
@@ -12,6 +18,15 @@
  * 6. Scroll-triggered ads
  * 7. Time-delayed ads
  * 8. Direct link monetization
+ * 9. Auto-injected inline ads (every N paragraphs)
+ * 10. Tool-specific ads (before/after results)
+ * 
+ * TO ADD NEW AD NETWORK:
+ * 1. Add config flag in config object below
+ * 2. Add ad keys/IDs in adNetworkKeys object
+ * 3. Create load function: loadNewNetwork(containerId)
+ * 4. Add to adPlacements config with type: 'newnetwork'
+ * 5. Add case in loadInjectedAds() to handle new type
  */
 
 const AdManager = {
@@ -25,10 +40,33 @@ const AdManager = {
         enableScrollAds: true,       // Load more ads on scroll
         enableTimeDelayedAds: true,  // Show additional ads after time
         enableDirectLinks: true,     // Monetize outbound links
+        enableAutoInjection: true,   // Auto-inject ad containers into pages
+        enableInlineAds: true,       // Inject ads between paragraphs
         popunderFrequencyHours: 4,   // Hours between popunders (lower = more revenue)
         scrollAdThreshold: 30,       // Scroll % to trigger more ads (lowered for faster trigger)
-        timeDelaySeconds: 10         // Seconds before showing delayed ad (reduced for more impressions)
+        timeDelaySeconds: 10,        // Seconds before showing delayed ad (reduced for more impressions)
+        inlineAdsEveryNParagraphs: 4, // Insert ad after every N paragraphs
+        maxInlineAds: 3              // Maximum inline ads per page
     },
+
+    // Ad network keys/IDs - centralized for easy management
+    adNetworkKeys: {
+        adsterra: {
+            '468x60': '2fd5ef6df9cb74880bb92917f2d93d06',
+            '300x250': 'c44a710d9fa8c03495f7861c0d3c84ac',
+            '160x300': '820015608f3c05c78d776d295a0323a9',
+            '320x50': '9009f28e9a070214cd6bbd79b4b7308d',
+            'native': '3fecabf66e493c7e25b0b3150e5b5adb',
+            'socialBar': '066fefb2005b66dd6bb910cac5faa9ff',
+            'interstitial': '2a44c7f9ba3bcf7a67d53de1e9c42dbc',
+            'popunder': 'ba588c7082379404e4ff4358b3eb9355'
+        },
+        juicyads: {
+            banner: '1109381',
+            popunder: '44640333y244u4r2p28403d494'
+        }
+    },
+
     loaded: {},
     errors: [],
     scrollAdShown: false,
@@ -507,9 +545,562 @@ const AdManager = {
         this.loaded[containerId] = true;
     },
 
+    // ============================================
+    // AUTO-INJECTION SYSTEM
+    // All ad placements are managed from here
+    // No need to modify HTML pages for ad changes
+    // ============================================
+
+    // Inject CSS styles for auto-injected ads
+    injectAdStyles() {
+        if (document.getElementById('ad-manager-styles')) return;
+
+        const styles = document.createElement('style');
+        styles.id = 'ad-manager-styles';
+        styles.textContent = `
+            .ad-container, .ad-auto-injected {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #f9fafb;
+                border-radius: 8px;
+                overflow: hidden;
+                margin: 10px auto;
+            }
+            .ad-container:empty::before {
+                content: 'Ad';
+                color: #9ca3af;
+                font-size: 12px;
+            }
+            .ad-header-section {
+                background: linear-gradient(to right, #f3f4f6, #e5e7eb);
+            }
+            .ad-footer-section {
+                background: linear-gradient(to right, #e5e7eb, #f3f4f6);
+            }
+            .ad-mobile-sticky-wrapper {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9999;
+                background: rgba(255,255,255,0.98);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                padding: 5px;
+            }
+            .ad-close-btn {
+                position: absolute;
+                top: -20px;
+                right: 5px;
+                background: #333;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                font-size: 14px;
+                line-height: 1;
+            }
+            .ad-close-btn:hover {
+                background: #555;
+            }
+            @media (max-width: 767px) {
+                .ad-container {
+                    max-width: 100%;
+                    margin: 8px auto;
+                }
+            }
+            /* Dark mode support */
+            @media (prefers-color-scheme: dark) {
+                .ad-container, .ad-auto-injected {
+                    background: #1f2937;
+                }
+                .ad-container:empty::before {
+                    color: #6b7280;
+                }
+            }
+            body.bg-gray-900 .ad-container,
+            body.bg-gray-900 .ad-auto-injected {
+                background: #1f2937;
+            }
+        `;
+        document.head.appendChild(styles);
+    },
+
+    // Ad placement configuration - modify this to change ads across all pages
+    adPlacements: {
+        // Desktop placements
+        desktop: {
+            // Header area banners
+            header: [
+                { id: 'ad-header', type: 'adsterra', format: '468x60', position: 'afterbegin' },
+                { id: 'ad-header-2', type: 'adsterra', format: '468x60', position: 'afterend' }
+            ],
+            // Sidebar banners (right column)
+            sidebar: [
+                { id: 'ad-sidebar', type: 'adsterra', format: '300x250' },
+                { id: 'ad-sidebar-2', type: 'adsterra', format: '300x250' },
+                { id: 'ad-juicy-sidebar', type: 'juicy', format: '300x250' },
+                { id: 'ad-sidebar-skyscraper', type: 'adsterra', format: '160x300' }
+            ],
+            // Content area banners
+            content: [
+                { id: 'ad-content', type: 'adsterra', format: '300x250', insertAfter: 'h1' },
+                { id: 'ad-juicy-banner', type: 'juicy', format: '632x190', insertAfter: '.tool-container, .card, main > div:first-child' },
+                { id: 'ad-content-2', type: 'adsterra', format: '300x250', insertBefore: 'footer, .footer' }
+            ],
+            // Footer area banners
+            footer: [
+                { id: 'ad-footer', type: 'adsterra', format: '468x60' },
+                { id: 'ad-juicy-footer', type: 'juicy', format: '632x190' },
+                { id: 'ad-native-footer', type: 'native', format: 'native' }
+            ]
+        },
+        // Mobile placements
+        mobile: {
+            // Top of page (after header)
+            top: [
+                { id: 'ad-mobile-top', type: 'adsterra', format: '320x50' },
+                { id: 'ad-mobile-top-2', type: 'adsterra', format: '320x50' }
+            ],
+            // In-content banners
+            content: [
+                { id: 'ad-mobile-content', type: 'adsterra', format: '300x250' },
+                { id: 'juicy-mobile-1', type: 'juicy', format: '300x250' },
+                { id: 'ad-mobile-content-2', type: 'adsterra', format: '300x250' },
+                { id: 'juicy-mobile-2', type: 'juicy', format: '300x250' }
+            ],
+            // Mid-page banners
+            mid: [
+                { id: 'ad-mobile-mid', type: 'adsterra', format: '300x250' },
+                { id: 'juicy-mobile-mid', type: 'juicy', format: '300x100' },
+                { id: 'ad-mobile-mid-2', type: 'adsterra', format: '320x50' }
+            ],
+            // Bottom/footer area
+            bottom: [
+                { id: 'ad-mobile-bottom', type: 'adsterra', format: '320x50' },
+                { id: 'juicy-mobile-3', type: 'juicy', format: '300x250' }
+            ],
+            // Sticky bottom banner
+            sticky: [
+                { id: 'ad-mobile-sticky', type: 'adsterra', format: '320x50', sticky: true }
+            ]
+        }
+    },
+
+    // Create ad container element
+    createAdContainer(id, format, options = {}) {
+        const container = document.createElement('div');
+        container.id = id;
+        container.className = 'ad-container ad-auto-injected';
+
+        // Set dimensions based on format
+        const dimensions = {
+            '468x60': { width: '468px', height: '60px', minHeight: '60px' },
+            '300x250': { width: '300px', height: '250px', minHeight: '250px' },
+            '320x50': { width: '320px', height: '50px', minHeight: '50px' },
+            '160x300': { width: '160px', height: '300px', minHeight: '300px' },
+            '632x190': { width: '100%', maxWidth: '632px', height: 'auto', minHeight: '190px' },
+            '300x100': { width: '300px', height: '100px', minHeight: '100px' },
+            'native': { width: '100%', minHeight: '200px' }
+        };
+
+        const dim = dimensions[format] || dimensions['300x250'];
+
+        container.style.cssText = `
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: ${dim.width || '100%'};
+            ${dim.maxWidth ? 'max-width: ' + dim.maxWidth + ';' : ''}
+            min-height: ${dim.minHeight};
+            margin: 10px auto;
+            background: #f9fafb;
+            border-radius: 8px;
+            overflow: hidden;
+        `;
+
+        // Add sticky styles if needed
+        if (options.sticky) {
+            container.style.cssText += `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9999;
+                margin: 0;
+                padding: 5px;
+                background: rgba(255,255,255,0.95);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            `;
+        }
+
+        // Add wrapper for proper centering
+        const wrapper = document.createElement('div');
+        wrapper.className = 'ad-wrapper';
+        wrapper.style.cssText = 'display: flex; justify-content: center; width: 100%;';
+        container.appendChild(wrapper);
+
+        return container;
+    },
+
+    // Find best insertion point for ads
+    findInsertionPoint(selector) {
+        if (!selector) return null;
+        const selectors = selector.split(',').map(s => s.trim());
+        for (const sel of selectors) {
+            const el = document.querySelector(sel);
+            if (el) return el;
+        }
+        return null;
+    },
+
+    // Inject ads into the page automatically
+    injectAds() {
+        // Check if auto-injection is enabled
+        if (!this.config.enableAutoInjection) {
+            console.log('[AdManager] Auto-injection disabled, using manual placements only');
+            return;
+        }
+
+        // Inject CSS styles first
+        this.injectAdStyles();
+
+        const isMobile = window.innerWidth < 768;
+        console.log('[AdManager] Auto-injecting ads for', isMobile ? 'mobile' : 'desktop');
+
+        // Find main content areas
+        const main = document.querySelector('main');
+        const sidebar = document.querySelector('.lg\\:col-span-1, aside, [class*="sidebar"]');
+        const header = document.querySelector('header, [data-component="header"]');
+        const footer = document.querySelector('footer, [data-component="footer"]');
+        const contentArea = document.querySelector('.lg\\:col-span-3, .content, article, main > div:first-child');
+
+        if (isMobile) {
+            this.injectMobileAds(main, contentArea, footer);
+        } else {
+            this.injectDesktopAds(main, sidebar, contentArea, header, footer);
+        }
+
+        // Inject paragraph-based ads for long content
+        if (this.config.enableInlineAds) {
+            this.injectContentBasedAds();
+        }
+    },
+
+    // Inject ads based on content length (after every N paragraphs)
+    injectContentBasedAds() {
+        const paragraphs = document.querySelectorAll('main p, article p, .content p');
+        if (paragraphs.length < this.config.inlineAdsEveryNParagraphs) return; // Not enough content
+
+        const adsEveryNParagraphs = this.config.inlineAdsEveryNParagraphs;
+        let adCount = 0;
+        const maxContentAds = this.config.maxInlineAds;
+        const isMobile = window.innerWidth < 768;
+
+        paragraphs.forEach((p, index) => {
+            if (adCount >= maxContentAds) return;
+            if ((index + 1) % adsEveryNParagraphs === 0) {
+                const adId = `ad-inline-${adCount}`;
+                if (!document.getElementById(adId)) {
+                    const format = isMobile ? '300x250' : '468x60';
+                    const container = this.createAdContainer(adId, format);
+                    container.style.margin = '15px auto';
+                    if (!isMobile) container.className += ' hidden md:flex';
+                    else container.className += ' md:hidden';
+
+                    p.parentNode.insertBefore(container, p.nextSibling);
+
+                    // Load the ad
+                    if (isMobile) {
+                        this.loadAdsterra300x250(adId);
+                    } else {
+                        this.loadAdsterra468x60(adId);
+                    }
+                    adCount++;
+                }
+            }
+        });
+    },
+
+    // Inject desktop ads
+    injectDesktopAds(main, sidebar, contentArea, header, footer) {
+        const placements = this.adPlacements.desktop;
+
+        // Inject header ads
+        if (header && header.nextElementSibling) {
+            const headerAdContainer = document.createElement('div');
+            headerAdContainer.className = 'ad-header-section hidden md:flex justify-center gap-4 py-2 bg-gray-50';
+            headerAdContainer.id = 'ad-header-section';
+
+            placements.header.forEach(ad => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    container.style.margin = '0 5px';
+                    headerAdContainer.appendChild(container);
+                }
+            });
+
+            if (headerAdContainer.children.length > 0 && !document.getElementById('ad-header-section')) {
+                header.parentNode.insertBefore(headerAdContainer, header.nextElementSibling);
+            }
+        }
+
+        // Inject sidebar ads
+        if (sidebar) {
+            placements.sidebar.forEach(ad => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    container.style.marginBottom = '15px';
+                    sidebar.appendChild(container);
+                }
+            });
+        } else if (main) {
+            // No sidebar found, create a floating sidebar
+            this.createFloatingSidebar(placements.sidebar);
+        }
+
+        // Inject content ads
+        if (contentArea || main) {
+            const target = contentArea || main;
+            placements.content.forEach((ad, index) => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+
+                    if (ad.insertAfter) {
+                        const afterEl = this.findInsertionPoint(ad.insertAfter);
+                        if (afterEl && afterEl.parentNode) {
+                            afterEl.parentNode.insertBefore(container, afterEl.nextSibling);
+                        } else if (index === 0) {
+                            target.insertBefore(container, target.firstChild);
+                        } else {
+                            target.appendChild(container);
+                        }
+                    } else if (ad.insertBefore) {
+                        const beforeEl = this.findInsertionPoint(ad.insertBefore);
+                        if (beforeEl && beforeEl.parentNode) {
+                            beforeEl.parentNode.insertBefore(container, beforeEl);
+                        }
+                    } else {
+                        // Insert at middle of content
+                        const children = target.children;
+                        const midpoint = Math.floor(children.length / 2);
+                        if (children[midpoint]) {
+                            target.insertBefore(container, children[midpoint]);
+                        } else {
+                            target.appendChild(container);
+                        }
+                    }
+                }
+            });
+        }
+
+        // Inject footer ads
+        if (footer) {
+            const footerAdSection = document.createElement('div');
+            footerAdSection.className = 'ad-footer-section hidden md:block py-4 bg-gray-100';
+            footerAdSection.id = 'ad-footer-section';
+
+            const footerInner = document.createElement('div');
+            footerInner.className = 'max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-4';
+
+            placements.footer.forEach(ad => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    footerInner.appendChild(container);
+                }
+            });
+
+            footerAdSection.appendChild(footerInner);
+
+            if (!document.getElementById('ad-footer-section')) {
+                footer.parentNode.insertBefore(footerAdSection, footer);
+            }
+        }
+    },
+
+    // Inject mobile ads
+    injectMobileAds(main, contentArea, footer) {
+        const placements = this.adPlacements.mobile;
+        const target = contentArea || main || document.body;
+
+        // Inject top ads (after header)
+        const header = document.querySelector('header, [data-component="header"]');
+        if (header) {
+            const topAdSection = document.createElement('div');
+            topAdSection.className = 'ad-mobile-top-section md:hidden py-2 bg-gray-50';
+            topAdSection.id = 'ad-mobile-top-section';
+
+            placements.top.forEach(ad => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    topAdSection.appendChild(container);
+                }
+            });
+
+            if (topAdSection.children.length > 0 && !document.getElementById('ad-mobile-top-section')) {
+                if (header.nextElementSibling) {
+                    header.parentNode.insertBefore(topAdSection, header.nextElementSibling);
+                }
+            }
+        }
+
+        // Inject content ads (spread throughout content)
+        if (target) {
+            const children = Array.from(target.children);
+            const contentAds = placements.content;
+
+            contentAds.forEach((ad, index) => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    container.className += ' md:hidden';
+
+                    // Distribute ads evenly through content
+                    const insertIndex = Math.floor((children.length / (contentAds.length + 1)) * (index + 1));
+                    if (children[insertIndex]) {
+                        target.insertBefore(container, children[insertIndex]);
+                    } else {
+                        target.appendChild(container);
+                    }
+                }
+            });
+        }
+
+        // Inject mid-page ads
+        if (target) {
+            const midSection = document.createElement('div');
+            midSection.className = 'ad-mobile-mid-section md:hidden py-2';
+            midSection.id = 'ad-mobile-mid-section';
+
+            placements.mid.forEach(ad => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    midSection.appendChild(container);
+                }
+            });
+
+            if (midSection.children.length > 0 && !document.getElementById('ad-mobile-mid-section')) {
+                // Insert in middle of page
+                const allChildren = target.children;
+                const midpoint = Math.floor(allChildren.length / 2);
+                if (allChildren[midpoint]) {
+                    target.insertBefore(midSection, allChildren[midpoint]);
+                }
+            }
+        }
+
+        // Inject bottom ads
+        if (footer) {
+            const bottomAdSection = document.createElement('div');
+            bottomAdSection.className = 'ad-mobile-bottom-section md:hidden py-2 bg-gray-100';
+            bottomAdSection.id = 'ad-mobile-bottom-section';
+
+            placements.bottom.forEach(ad => {
+                if (!document.getElementById(ad.id)) {
+                    const container = this.createAdContainer(ad.id, ad.format);
+                    bottomAdSection.appendChild(container);
+                }
+            });
+
+            if (bottomAdSection.children.length > 0 && !document.getElementById('ad-mobile-bottom-section')) {
+                footer.parentNode.insertBefore(bottomAdSection, footer);
+            }
+        }
+
+        // Inject sticky bottom ad
+        placements.sticky.forEach(ad => {
+            if (!document.getElementById(ad.id)) {
+                const container = this.createAdContainer(ad.id, ad.format, { sticky: true });
+                container.className += ' md:hidden';
+
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '&times;';
+                closeBtn.className = 'ad-close-btn';
+                closeBtn.style.cssText = `
+                    position: absolute;
+                    top: -20px;
+                    right: 5px;
+                    background: #333;
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    line-height: 1;
+                `;
+                closeBtn.onclick = () => container.style.display = 'none';
+                container.style.position = 'fixed';
+                container.appendChild(closeBtn);
+
+                document.body.appendChild(container);
+            }
+        });
+    },
+
+    // Create floating sidebar for pages without sidebar
+    createFloatingSidebar(sidebarAds) {
+        if (window.innerWidth < 1200) return; // Only on large screens
+
+        const floatingSidebar = document.createElement('div');
+        floatingSidebar.id = 'floating-sidebar-ads';
+        floatingSidebar.className = 'fixed right-4 top-1/4 z-40 hidden xl:block';
+        floatingSidebar.style.cssText = 'max-width: 300px;';
+
+        sidebarAds.slice(0, 2).forEach(ad => { // Only first 2 ads for floating
+            if (!document.getElementById(ad.id)) {
+                const container = this.createAdContainer(ad.id, ad.format);
+                container.style.marginBottom = '10px';
+                floatingSidebar.appendChild(container);
+            }
+        });
+
+        if (floatingSidebar.children.length > 0 && !document.getElementById('floating-sidebar-ads')) {
+            document.body.appendChild(floatingSidebar);
+        }
+    },
+
+    // Load all injected ads
+    loadInjectedAds() {
+        const isMobile = window.innerWidth < 768;
+
+        // Load Adsterra ads
+        document.querySelectorAll('.ad-auto-injected').forEach(container => {
+            const id = container.id;
+            if (this.loaded[id]) return;
+
+            // Determine ad type from ID
+            if (id.includes('juicy')) {
+                this.loadJuicyBanner(id);
+            } else if (id.includes('native')) {
+                this.loadAdsterraNative(id);
+            } else {
+                // Determine format from container dimensions
+                const style = container.style;
+                if (style.minHeight === '60px' || style.minHeight === '50px') {
+                    if (isMobile || id.includes('mobile')) {
+                        this.loadAdsterra320x50(id);
+                    } else {
+                        this.loadAdsterra468x60(id);
+                    }
+                } else if (style.minHeight === '300px') {
+                    this.loadAdsterra160x300(id);
+                } else {
+                    this.loadAdsterra300x250(id);
+                }
+            }
+        });
+    },
+
     // Initialize ads based on page type
     init(pageType = 'default') {
         const isMobile = window.innerWidth < 768;
+
+        // AUTO-INJECT AD CONTAINERS FIRST
+        this.injectAds();
 
         // Always load Social Bar
         this.loadAdsterraSocialBar();
@@ -523,6 +1114,10 @@ const AdManager = {
         // Load PopUnder (frequency limited)
         this.loadJuicyPopunder();
 
+        // LOAD ALL AUTO-INJECTED ADS
+        this.loadInjectedAds();
+
+        // Also load manually placed ads (backward compatibility with existing HTML)
         // Load ALL sidebar ads immediately (3-4 banner slots)
         this.loadAdsterra300x250('ad-sidebar');
         this.loadAdsterra300x250('ad-sidebar-2');
@@ -582,6 +1177,8 @@ const AdManager = {
             this.loadJuicyBanner('ad-juicy-banner');
             // Show interstitial after tool usage (delayed)
             this.setupToolInterstitial();
+            // Inject additional tool-specific ads
+            this.injectToolPageAds();
         }
 
         // Load JuicyAds on all pages - multiple placements for more impressions
@@ -616,9 +1213,35 @@ const AdManager = {
 
         // Log initialization
         console.log('[AdManager] Initialized for page type:', pageType, 'Mobile:', window.innerWidth < 768);
+        console.log('[AdManager] Auto-injected containers:', document.querySelectorAll('.ad-auto-injected').length);
 
         // Check ad loading status faster (2 seconds instead of 5)
         setTimeout(() => this.checkAdStatus(), 2000);
+    },
+
+    // Inject additional ads specifically for tool pages
+    injectToolPageAds() {
+        const toolContainer = document.querySelector('.tool-container, [data-tool], main .card, main > div > div');
+        if (!toolContainer) return;
+
+        // Add ad before tool output/result area
+        const resultArea = document.querySelector('#result, #output, .result, .output, [data-result]');
+        if (resultArea && !document.getElementById('ad-before-result')) {
+            const adContainer = this.createAdContainer('ad-before-result', '300x250');
+            adContainer.style.margin = '15px auto';
+            resultArea.parentNode.insertBefore(adContainer, resultArea);
+            this.loadAdsterra300x250('ad-before-result');
+        }
+
+        // Add ad after tool action buttons
+        const actionButtons = document.querySelector('.action-buttons, .btn-group, .buttons, form + div');
+        if (actionButtons && !document.getElementById('ad-after-actions')) {
+            const adContainer = this.createAdContainer('ad-after-actions', '468x60');
+            adContainer.style.margin = '15px auto';
+            adContainer.className += ' hidden md:flex';
+            actionButtons.parentNode.insertBefore(adContainer, actionButtons.nextSibling);
+            this.loadAdsterra468x60('ad-after-actions');
+        }
     },
 
     // Setup interstitial to show after tool usage
@@ -642,21 +1265,25 @@ const AdManager = {
 
     // Check if ads loaded and show fallback if blocked
     checkAdStatus() {
-        const adContainers = ['ad-sidebar', 'ad-sidebar-2', 'ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer'];
+        // Include both manual and auto-injected containers
+        const manualContainers = ['ad-sidebar', 'ad-sidebar-2', 'ad-header', 'ad-sidebar-skyscraper', 'ad-sidebar-rectangle', 'ad-footer'];
+        const autoInjectedContainers = Array.from(document.querySelectorAll('.ad-auto-injected')).map(el => el.id);
+        const allContainers = [...manualContainers, ...autoInjectedContainers];
+
         let loadedCount = 0;
         let totalFound = 0;
 
-        adContainers.forEach(id => {
+        allContainers.forEach(id => {
             const container = document.getElementById(id);
             if (container) {
                 totalFound++;
-                if (container.children.length > 0) {
+                if (container.children.length > 0 || container.querySelector('script, iframe')) {
                     loadedCount++;
                 }
             }
         });
 
-        console.log(`[AdManager] Ad status: ${loadedCount}/${totalFound} containers have content`);
+        console.log(`[AdManager] Ad status: ${loadedCount}/${totalFound} containers have content (${autoInjectedContainers.length} auto-injected)`);
 
         if (loadedCount === 0 && this.errors.length > 0) {
             console.log('[AdManager] Ads appear to be blocked. Popunders will still work on click.');
