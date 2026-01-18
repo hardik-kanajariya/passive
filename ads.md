@@ -308,9 +308,9 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 
 ## JuicyAds
 
-> ✅ **Status:** Active  
-> **Dedicated Page:** `/special-offers/`  
-> **Note:** JuicyAds loads primarily on the dedicated special offers page for adult content.
+> ✅ **Status:** Active on ALL Pages  
+> **Special Page:** `/special-offers/` (dedicated adult content page)  
+> **Note:** JuicyAds now loads on ALL pages alongside Adsterra for maximum revenue.
 
 ### Site Verification
 
@@ -322,12 +322,13 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 
 ---
 
-### Dedicated Page
+### Ad Units Loading on All Pages
 
-All JuicyAds units are concentrated on `/special-offers/` page:
-- PopUnder (auto-loads)
-- Banner 632x190 (multiple placements)
-- Click-under support
+| Ad Type | Container ID | Size |
+|---------|--------------|------|
+| PopUnder | Auto | Auto |
+| Banner | `ad-juicy-banner` | 632×190 |
+| Banner | `ad-juicy-content` | 632×190 |
 
 ---
 

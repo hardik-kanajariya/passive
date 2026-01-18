@@ -17,7 +17,7 @@
 const AdManager = {
     config: {
         enableAdsterra: true,
-        enableJuicyAds: true,        // Enabled - loads on /special-offers/ page
+        enableJuicyAds: true,        // Enabled - loads on ALL pages with Adsterra
         enableSmartLinks: true,      // Popunder on click (high revenue)
         enableAntiAdblock: true,     // Anti-adblock popunder
         enableInterstitial: true,    // Interstitial between actions
@@ -559,6 +559,13 @@ const AdManager = {
             this.loadJuicyBanner('ad-juicy-banner');
             // Show interstitial after tool usage (delayed)
             this.setupToolInterstitial();
+        }
+
+        // Load JuicyAds on all pages
+        if (this.config.enableJuicyAds) {
+            // Load JuicyAds banner if container exists
+            this.loadJuicyBanner('ad-juicy-banner');
+            this.loadJuicyBanner('ad-juicy-content');
         }
 
         // Processing pages get interstitial
