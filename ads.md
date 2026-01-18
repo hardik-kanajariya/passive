@@ -25,7 +25,6 @@
   - [PopUnders v3](#1-popunders-v3)
   - [Click-under v3.2P](#2-click-under-v32p-tag-based)
   - [Display Banner 632x190](#3-display-banner-632x190)
-- [TrafficStars](#trafficstars) ⏳
 - [PopAds.net](#popadsnet) ⏳
 - [A-ADS (Crypto)](#a-ads-crypto) ⏳
 - [Rotate4All](#rotate4all)
@@ -371,14 +370,6 @@ var juicy_tags = ['a', 'img'];
 
 ---
 
-## TrafficStars
-
-> ⏳ **Status:** Pending Approval
-
-*Ad codes will be added once approved.*
-
----
-
 ## PopAds.net
 
 > ⏳ **Status:** Pending Approval
@@ -389,11 +380,20 @@ var juicy_tags = ['a', 'img'];
 
 ## A-ADS (Crypto)
 
-> ⏳ **Status:** Pending Approval
+> ✅ **Status:** Active
 
-*Ad codes will be added once approved.*
+**Ad Unit ID:** `2424578`  
+**Type:** Adaptive Banner  
+**Best For:** Crypto calculator tools, Bitcoin-related content, general pages
 
-**Best For:** Crypto calculator tools, Bitcoin-related content
+```html
+<div id="ad-aads" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
+    <iframe data-aa='2424578' src='//acceptable.a-ads.com/2424578/?size=Adaptive'
+        style='border:0; padding:0; width:70%; height:auto; overflow:hidden; display: block; margin: auto;'></iframe>
+</div>
+```
+
+**Placement:** Landing page (below hero), tool pages with crypto/calculator content.
 
 ---
 
@@ -428,9 +428,8 @@ https://www.rotate4all.com/ptp/promote-299080
 |---------|--------|-------------------|
 | ✅ Adsterra | Active | Banners, Native, Social Bar, Interstitial, Direct Link |
 | ✅ JuicyAds | Active | PopUnders, Click-under, Display Banners |
-| ⏳ TrafficStars | Pending | - |
 | ⏳ PopAds.net | Pending | - |
-| ⏳ A-ADS | Pending | - |
+| ✅ A-ADS | Active | Adaptive Banner (Crypto) |
 | ✅ Rotate4All | Active | PTP Links |
 
 ---
