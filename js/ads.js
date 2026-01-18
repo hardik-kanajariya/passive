@@ -546,11 +546,19 @@ const AdManager = {
             this.loadAdsterra468x60('ad-footer');
         }
 
-        // Mobile ads
+        // Mobile ads - load more banners for increased impressions
         if (isMobile) {
             this.loadAdsterra320x50('ad-mobile-top');
             this.loadAdsterra300x250('ad-mobile-content');
             this.loadAdsterra320x50('ad-mobile-sticky');
+            this.loadAdsterra320x50('ad-mobile-bottom');
+            this.loadAdsterra300x250('ad-mobile-mid');
+
+            // Load JuicyAds on mobile too
+            this.loadJuicyBanner('juicy-mobile-1');
+            this.loadJuicyBanner('juicy-mobile-2');
+            this.loadJuicyBanner('juicy-mobile-3');
+            this.loadJuicyBanner('juicy-mobile-mid');
         }
 
         // Tool pages get extra ads
@@ -657,7 +665,9 @@ const AdManager = {
             'ad-sidebar-rectangle': () => this.loadAdsterraDirect('ad-sidebar-rectangle', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
             'ad-mobile-top': () => this.loadAdsterraDirect('ad-mobile-top', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
             'ad-mobile-content': () => this.loadAdsterraDirect('ad-mobile-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
-            'ad-mobile-sticky': () => this.loadAdsterraDirect('ad-mobile-sticky', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50)
+            'ad-mobile-sticky': () => this.loadAdsterraDirect('ad-mobile-sticky', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
+            'ad-mobile-bottom': () => this.loadAdsterraDirect('ad-mobile-bottom', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
+            'ad-mobile-mid': () => this.loadAdsterraDirect('ad-mobile-mid', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250)
         };
 
         Object.keys(retryMap).forEach(id => {
@@ -668,6 +678,17 @@ const AdManager = {
                 retryMap[id]();
             }
         });
+
+        // Also retry JuicyAds mobile banners
+        if (isMobile) {
+            ['juicy-mobile-1', 'juicy-mobile-2', 'juicy-mobile-3', 'juicy-mobile-mid'].forEach(id => {
+                const container = document.getElementById(id);
+                if (container && container.children.length === 0) {
+                    this.loaded[id] = false;
+                    this.loadJuicyBanner(id);
+                }
+            });
+        }
     },
 
     // Debug function - call AdManager.debug() in console
