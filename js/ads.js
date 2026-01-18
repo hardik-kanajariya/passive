@@ -199,45 +199,127 @@ const AdManager = {
             return;
         }
 
+        // Clear container and set up styling
         container.innerHTML = '';
         container.style.minWidth = width + 'px';
         container.style.minHeight = height + 'px';
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+        container.style.overflow = 'hidden';
 
-        const iframe = document.createElement('iframe');
-        iframe.style.width = width + 'px';
-        iframe.style.height = height + 'px';
-        iframe.style.border = 'none';
-        iframe.style.overflow = 'hidden';
-        iframe.style.display = 'block';
-        iframe.style.margin = '0 auto';
-        iframe.scrolling = 'no';
-        iframe.frameBorder = '0';
-        iframe.allowTransparency = 'true';
+        // Create a unique wrapper div for this ad
+        const wrapper = document.createElement('div');
+        wrapper.id = `adsterra-wrapper-${containerId}-${Date.now()}`;
+        wrapper.style.width = width + 'px';
+        wrapper.style.height = height + 'px';
+        container.appendChild(wrapper);
 
-        container.appendChild(iframe);
+        // Create inline script with unique atOptions for this specific ad
+        const configScript = document.createElement('script');
+        configScript.type = 'text/javascript';
+        configScript.textContent = `
+            (function() {
+                var adContainer = document.getElementById('${wrapper.id}');
+                if (!adContainer) return;
+                
+                // Create script elements inside the wrapper
+                var optScript = document.createElement('script');
+                optScript.type = 'text/javascript';
+                optScript.textContent = "atOptions = { 'key': '${key}', 'format': 'iframe', 'height': ${height}, 'width': ${width}, 'params': {} };";
+                adContainer.appendChild(optScript);
+                
+                var invokeScript = document.createElement('script');
+                invokeScript.type = 'text/javascript';
+                invokeScript.src = '//www.topcreativeformat.com/${key}/invoke.js';
+                invokeScript.onerror = function() {
+                    // Fallback to alternative domain
+                    var fallback = document.createElement('script');
+                    fallback.src = '//pl28503838.effectivegatecpm.com/${key}/invoke.js';
+                    adContainer.appendChild(fallback);
+                };
+                adContainer.appendChild(invokeScript);
+            })();
+        `;
 
-        // Write ad code to iframe after it's added to DOM
-        const writeAdCode = () => {
-            try {
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(`<!DOCTYPE html>
-<html><head>
-<style>*{margin:0;padding:0;box-sizing:border-box;}body{overflow:hidden;display:flex;justify-content:center;align-items:center;min-height:${height}px;}</style>
-</head><body>
-<script>atOptions={'key':'${key}','format':'iframe','height':${height},'width':${width},'params':{}};<\/script>
-<script src="https://biographygridetelegram.com/${key}/invoke.js"><\/script>
-</body></html>`);
-                iframeDoc.close();
-                this.loaded[containerId] = true;
-                console.log(`[AdManager] Loaded ad in #${containerId}`);
-            } catch (e) {
-                this.logError(containerId, e);
-            }
+        // Append and execute
+        document.body.appendChild(configScript);
+
+        this.loaded[containerId] = true;
+        console.log(`[AdManager] Loaded ad in #${containerId} (key: ${key.substring(0, 8)}...)`);
+    },
+
+    // Direct injection method - most reliable for Adsterra
+    loadAdsterraDirect(containerId, key, width, height) {
+        if (this.loaded[containerId]) return;
+
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.warn(`[AdManager] Container #${containerId} not found`);
+            return;
+        }
+
+        container.innerHTML = '';
+        container.style.minWidth = width + 'px';
+        container.style.minHeight = height + 'px';
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+
+        // Set atOptions globally right before loading the script
+        window.atOptions = {
+            'key': key,
+            'format': 'iframe',
+            'height': height,
+            'width': width,
+            'params': {}
         };
 
-        // Small delay to ensure iframe is ready
-        setTimeout(writeAdCode, 100);
+        // Load the invoke script
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+
+        // Try multiple domains for reliability
+        const domains = [
+            `//www.topcreativeformat.com/${key}/invoke.js`,
+            `//pl28503838.effectivegatecpm.com/${key}/invoke.js`,
+            `//biographygridetelegram.com/${key}/invoke.js`
+        ];
+
+        let domainIndex = 0;
+
+        const tryNextDomain = () => {
+            if (domainIndex >= domains.length) {
+                this.logError(containerId, 'All domains failed');
+                this.showFallbackPlaceholder(container, width, height);
+                return;
+            }
+            script.src = domains[domainIndex];
+            domainIndex++;
+        };
+
+        script.onerror = () => {
+            console.warn(`[AdManager] Domain failed for ${containerId}, trying next...`);
+            tryNextDomain();
+        };
+
+        script.onload = () => {
+            console.log(`[AdManager] Successfully loaded ad in #${containerId}`);
+        };
+
+        tryNextDomain();
+        container.appendChild(script);
+        this.loaded[containerId] = true;
+    },
+
+    // Show a fallback placeholder when ads fail to load
+    showFallbackPlaceholder(container, width, height) {
+        container.innerHTML = `
+            <div style="width:${width}px;height:${height}px;display:flex;align-items:center;justify-content:center;background:#f3f4f6;border-radius:8px;color:#9ca3af;font-size:12px;">
+                <span>Ad</span>
+            </div>
+        `;
     },
 
     // Queue an Adsterra ad for loading
@@ -250,8 +332,8 @@ const AdManager = {
             return;
         }
 
-        // Use iframe method directly - more reliable for Adsterra
-        this.loadAdsterraViaIframe(containerId, key, width, height);
+        // Use direct method - more reliable for Adsterra
+        this.loadAdsterraDirect(containerId, key, width, height);
     },
 
     // Adsterra: Banner 468x60
@@ -559,15 +641,15 @@ const AdManager = {
 
         // Check each container and retry if empty
         const retryMap = {
-            'ad-sidebar': () => this.loadAdsterraViaIframe('ad-sidebar', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
-            'ad-sidebar-2': () => this.loadAdsterraViaIframe('ad-sidebar-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
-            'ad-header': () => this.loadAdsterraViaIframe('ad-header', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
-            'ad-footer': () => this.loadAdsterraViaIframe('ad-footer', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
-            'ad-sidebar-skyscraper': () => this.loadAdsterraViaIframe('ad-sidebar-skyscraper', '820015608f3c05c78d776d295a0323a9', 160, 300),
-            'ad-sidebar-rectangle': () => this.loadAdsterraViaIframe('ad-sidebar-rectangle', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
-            'ad-mobile-top': () => this.loadAdsterraViaIframe('ad-mobile-top', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
-            'ad-mobile-content': () => this.loadAdsterraViaIframe('ad-mobile-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
-            'ad-mobile-sticky': () => this.loadAdsterraViaIframe('ad-mobile-sticky', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50)
+            'ad-sidebar': () => this.loadAdsterraDirect('ad-sidebar', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-sidebar-2': () => this.loadAdsterraDirect('ad-sidebar-2', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-header': () => this.loadAdsterraDirect('ad-header', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
+            'ad-footer': () => this.loadAdsterraDirect('ad-footer', '2fd5ef6df9cb74880bb92917f2d93d06', 468, 60),
+            'ad-sidebar-skyscraper': () => this.loadAdsterraDirect('ad-sidebar-skyscraper', '820015608f3c05c78d776d295a0323a9', 160, 300),
+            'ad-sidebar-rectangle': () => this.loadAdsterraDirect('ad-sidebar-rectangle', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-mobile-top': () => this.loadAdsterraDirect('ad-mobile-top', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50),
+            'ad-mobile-content': () => this.loadAdsterraDirect('ad-mobile-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250),
+            'ad-mobile-sticky': () => this.loadAdsterraDirect('ad-mobile-sticky', '9009f28e9a070214cd6bbd79b4b7308d', 320, 50)
         };
 
         Object.keys(retryMap).forEach(id => {
@@ -689,7 +771,7 @@ const AdManager = {
 
         // Load ad into container
         setTimeout(() => {
-            this.loadAdsterraViaIframe('ad-scroll-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
+            this.loadAdsterraDirect('ad-scroll-content', 'c44a710d9fa8c03495f7861c0d3c84ac', 300, 250);
         }, 100);
 
         // Auto-close after 30 seconds
