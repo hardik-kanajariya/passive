@@ -1,6 +1,7 @@
 /**
  * Ad Manager - Handles all ad network integrations
- * Networks: Adsterra, JuicyAds, Rotate4All, Popunder Smart Links
+ * Networks: Adsterra, JuicyAds, Popunder Smart Links
+ * Note: Rotate4All is handled separately on /partner-offers/ page
  * 
  * Revenue Optimization Strategies (All Legitimate):
  * 1. Popunder on first click (6-hour frequency cap)

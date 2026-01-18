@@ -303,7 +303,6 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 | Direct Link | URL | `ba588c7082379404e4ff4358b3eb9355` |
 | JuicyAds Banner | 632×190 | Zone: `1109381` |
 | JuicyAds PopUnder | Auto | `44640333y244u4r2p28403d494` |
-| Rotate4All PTP | URL | `promote-299080` |
 
 ---
 
@@ -399,26 +398,20 @@ var juicy_tags = ['a', 'img'];
 
 ## Rotate4All
 
+> ⚠️ **IMPORTANT:** Rotate4All is now available ONLY on the dedicated partner offers page.
+> **Page:** `/partner-offers/`
+
 ### PTP (Paid to Promote) Link
 
 **Type:** Traffic exchange / PTP link  
-**Best For:** Footer links, "Partners" section, interstitial pages
+**Dedicated Page:** [/partner-offers/](/partner-offers/)  
+**DO NOT USE:** In footer, sidebar, or other general placements
 
 ```
 https://www.rotate4all.com/ptp/promote-299080
 ```
 
-**Example usage:**
-
-```html
-<a href="https://www.rotate4all.com/ptp/promote-299080" 
-   target="_blank" 
-   rel="noopener nofollow">
-  Visit our partners
-</a>
-```
-
-> 💡 **Tip:** Use on processing/countdown pages where users wait.
+> 💡 **Note:** All Rotate4All traffic should be directed through the dedicated `/partner-offers/` page for better tracking and user experience.
 
 ---
 
@@ -430,7 +423,7 @@ https://www.rotate4all.com/ptp/promote-299080
 | ✅ JuicyAds | Active | PopUnders, Click-under, Display Banners |
 | ⏳ PopAds.net | Pending | - |
 | ✅ A-ADS | Active | Adaptive Banner (Crypto) |
-| ✅ Rotate4All | Active | PTP Links |
+| ✅ Rotate4All | Active (Dedicated Page Only) | PTP Links |
 
 ---
 
@@ -446,7 +439,6 @@ https://www.rotate4all.com/ptp/promote-299080
 | In-content | Adsterra | Native Banner |
 | In-content | JuicyAds | 632x190 Banner |
 | Footer | Adsterra | 468x60 Banner |
-| Footer link | Rotate4All | PTP Link |
 | Before `</body>` | Adsterra | Social Bar |
 | Before `</body>` | JuicyAds | PopUnder (OR Click-under) |
 
