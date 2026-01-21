@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  DOMAIN: passive.hardikkanajariya.in
-  DEPLOY_PATH: /var/www/passive.hardikkanajariya.in
+  DOMAIN: tools.hardikkanajariya.in
+  DEPLOY_PATH: /var/www/tools.hardikkanajariya.in
 
 jobs:
   deploy:
@@ -35,17 +35,17 @@ jobs:
           SITE_DIR_EXISTS="false"
           
           # Check if nginx config exists and is enabled
-          if [ -f /etc/nginx/sites-available/passive.hardikkanajariya.in ] && [ -L /etc/nginx/sites-enabled/passive.hardikkanajariya.in ]; then
+          if [ -f /etc/nginx/sites-available/tools.hardikkanajariya.in ] && [ -L /etc/nginx/sites-enabled/tools.hardikkanajariya.in ]; then
             NGINX_CONFIGURED="true"
           fi
           
           # Check if SSL certificate exists
-          if [ -f /etc/letsencrypt/live/passive.hardikkanajariya.in/fullchain.pem ]; then
+          if [ -f /etc/letsencrypt/live/tools.hardikkanajariya.in/fullchain.pem ]; then
             SSL_CONFIGURED="true"
           fi
           
           # Check if site directory exists
-          if [ -d /var/www/passive.hardikkanajariya.in ]; then
+          if [ -d /var/www/tools.hardikkanajariya.in ]; then
             SITE_DIR_EXISTS="true"
           fi
           
@@ -74,8 +74,8 @@ jobs:
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
           
           echo "Creating site directory..."
-          sudo mkdir -p /var/www/passive.hardikkanajariya.in
-          sudo chown -R $USER:$USER /var/www/passive.hardikkanajariya.in
+          sudo mkdir -p /var/www/tools.hardikkanajariya.in
+          sudo chown -R $USER:$USER /var/www/tools.hardikkanajariya.in
           
           ENDSSH
 
@@ -102,10 +102,10 @@ jobs:
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
           
           # Install nginx config using cat with sudo tee
-          cat /tmp/passive.hardikkanajariya.in.conf | sudo tee /etc/nginx/sites-available/passive.hardikkanajariya.in > /dev/null
+          cat /tmp/tools.hardikkanajariya.in.conf | sudo tee /etc/nginx/sites-available/tools.hardikkanajariya.in > /dev/null
           
           # Enable the site by creating symlink
-          sudo ln -sf /etc/nginx/sites-available/passive.hardikkanajariya.in /etc/nginx/sites-enabled/
+          sudo ln -sf /etc/nginx/sites-available/tools.hardikkanajariya.in /etc/nginx/sites-enabled/
           
           # Test Nginx configuration
           sudo nginx -t
@@ -114,7 +114,7 @@ jobs:
           sudo systemctl reload nginx
           
           # Cleanup temp files
-          rm -f /tmp/passive.hardikkanajariya.in.conf
+          rm -f /tmp/tools.hardikkanajariya.in.conf
           
           echo "Nginx configuration completed!"
           
@@ -133,7 +133,7 @@ jobs:
           
           if command -v certbot &> /dev/null; then
             echo "Setting up SSL certificate..."
-            sudo certbot --nginx -d passive.hardikkanajariya.in --non-interactive --agree-tos --email ${{ secrets.SSL_EMAIL }} || echo "SSL setup skipped or failed"
+            sudo certbot --nginx -d tools.hardikkanajariya.in --non-interactive --agree-tos --email ${{ secrets.SSL_EMAIL }} || echo "SSL setup skipped or failed"
           else
             echo "Certbot not installed, skipping SSL setup"
             echo "To install: sudo apt install certbot python3-certbot-nginx"

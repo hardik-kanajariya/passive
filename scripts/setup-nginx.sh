@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # ===========================================
-# Nginx Setup Script for passive.hardikkanajariya.in
+# Nginx Setup Script for tools.hardikkanajariya.in
 # ===========================================
 
 set -e  # Exit on error
 
 # Configuration variables
-DOMAIN="passive.hardikkanajariya.in"
+DOMAIN="tools.hardikkanajariya.in"
 WEB_ROOT="/var/www/${DOMAIN}"
 NGINX_AVAILABLE="/etc/nginx/sites-available"
 NGINX_ENABLED="/etc/nginx/sites-enabled"
@@ -72,8 +72,8 @@ server {
     listen 80;
     listen [::]:80;
     
-    server_name passive.hardikkanajariya.in;
-    root /var/www/passive.hardikkanajariya.in;
+    server_name tools.hardikkanajariya.in;
+    root /var/www/tools.hardikkanajariya.in;
     index index.html landing-page.html;
     
     location / {
