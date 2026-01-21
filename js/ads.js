@@ -10,12 +10,16 @@ const AdManager = {
     // Standard IAB Ad Sizes
     adSizes: {
         leaderboard: { width: 728, height: 90, label: 'Leaderboard', mobileWidth: 320, mobileHeight: 50 },
+        largeLeaderboard: { width: 728, height: 120, label: 'Large Leaderboard', mobileWidth: 320, mobileHeight: 100 },
         mediumRectangle: { width: 300, height: 250, label: 'Medium Rectangle' },
         largeRectangle: { width: 336, height: 280, label: 'Large Rectangle' },
         halfPage: { width: 300, height: 600, label: 'Half Page' },
-        billboard: { width: 970, height: 250, label: 'Billboard', mobileWidth: 300, mobileHeight: 250 },
+        billboard: { width: 970, height: 250, label: 'Billboard', mobileWidth: 320, mobileHeight: 250 },
+        largeBillboard: { width: 970, height: 300, label: 'Large Billboard', mobileWidth: 320, mobileHeight: 250 },
+        wideBanner: { width: 650, height: 250, label: 'Wide Banner', mobileWidth: 300, mobileHeight: 250 },
         mobileLeaderboard: { width: 320, height: 50, label: 'Mobile Banner' },
         mobileLarge: { width: 320, height: 100, label: 'Mobile Large' },
+        mobileRectangle: { width: 320, height: 250, label: 'Mobile Rectangle' },
         skyscraper: { width: 160, height: 600, label: 'Skyscraper' },
         wideSkyscraper: { width: 300, height: 600, label: 'Wide Skyscraper' },
         square: { width: 250, height: 250, label: 'Square' },
@@ -164,18 +168,21 @@ const AdManager = {
         `;
     },
 
-    // Create native ad cards (for footer/content recommendations)
+    // Create native ad cards (for footer/content recommendations) - Responsive 4-card layout
     createNativeAds(count = 4) {
+        const isMobile = window.innerWidth < 768;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
         const container = document.createElement('div');
         container.className = 'ad-native-container';
         container.style.cssText = `
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(${isMobile ? 2 : isTablet ? 2 : 4}, 1fr);
+            gap: ${isMobile ? '12px' : '20px'};
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 8px;
+            padding: ${isMobile ? '8px' : '16px'};
         `;
 
         const categories = ['Technology', 'Business', 'Lifestyle', 'Featured'];
@@ -186,27 +193,27 @@ const AdManager = {
             card.className = 'ad-native-card';
             card.style.cssText = `
                 background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-                border-radius: 12px;
-                padding: 16px;
+                border-radius: ${isMobile ? '10px' : '12px'};
+                padding: ${isMobile ? '12px' : '16px'};
                 border: 1px solid #4b5563;
                 transition: all 0.3s ease;
                 cursor: pointer;
             `;
 
             card.innerHTML = `
-                <div style="width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,${colors[i]},${colors[(i + 1) % 4]});border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.7">
+                <div style="width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,${colors[i]},${colors[(i + 1) % 4]});border-radius:8px;margin-bottom:${isMobile ? '8px' : '12px'};display:flex;align-items:center;justify-content:center;">
+                    <svg width="${isMobile ? '24' : '32'}" height="${isMobile ? '24' : '32'}" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.7">
                         <rect x="3" y="3" width="18" height="18" rx="2"/>
                         <circle cx="8.5" cy="8.5" r="1.5"/>
                         <path d="M21 15l-5-5L5 21"/>
                     </svg>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-                    <span style="font-size:9px;color:#9ca3af;background:#374151;padding:2px 6px;border-radius:3px;">Sponsored</span>
-                    <span style="font-size:9px;color:${colors[i]};">${categories[i]}</span>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:${isMobile ? '6px' : '8px'};">
+                    <span style="font-size:${isMobile ? '8px' : '9px'};color:#9ca3af;background:#374151;padding:2px 6px;border-radius:3px;">Sponsored</span>
+                    <span style="font-size:${isMobile ? '8px' : '9px'};color:${colors[i]};">${categories[i]}</span>
                 </div>
-                <div style="height:12px;background:#4b5563;border-radius:4px;margin-bottom:6px;width:90%;"></div>
-                <div style="height:10px;background:#4b5563;border-radius:4px;width:70%;"></div>
+                <div style="height:${isMobile ? '10px' : '12px'};background:#4b5563;border-radius:4px;margin-bottom:6px;width:90%;"></div>
+                <div style="height:${isMobile ? '8px' : '10px'};background:#4b5563;border-radius:4px;width:70%;"></div>
             `;
 
             card.addEventListener('mouseenter', () => {
@@ -398,23 +405,24 @@ const AdManager = {
     // Load all placements strategically
     loadAllPlacements() {
         const isMobile = window.innerWidth < 768;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-        // Homepage banners
-        this.loadAd('ad-banner-top', isMobile ? 'mobileLeaderboard' : 'leaderboard', { position: 'Header', premium: true });
-        this.loadAd('ad-juicy-banner', isMobile ? 'mediumRectangle' : 'billboard', { position: 'Hero', premium: true });
+        // Homepage banners - Large Leaderboard 728x120 for desktop
+        this.loadAd('ad-banner-top', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Header', premium: true });
+        this.loadAd('ad-juicy-banner', isMobile ? 'mobileRectangle' : 'largeBillboard', { position: 'Hero', premium: true });
 
-        // Tool page header
-        this.loadAd('ad-header', isMobile ? 'mobileLeaderboard' : 'banner', { position: 'Top' });
-        this.loadAd('ad-header-2', isMobile ? 'mobileLeaderboard' : 'banner', { position: 'Top' });
+        // Tool page header - 728x120 for desktop
+        this.loadAd('ad-header', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Top', premium: true });
+        this.loadAd('ad-header-2', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Top' });
 
         // Mobile specific
-        this.loadAd('ad-mobile-top', 'mobileLeaderboard', { position: 'Mobile Top' });
+        this.loadAd('ad-mobile-top', 'mobileLarge', { position: 'Mobile Top' });
         this.loadAd('ad-mobile-top-2', 'mobileLeaderboard', { position: 'Mobile' });
         this.loadAd('ad-mobile-sticky', 'sticky', { position: 'Sticky' });
-        this.loadAd('ad-mobile-content', 'mediumRectangle', { position: 'Content' });
-        this.loadAd('ad-mobile-content-2', 'mediumRectangle', { position: 'Content' });
-        this.loadAd('ad-mobile-mid', 'mediumRectangle', { position: 'Mid' });
-        this.loadAd('ad-mobile-mid-2', 'mediumRectangle', { position: 'Mid' });
+        this.loadAd('ad-mobile-content', 'mobileRectangle', { position: 'Content' });
+        this.loadAd('ad-mobile-content-2', 'mobileRectangle', { position: 'Content' });
+        this.loadAd('ad-mobile-mid', 'mobileRectangle', { position: 'Mid' });
+        this.loadAd('ad-mobile-mid-2', 'mobileRectangle', { position: 'Mid' });
         this.loadAd('ad-mobile-bottom', 'mobileLeaderboard', { position: 'Bottom' });
 
         // Sidebar ads - high value placements
@@ -426,17 +434,16 @@ const AdManager = {
         this.loadAd('ad-sidebar-rectangle', 'mediumRectangle', { position: 'Side' });
         this.loadAd('ad-sidebar-rectangle-2', 'mediumRectangle', { position: 'Side' });
 
-        // Content ads - in-article placements
-        this.loadAd('ad-content', 'mediumRectangle', { position: 'In-Content', premium: true });
-        this.loadAd('ad-content-2', 'mediumRectangle', { position: 'Content' });
-        this.loadAd('ad-banner-middle', isMobile ? 'mobileLeaderboard' : 'banner', { position: 'Mid-Page' });
-        this.loadAd('ad-banner-middle-2', isMobile ? 'mobileLeaderboard' : 'banner', { position: 'Mid-Page' });
-        this.loadAd('ad-banner-middle-mobile', 'mediumRectangle', { position: 'Mobile Mid' });
-        this.loadAd('ad-banner-middle-mobile-2', 'mediumRectangle', { position: 'Mobile Mid' });
+        // Content ads - in-article placements (single wide banner instead of multiple small ones)
+        this.loadAd('ad-content', isMobile ? 'mobileRectangle' : 'wideBanner', { position: 'In-Content', premium: true });
+        this.loadAd('ad-banner-middle', isMobile ? 'mobileRectangle' : 'wideBanner', { position: 'Mid-Page', premium: true });
+        this.loadAd('ad-banner-middle-2', isMobile ? 'mobileRectangle' : 'wideBanner', { position: 'Mid-Page' });
+        this.loadAd('ad-banner-middle-mobile', 'mobileRectangle', { position: 'Mobile Mid' });
+        this.loadAd('ad-banner-middle-mobile-2', 'mobileRectangle', { position: 'Mobile Mid' });
 
-        // Footer banner
-        this.loadAd('ad-footer', isMobile ? 'mobileLeaderboard' : 'leaderboard', { position: 'Footer' });
-        this.loadAd('ad-footer-2', isMobile ? 'mobileLeaderboard' : 'leaderboard', { position: 'Footer' });
+        // Footer banner - Large Leaderboard
+        this.loadAd('ad-footer', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Footer' });
+        this.loadAd('ad-footer-2', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Footer' });
 
         // Native ads in footer
         const nativeFooter = document.getElementById('ad-native-footer');
@@ -452,8 +459,23 @@ const AdManager = {
 
     // Auto-detect remaining ad containers
     autoFillContainers() {
+        // Hide duplicate ad containers on tool pages only (not homepage)
+        const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+        const duplicateAds = isHomepage ? ['ad-content-2'] : ['ad-juicy-banner', 'ad-content-2'];
+
+        duplicateAds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                const parent = el.closest('.hidden.md\\:block') || el.parentElement;
+                if (parent && parent !== document.body) {
+                    parent.style.display = 'none';
+                }
+            }
+        });
+
         document.querySelectorAll('[id^="ad-"]:not(.ad-filled)').forEach(container => {
             if (this.loaded[container.id] || container.querySelector('.ad-placeholder')) return;
+            if (duplicateAds.includes(container.id)) return; // Skip duplicate containers
 
             const style = window.getComputedStyle(container);
             const minHeight = parseInt(container.style.minHeight) || parseInt(style.height) || 250;
