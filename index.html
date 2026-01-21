@@ -204,17 +204,29 @@
         </div>
     </section>
 
-    <!-- Ad Placeholder Banner -->
-    <section class="py-4 bg-gray-100">
-        <div class="max-w-4xl mx-auto px-4">
-            <div id="ad-banner-top" class="ad-container" style="min-height:90px;"></div>
+    <!-- Premium Ad Banner - Leaderboard -->
+    <section class="py-6 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-3">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Advertisement</span>
+            </div>
+            <!-- Desktop: Leaderboard 728x90 -->
+            <div id="ad-banner-top" class="hidden md:flex ad-container justify-center" style="min-height:90px;"></div>
+            <!-- Mobile: Mobile Banner 320x50 -->
+            <div id="ad-mobile-top" class="md:hidden ad-container justify-center" style="min-height:50px;"></div>
         </div>
     </section>
 
-    <!-- Ad Placeholder Banner 2 -->
-    <section class="py-4 bg-white">
-        <div class="max-w-4xl mx-auto px-4">
-            <div id="ad-juicy-banner" class="ad-container flex justify-center" style="min-height:200px;"></div>
+    <!-- Premium Ad Banner - Billboard/Rectangle -->
+    <section class="py-6 bg-white border-y border-gray-100">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-3">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Sponsored</span>
+            </div>
+            <!-- Desktop: Billboard 970x250 -->
+            <div id="ad-juicy-banner" class="hidden md:flex ad-container justify-center" style="min-height:250px;"></div>
+            <!-- Mobile: Medium Rectangle 300x250 -->
+            <div id="ad-mobile-content" class="md:hidden ad-container justify-center" style="min-height:250px;"></div>
         </div>
     </section>
 
@@ -510,20 +522,16 @@
         </div>
     </section>
 
-    <!-- Banner Ad Section -->
-    <section class="py-8 bg-white">
+    <!-- Mid-Page Ad Section -->
+    <section class="py-8 bg-gradient-to-b from-white via-gray-50 to-white">
         <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-2">
-                <span class="text-xs text-gray-400 uppercase tracking-wider">Advertisement</span>
+            <div class="text-center mb-3">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Sponsored Content</span>
             </div>
-            <!-- Desktop: 468x60 Banner -->
-            <div id="ad-banner-middle"
-                class="hidden md:flex ad-container rounded-xl overflow-hidden mx-auto justify-center"
-                style="max-width: 468px; min-height: 60px;"></div>
-            <!-- Mobile: 300x250 Banner -->
-            <div id="ad-banner-middle-mobile"
-                class="md:hidden ad-container rounded-xl overflow-hidden mx-auto flex justify-center"
-                style="max-width: 300px; min-height: 250px;"></div>
+            <!-- Desktop: Banner 468x60 -->
+            <div id="ad-banner-middle" class="hidden md:flex ad-container justify-center" style="min-height:60px;"></div>
+            <!-- Mobile: Medium Rectangle 300x250 -->
+            <div id="ad-banner-middle-mobile" class="md:hidden ad-container justify-center" style="min-height:250px;"></div>
         </div>
     </section>
 

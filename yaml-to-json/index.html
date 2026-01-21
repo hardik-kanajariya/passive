@@ -24,9 +24,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 60px;
-            background: #f9fafb;
-            border-radius: 8px
+            width: 100%;
+        }
+        .ad-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .ad-section-label {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .ad-section-label span {
+            font-size: 10px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -92,18 +107,23 @@ email: john@example.com" class="w-full px-4 py-3 font-mono text-sm border border
                     </div>
                 </div>
 
-                <div class="hidden md:block">
+                <!-- In-Content Ad - Premium Placement -->
+                <div class="ad-section hidden md:block">
+                    <div class="ad-section-label">
+                        <span>Sponsored</span>
+                    </div>
                     <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
-                </div>
-
-                <!-- JuicyAds Banner -->
-                <div class="hidden md:block">
-                    <div id="ad-juicy-banner" class="ad-container flex justify-center" style="min-height:200px;"></div>
                 </div>
             </div>
 
             <div class="lg:col-span-1 space-y-6">
-                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                <!-- Sidebar Ad - Premium Placement -->
+                <div class="ad-section">
+                    <div class="ad-section-label">
+                        <span>Advertisement</span>
+                    </div>
+                    <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+                </div>
 
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-3">YAML Syntax</h3>
@@ -125,7 +145,13 @@ email: john@example.com" class="w-full px-4 py-3 font-mono text-sm border border
                     </ul>
                 </div>
 
-                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+                <!-- Second Sidebar Ad -->
+                <div class="ad-section">
+                    <div class="ad-section-label">
+                        <span>Sponsored</span>
+                    </div>
+                    <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+                </div>
             </div>
         </div>
     </main>
