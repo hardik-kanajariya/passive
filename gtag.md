@@ -7,4 +7,3 @@
 
         gtag('config', 'G-R0PGXKVLHL');
     </script>
-    <meta name="juicyads-site-verification" content="3a5fa98502cb745e835ee3a14e7f0858">
