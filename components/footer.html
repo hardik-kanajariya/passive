@@ -7,7 +7,7 @@
                 <span class="text-xs text-gray-500 uppercase tracking-wider">Sponsored</span>
             </div>
             <div id="ad-native-footer" class="flex justify-center">
-                <!-- Adsterra Native Banner will load here -->
+                <!-- Native Ad Placeholder will load here -->
                 <div id="container-3fecabf66e493c7e25b0b3150e5b5adb"></div>
             </div>
         </div>
@@ -105,36 +105,7 @@
                     </a>
                 </div>
 
-                <!-- Popunder Smart Links -->
-                <script data-component-script>
-                    (function () {
-                        // Smart link URLs for popunder
-                        var smartLinks = [
-                            'https://biographygridetelegram.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355',
-                            'https://biographygridetelegram.com/gzfm2zz1b?key=c54407e930a6fcd009f2749f33eb3aa5'
-                        ];
 
-                        // Check if popunder was shown in last 24 hours
-                        function shouldShowPopunder() {
-                            var lastPop = localStorage.getItem('footerPopunder');
-                            var now = Date.now();
-                            var dayInMs = 24 * 60 * 60 * 1000;
-                            if (!lastPop || (now - parseInt(lastPop)) > dayInMs) {
-                                localStorage.setItem('footerPopunder', now.toString());
-                                return true;
-                            }
-                            return false;
-                        }
-
-                        // Auto-trigger after 15 seconds
-                        setTimeout(function () {
-                            if (shouldShowPopunder()) {
-                                var randomUrl = smartLinks[Math.floor(Math.random() * smartLinks.length)];
-                                window.open(randomUrl, '_blank');
-                            }
-                        }, 15000);
-                    })();
-                </script>
             </div>
         </div>
     </div>
