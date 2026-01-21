@@ -6,7 +6,7 @@
 
 const AdManager = {
     loaded: {},
-    
+
     // Standard IAB Ad Sizes
     adSizes: {
         leaderboard: { width: 728, height: 90, label: 'Leaderboard', mobileWidth: 320, mobileHeight: 50 },
@@ -37,9 +37,9 @@ const AdManager = {
 
         const placeholder = document.createElement('div');
         placeholder.className = `ad-placeholder ad-${type}${premium ? ' ad-premium' : ''}`;
-        
+
         // Determine style based on size and premium status
-        const bgGradient = premium 
+        const bgGradient = premium
             ? 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)'
             : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)';
         const borderColor = premium ? '#6366f1' : '#cbd5e1';
@@ -76,7 +76,7 @@ const AdManager = {
         // Hover effects
         placeholder.addEventListener('mouseenter', () => {
             placeholder.style.transform = 'translateY(-2px)';
-            placeholder.style.boxShadow = premium 
+            placeholder.style.boxShadow = premium
                 ? '0 20px 40px -12px rgba(99, 102, 241, 0.35)'
                 : '0 20px 40px -12px rgba(139, 92, 246, 0.25)';
             placeholder.style.borderColor = accentColor;
@@ -92,7 +92,7 @@ const AdManager = {
 
     getLargeAdContent(width, height, label, premium, accentColor, textColor, position) {
         const positionBadge = position ? `<span style="position:absolute;top:12px;left:12px;background:${accentColor};color:white;font-size:9px;font-weight:600;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;">${position}</span>` : '';
-        
+
         return `
             ${positionBadge}
             <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.1);padding:3px 8px;border-radius:4px;">
@@ -126,7 +126,7 @@ const AdManager = {
 
     getMediumAdContent(width, height, label, premium, accentColor, textColor, position) {
         const positionBadge = position ? `<span style="background:${accentColor};color:white;font-size:8px;font-weight:600;padding:2px 6px;border-radius:3px;margin-right:8px;">${position}</span>` : '';
-        
+
         return `
             <div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 20px;width:100%;box-sizing:border-box;">
                 <div style="width:40px;height:40px;min-width:40px;background:linear-gradient(135deg,${accentColor},#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;">
@@ -194,7 +194,7 @@ const AdManager = {
             `;
 
             card.innerHTML = `
-                <div style="width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,${colors[i]},${colors[(i+1)%4]});border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+                <div style="width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,${colors[i]},${colors[(i + 1) % 4]});border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.7">
                         <rect x="3" y="3" width="18" height="18" rx="2"/>
                         <circle cx="8.5" cy="8.5" r="1.5"/>
@@ -291,7 +291,7 @@ const AdManager = {
             width: 100%;
             box-sizing: border-box;
         `;
-        
+
         container.appendChild(this.createPlaceholder(type, options));
         this.loaded[containerId] = true;
     },
@@ -379,7 +379,7 @@ const AdManager = {
         console.log('[AdManager] Professional Placeholder System Initialized');
         this.injectStyles();
         this.loadAllPlacements();
-        
+
         // Reload on resize for responsive adjustments
         let resizeTimer;
         window.addEventListener('resize', () => {
@@ -389,7 +389,7 @@ const AdManager = {
                 this.loadAllPlacements();
             }, 250);
         });
-        
+
         // Delayed load for dynamic content
         setTimeout(() => this.loadAllPlacements(), 500);
         setTimeout(() => this.loadAllPlacements(), 1500);
@@ -457,7 +457,7 @@ const AdManager = {
 
             const style = window.getComputedStyle(container);
             const minHeight = parseInt(container.style.minHeight) || parseInt(style.height) || 250;
-            
+
             let type = 'mediumRectangle';
             if (minHeight <= 60) type = 'mobileLeaderboard';
             else if (minHeight <= 100) type = 'mobileLarge';
