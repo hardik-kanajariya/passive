@@ -309,7 +309,6 @@ https://www.effectivegatecpm.com/d70ejjns?key=ba588c7082379404e4ff4358b3eb9355
 ## JuicyAds
 
 > ✅ **Status:** Active on ALL Pages  
-> **Special Page:** `/special-offers/` (dedicated adult content page)  
 > **Note:** JuicyAds now loads on ALL pages alongside Adsterra for maximum revenue.
 
 ### Site Verification
