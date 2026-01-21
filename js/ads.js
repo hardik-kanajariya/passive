@@ -170,20 +170,9 @@ const AdManager = {
 
     // Create native ad cards (for footer/content recommendations) - Responsive 4-card layout
     createNativeAds(count = 4) {
-        const isMobile = window.innerWidth < 768;
-        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-
         const container = document.createElement('div');
         container.className = 'ad-native-container';
-        container.style.cssText = `
-            display: grid;
-            grid-template-columns: repeat(${isMobile ? 2 : isTablet ? 2 : 4}, 1fr);
-            gap: ${isMobile ? '12px' : '20px'};
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: ${isMobile ? '8px' : '16px'};
-        `;
+        // CSS class handles responsive grid via injected styles
 
         const categories = ['Technology', 'Business', 'Lifestyle', 'Featured'];
         const colors = ['#6366f1', '#8b5cf6', '#a855f7', '#ec4899'];
@@ -193,27 +182,28 @@ const AdManager = {
             card.className = 'ad-native-card';
             card.style.cssText = `
                 background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-                border-radius: ${isMobile ? '10px' : '12px'};
-                padding: ${isMobile ? '12px' : '16px'};
+                border-radius: 12px;
+                padding: 16px;
                 border: 1px solid #4b5563;
                 transition: all 0.3s ease;
                 cursor: pointer;
+                box-sizing: border-box;
             `;
 
             card.innerHTML = `
-                <div style="width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,${colors[i]},${colors[(i + 1) % 4]});border-radius:8px;margin-bottom:${isMobile ? '8px' : '12px'};display:flex;align-items:center;justify-content:center;">
-                    <svg width="${isMobile ? '24' : '32'}" height="${isMobile ? '24' : '32'}" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.7">
+                <div style="width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,${colors[i]},${colors[(i + 1) % 4]});border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.7">
                         <rect x="3" y="3" width="18" height="18" rx="2"/>
                         <circle cx="8.5" cy="8.5" r="1.5"/>
                         <path d="M21 15l-5-5L5 21"/>
                     </svg>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:${isMobile ? '6px' : '8px'};">
-                    <span style="font-size:${isMobile ? '8px' : '9px'};color:#9ca3af;background:#374151;padding:2px 6px;border-radius:3px;">Sponsored</span>
-                    <span style="font-size:${isMobile ? '8px' : '9px'};color:${colors[i]};">${categories[i]}</span>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                    <span style="font-size:9px;color:#9ca3af;background:#374151;padding:2px 6px;border-radius:3px;">Sponsored</span>
+                    <span style="font-size:9px;color:${colors[i]};">${categories[i]}</span>
                 </div>
-                <div style="height:${isMobile ? '10px' : '12px'};background:#4b5563;border-radius:4px;margin-bottom:6px;width:90%;"></div>
-                <div style="height:${isMobile ? '8px' : '10px'};background:#4b5563;border-radius:4px;width:70%;"></div>
+                <div style="height:12px;background:#4b5563;border-radius:4px;margin-bottom:6px;width:90%;"></div>
+                <div style="height:10px;background:#4b5563;border-radius:4px;width:70%;"></div>
             `;
 
             card.addEventListener('mouseenter', () => {
@@ -316,6 +306,7 @@ const AdManager = {
                 align-items: center;
                 width: 100%;
                 margin: 0 auto;
+                box-sizing: border-box;
             }
             
             .ad-wrapper {
@@ -326,24 +317,18 @@ const AdManager = {
             }
             
             .ad-section {
-                background: #f8fafc;
-                border-top: 1px solid #e2e8f0;
-                border-bottom: 1px solid #e2e8f0;
-                padding: 20px 16px;
-                margin: 24px 0;
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                border-radius: 12px;
+                padding: 16px;
+                margin-bottom: 24px;
             }
             
-            .ad-section-dark {
-                background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-                border: none;
-            }
-            
-            .ad-label {
+            .ad-section-label {
                 text-align: center;
                 margin-bottom: 12px;
             }
             
-            .ad-label span {
+            .ad-section-label span {
                 font-size: 10px;
                 color: #94a3b8;
                 text-transform: uppercase;
@@ -351,26 +336,49 @@ const AdManager = {
                 font-weight: 500;
             }
             
+            /* Native ads grid - always 4 columns on desktop, 2 on mobile */
+            .ad-native-container {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 20px !important;
+                width: 100% !important;
+                max-width: 1200px !important;
+                margin: 0 auto !important;
+                padding: 16px !important;
+                box-sizing: border-box !important;
+            }
+            
             /* Responsive adjustments */
-            @media (max-width: 768px) {
-                .ad-placeholder {
-                    max-width: 100% !important;
-                }
-                
+            @media (max-width: 1024px) {
                 .ad-native-container {
                     grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 12px !important;
-                }
-                
-                .ad-native-card {
-                    padding: 12px !important;
+                    gap: 16px !important;
                 }
             }
             
-            @media (max-width: 480px) {
+            @media (max-width: 640px) {
+                .ad-native-container {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 12px !important;
+                    padding: 8px !important;
+                }
+                
+                .ad-native-card {
+                    padding: 10px !important;
+                }
+            }
+            
+            @media (max-width: 400px) {
                 .ad-native-container {
                     grid-template-columns: 1fr !important;
                 }
+            }
+            
+            /* Sidebar ad container */
+            .lg\\:col-span-1 .ad-container {
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                border-radius: 12px;
+                padding: 12px;
             }
             
             /* Hide real ad iframes */
@@ -409,7 +417,7 @@ const AdManager = {
 
         // Homepage banners - Large Leaderboard 728x120 for desktop
         this.loadAd('ad-banner-top', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Header', premium: true });
-        this.loadAd('ad-juicy-banner', isMobile ? 'mobileRectangle' : 'largeBillboard', { position: 'Hero', premium: true });
+        this.loadAd('ad-hero-banner', isMobile ? 'mobileRectangle' : 'largeBillboard', { position: 'Hero', premium: true });
 
         // Tool page header - 728x120 for desktop
         this.loadAd('ad-header', isMobile ? 'mobileLarge' : 'largeLeaderboard', { position: 'Top', premium: true });
@@ -459,23 +467,35 @@ const AdManager = {
 
     // Auto-detect remaining ad containers
     autoFillContainers() {
-        // Hide duplicate ad containers on tool pages only (not homepage)
-        const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-        const duplicateAds = isHomepage ? ['ad-content-2'] : ['ad-juicy-banner', 'ad-content-2'];
+        // Determine if on homepage
+        const isHomepage = window.location.pathname === '/' ||
+            window.location.pathname === '/index.html' ||
+            window.location.pathname.endsWith('/passive/') ||
+            window.location.pathname.endsWith('/passive/index.html');
 
-        duplicateAds.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                const parent = el.closest('.hidden.md\\:block') || el.parentElement;
-                if (parent && parent !== document.body) {
-                    parent.style.display = 'none';
+        // On tool pages (not homepage), hide ad-content-2 since we already show ad-content
+        if (!isHomepage) {
+            // Hide ad-content-2 on tool pages
+            const adContent2 = document.getElementById('ad-content-2');
+            if (adContent2) {
+                let parent = adContent2.parentElement;
+                while (parent && parent !== document.body) {
+                    if (parent.classList.contains('mb-6') || parent.classList.contains('hidden')) {
+                        parent.style.display = 'none';
+                        break;
+                    }
+                    parent = parent.parentElement;
                 }
             }
-        });
+        }
 
+        // Fill remaining unfilled ad containers
         document.querySelectorAll('[id^="ad-"]:not(.ad-filled)').forEach(container => {
-            if (this.loaded[container.id] || container.querySelector('.ad-placeholder')) return;
-            if (duplicateAds.includes(container.id)) return; // Skip duplicate containers
+            if (this.loaded[container.id] || container.querySelector('.ad-placeholder') || container.querySelector('.ad-native-container')) return;
+
+            // Skip containers that should be hidden
+            if (container.style.display === 'none') return;
+            if (!isHomepage && container.id === 'ad-content-2') return;
 
             const style = window.getComputedStyle(container);
             const minHeight = parseInt(container.style.minHeight) || parseInt(style.height) || 250;
