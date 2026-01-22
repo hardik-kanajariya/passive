@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspect Ratio Placeholder Generator - Create Images by Ratio | PassiveTools</title>
+    <meta name="description"
+        content="Generate placeholder images based on aspect ratio. Create custom ratio images with width/height in pixels. Download in WebP or PNG format.">
+    <meta name="keywords"
+        content="aspect ratio placeholder, image generator, 16:9 image, 4:3 image, placeholder by ratio, custom ratio image">
+    <link rel="canonical" href="https://tools.hardikkanajariya.in/aspect-ratio-placeholder/">
+    <meta name="robots" content="index, follow">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0PGXKVLHL"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag('js', new Date()); gtag('config', 'G-R0PGXKVLHL');</script>
+    <!-- Tailwind CSS - Production -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/css/tailwind-fallback.css" rel="stylesheet">
+    <script>tailwind.config = { theme: { extend: { colors: { violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' } } } } }</script>
+    <style>
+        .ad-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .ratio-btn.active {
+            background-color: #7c3aed;
+            color: white;
+            border-color: #7c3aed;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900" data-page-type="tool">
+    <div data-component="header"></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="text-gray-500 hover:text-violet-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="/image-tools/" class="text-gray-500 hover:text-violet-600">Image Tools</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-violet-600 font-medium">Aspect Ratio Placeholder</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Aspect Ratio Placeholder Generator</h1>
+
+                    <!-- Aspect Ratio Selection -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Select Aspect Ratio</label>
+                        <div class="flex flex-wrap gap-2" id="ratioButtons">
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="1:1">1:1</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="4:3">4:3</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors active"
+                                data-ratio="16:9">16:9</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="21:9">21:9</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="3:2">3:2</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="9:16">9:16</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="3:4">3:4</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="2:3">2:3</button>
+                            <button type="button"
+                                class="ratio-btn px-4 py-2 border border-gray-300 rounded-lg hover:bg-violet-100 transition-colors"
+                                data-ratio="custom">Custom</button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Ratio Input -->
+                    <div id="customRatioSection" class="mb-6 hidden">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ratio Width</label>
+                                <input type="number" id="ratioWidth" value="16" min="1" max="100"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                    oninput="calculateFromRatio()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ratio Height</label>
+                                <input type="number" id="ratioHeight" value="9" min="1" max="100"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                    oninput="calculateFromRatio()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size Input -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Base Dimension</label>
+                            <select id="baseDimension"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                onchange="calculateFromRatio()">
+                                <option value="width">Width (px)</option>
+                                <option value="height">Height (px)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Size (px)</label>
+                            <input type="number" id="baseSize" value="1920" min="1" max="8000"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="calculateFromRatio()">
+                        </div>
+                    </div>
+
+                    <!-- Calculated Dimensions Display -->
+                    <div class="bg-violet-50 rounded-xl p-4 mb-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-sm text-gray-600">Generated Image Size:</span>
+                                <p class="text-xl font-bold text-violet-700" id="dimensionDisplay">1920 × 1080 px</p>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Aspect Ratio:</span>
+                                <p class="text-xl font-bold text-violet-700" id="ratioDisplay">16:9</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
+                            <div class="flex gap-2">
+                                <input type="color" id="bgColor" value="#e2e8f0"
+                                    class="h-10 w-14 rounded cursor-pointer" oninput="generate()">
+                                <input type="text" id="bgColorText" value="#e2e8f0"
+                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-xl"
+                                    oninput="syncColor('bg')">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Text Color</label>
+                            <div class="flex gap-2">
+                                <input type="color" id="textColor" value="#64748b"
+                                    class="h-10 w-14 rounded cursor-pointer" oninput="generate()">
+                                <input type="text" id="textColorText" value="#64748b"
+                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-xl"
+                                    oninput="syncColor('text')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Custom Text (optional)</label>
+                            <input type="text" id="customText" placeholder="Leave empty for ratio & size text"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                oninput="generate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Show Grid Pattern</label>
+                            <select id="showGrid"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-violet-500"
+                                onchange="generate()">
+                                <option value="none">None</option>
+                                <option value="lines">Grid Lines</option>
+                                <option value="dots">Dots Pattern</option>
+                                <option value="crosshatch">Crosshatch</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Preview</h3>
+                        <div class="p-4 bg-gray-100 rounded-xl overflow-auto" style="max-height: 450px;">
+                            <canvas id="canvas" class="mx-auto shadow-lg rounded"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Download Buttons -->
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Download Image</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="downloadImage('webp')"
+                                class="flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Download WebP
+                            </button>
+                            <button onclick="downloadImage('png')"
+                                class="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Download PNG
+                            </button>
+                            <button onclick="downloadImage('jpeg')"
+                                class="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Download JPEG
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Copy Options -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button onclick="copyDataUrl()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Copy
+                            Data URL</button>
+                        <button onclick="copyHtml()"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl">Copy
+                            HTML Code</button>
+                    </div>
+
+                    <!-- Quick Presets -->
+                    <div class="p-4 bg-gray-50 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 mb-3">Quick Presets</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setPreset('1920', '1080', '16:9')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">Full
+                                HD (1920×1080)</button>
+                            <button onclick="setPreset('1280', '720', '16:9')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">HD
+                                (1280×720)</button>
+                            <button onclick="setPreset('1080', '1080', '1:1')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">Square
+                                (1080×1080)</button>
+                            <button onclick="setPreset('1080', '1920', '9:16')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">Story
+                                (1080×1920)</button>
+                            <button onclick="setPreset('1200', '630', '1.91:1')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">OG
+                                Image (1200×630)</button>
+                            <button onclick="setPreset('2560', '1080', '21:9')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">Ultrawide
+                                (2560×1080)</button>
+                            <button onclick="setPreset('800', '600', '4:3')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">Standard
+                                (800×600)</button>
+                            <button onclick="setPreset('1500', '500', '3:1')"
+                                class="px-3 py-1.5 bg-white border border-gray-200 hover:border-violet-400 rounded-lg text-sm">Banner
+                                (1500×500)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div id="ad-content" class="ad-container" style="min-height:250px;"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <div id="ad-sidebar" class="ad-container" style="min-height:250px;"></div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Common Aspect Ratios</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li class="flex justify-between"><span>16:9</span><span class="text-gray-400">HD Video,
+                                TV</span></li>
+                        <li class="flex justify-between"><span>4:3</span><span class="text-gray-400">Classic TV,
+                                Photos</span></li>
+                        <li class="flex justify-between"><span>1:1</span><span class="text-gray-400">Instagram
+                                Square</span></li>
+                        <li class="flex justify-between"><span>9:16</span><span class="text-gray-400">Stories,
+                                Reels</span></li>
+                        <li class="flex justify-between"><span>21:9</span><span class="text-gray-400">Ultrawide,
+                                Cinema</span></li>
+                        <li class="flex justify-between"><span>3:2</span><span class="text-gray-400">DSLR Photos</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Use Cases</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Video thumbnails</li>
+                        <li>• Social media posts</li>
+                        <li>• Website mockups</li>
+                        <li>• App prototypes</li>
+                        <li>• Presentation slides</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-semibold text-gray-900 mb-3">Related Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/placeholder-image/" class="text-violet-600 hover:underline text-sm">Placeholder
+                                Image Generator</a></li>
+                        <li><a href="/image-resizer/" class="text-violet-600 hover:underline text-sm">Image Resizer</a>
+                        </li>
+                        <li><a href="/image-converter/" class="text-violet-600 hover:underline text-sm">Image
+                                Converter</a></li>
+                    </ul>
+                </div>
+
+                <div id="ad-sidebar-2" class="ad-container" style="min-height:250px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="/js/components.js"></script>
+    <script src="/js/ads.js"></script>
+    <script src="/js/tool-template.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let currentRatio = { w: 16, h: 9 };
+        let currentWidth = 1920;
+        let currentHeight = 1080;
+
+        // Setup ratio buttons
+        document.querySelectorAll('.ratio-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const ratio = this.dataset.ratio;
+                const customSection = document.getElementById('customRatioSection');
+
+                if (ratio === 'custom') {
+                    customSection.classList.remove('hidden');
+                } else {
+                    customSection.classList.add('hidden');
+                    const [w, h] = ratio.split(':').map(Number);
+                    currentRatio = { w, h };
+                    document.getElementById('ratioWidth').value = w;
+                    document.getElementById('ratioHeight').value = h;
+                }
+                calculateFromRatio();
+            });
+        });
+
+        function syncColor(type) {
+            if (type === 'bg') {
+                const value = document.getElementById('bgColorText').value;
+                if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+                    document.getElementById('bgColor').value = value;
+                    generate();
+                }
+            } else {
+                const value = document.getElementById('textColorText').value;
+                if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+                    document.getElementById('textColor').value = value;
+                    generate();
+                }
+            }
+        }
+
+        function calculateFromRatio() {
+            const ratioW = parseInt(document.getElementById('ratioWidth').value) || 16;
+            const ratioH = parseInt(document.getElementById('ratioHeight').value) || 9;
+            const baseSize = parseInt(document.getElementById('baseSize').value) || 1920;
+            const baseDimension = document.getElementById('baseDimension').value;
+
+            currentRatio = { w: ratioW, h: ratioH };
+
+            if (baseDimension === 'width') {
+                currentWidth = baseSize;
+                currentHeight = Math.round(baseSize * ratioH / ratioW);
+            } else {
+                currentHeight = baseSize;
+                currentWidth = Math.round(baseSize * ratioW / ratioH);
+            }
+
+            // Update displays
+            document.getElementById('dimensionDisplay').textContent = `${currentWidth} × ${currentHeight} px`;
+            document.getElementById('ratioDisplay').textContent = `${ratioW}:${ratioH}`;
+
+            generate();
+        }
+
+        function gcd(a, b) {
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        function setPreset(width, height, ratio) {
+            currentWidth = parseInt(width);
+            currentHeight = parseInt(height);
+
+            // Parse ratio
+            const ratioParts = ratio.split(':');
+            currentRatio = { w: parseFloat(ratioParts[0]), h: parseFloat(ratioParts[1]) };
+
+            document.getElementById('ratioWidth').value = currentRatio.w;
+            document.getElementById('ratioHeight').value = currentRatio.h;
+            document.getElementById('baseSize').value = currentWidth;
+            document.getElementById('baseDimension').value = 'width';
+
+            document.getElementById('dimensionDisplay').textContent = `${currentWidth} × ${currentHeight} px`;
+            document.getElementById('ratioDisplay').textContent = ratio;
+
+            // Update active button
+            document.querySelectorAll('.ratio-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.ratio === ratio) {
+                    btn.classList.add('active');
+                }
+            });
+
+            generate();
+        }
+
+        function generate() {
+            const bgColor = document.getElementById('bgColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const customText = document.getElementById('customText').value;
+            const showGrid = document.getElementById('showGrid').value;
+
+            // Update color text inputs
+            document.getElementById('bgColorText').value = bgColor;
+            document.getElementById('textColorText').value = textColor;
+
+            // Scale down for preview if too large
+            const maxPreview = 500;
+            const scale = Math.min(1, maxPreview / Math.max(currentWidth, currentHeight));
+
+            canvas.width = currentWidth * scale;
+            canvas.height = currentHeight * scale;
+
+            // Draw background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw grid pattern if selected
+            if (showGrid !== 'none') {
+                drawPattern(showGrid, scale);
+            }
+
+            // Draw text
+            const ratioText = `${currentRatio.w}:${currentRatio.h}`;
+            const sizeText = `${currentWidth} × ${currentHeight}`;
+            const displayText = customText || `${ratioText}\n${sizeText}`;
+
+            const fontSize = Math.min(canvas.width, canvas.height) / 10;
+
+            ctx.fillStyle = textColor;
+            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            if (customText) {
+                ctx.fillText(customText, canvas.width / 2, canvas.height / 2);
+            } else {
+                ctx.fillText(ratioText, canvas.width / 2, canvas.height / 2 - fontSize * 0.6);
+                ctx.font = `${fontSize * 0.6}px Arial, sans-serif`;
+                ctx.fillText(sizeText, canvas.width / 2, canvas.height / 2 + fontSize * 0.5);
+            }
+
+            // Draw corner markers
+            drawCornerMarkers(textColor, scale);
+        }
+
+        function drawPattern(type, scale) {
+            const patternColor = document.getElementById('textColor').value + '20';
+            ctx.strokeStyle = patternColor;
+            ctx.lineWidth = 1;
+
+            if (type === 'lines') {
+                const spacing = 40 * scale;
+                for (let x = spacing; x < canvas.width; x += spacing) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = spacing; y < canvas.height; y += spacing) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+            } else if (type === 'dots') {
+                const spacing = 20 * scale;
+                ctx.fillStyle = patternColor;
+                for (let x = spacing; x < canvas.width; x += spacing) {
+                    for (let y = spacing; y < canvas.height; y += spacing) {
+                        ctx.beginPath();
+                        ctx.arc(x, y, 2 * scale, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            } else if (type === 'crosshatch') {
+                const spacing = 30 * scale;
+                for (let i = -canvas.height; i < canvas.width; i += spacing) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i + canvas.height, canvas.height);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(i + canvas.height, 0);
+                    ctx.lineTo(i, canvas.height);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function drawCornerMarkers(color, scale) {
+            const size = 20 * scale;
+            const offset = 10 * scale;
+            ctx.strokeStyle = color + '60';
+            ctx.lineWidth = 2 * scale;
+
+            // Top-left
+            ctx.beginPath();
+            ctx.moveTo(offset, offset + size);
+            ctx.lineTo(offset, offset);
+            ctx.lineTo(offset + size, offset);
+            ctx.stroke();
+
+            // Top-right
+            ctx.beginPath();
+            ctx.moveTo(canvas.width - offset - size, offset);
+            ctx.lineTo(canvas.width - offset, offset);
+            ctx.lineTo(canvas.width - offset, offset + size);
+            ctx.stroke();
+
+            // Bottom-left
+            ctx.beginPath();
+            ctx.moveTo(offset, canvas.height - offset - size);
+            ctx.lineTo(offset, canvas.height - offset);
+            ctx.lineTo(offset + size, canvas.height - offset);
+            ctx.stroke();
+
+            // Bottom-right
+            ctx.beginPath();
+            ctx.moveTo(canvas.width - offset - size, canvas.height - offset);
+            ctx.lineTo(canvas.width - offset, canvas.height - offset);
+            ctx.lineTo(canvas.width - offset, canvas.height - offset - size);
+            ctx.stroke();
+        }
+
+        function getFullCanvas() {
+            const bgColor = document.getElementById('bgColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const customText = document.getElementById('customText').value;
+            const showGrid = document.getElementById('showGrid').value;
+
+            const fullCanvas = document.createElement('canvas');
+            fullCanvas.width = currentWidth;
+            fullCanvas.height = currentHeight;
+            const fullCtx = fullCanvas.getContext('2d');
+
+            // Draw background
+            fullCtx.fillStyle = bgColor;
+            fullCtx.fillRect(0, 0, currentWidth, currentHeight);
+
+            // Draw grid pattern
+            if (showGrid !== 'none') {
+                const patternColor = textColor + '20';
+                fullCtx.strokeStyle = patternColor;
+                fullCtx.lineWidth = 1;
+
+                if (showGrid === 'lines') {
+                    const spacing = 40;
+                    for (let x = spacing; x < currentWidth; x += spacing) {
+                        fullCtx.beginPath();
+                        fullCtx.moveTo(x, 0);
+                        fullCtx.lineTo(x, currentHeight);
+                        fullCtx.stroke();
+                    }
+                    for (let y = spacing; y < currentHeight; y += spacing) {
+                        fullCtx.beginPath();
+                        fullCtx.moveTo(0, y);
+                        fullCtx.lineTo(currentWidth, y);
+                        fullCtx.stroke();
+                    }
+                } else if (showGrid === 'dots') {
+                    const spacing = 20;
+                    fullCtx.fillStyle = patternColor;
+                    for (let x = spacing; x < currentWidth; x += spacing) {
+                        for (let y = spacing; y < currentHeight; y += spacing) {
+                            fullCtx.beginPath();
+                            fullCtx.arc(x, y, 2, 0, Math.PI * 2);
+                            fullCtx.fill();
+                        }
+                    }
+                } else if (showGrid === 'crosshatch') {
+                    const spacing = 30;
+                    for (let i = -currentHeight; i < currentWidth; i += spacing) {
+                        fullCtx.beginPath();
+                        fullCtx.moveTo(i, 0);
+                        fullCtx.lineTo(i + currentHeight, currentHeight);
+                        fullCtx.stroke();
+                        fullCtx.beginPath();
+                        fullCtx.moveTo(i + currentHeight, 0);
+                        fullCtx.lineTo(i, currentHeight);
+                        fullCtx.stroke();
+                    }
+                }
+            }
+
+            // Draw text
+            const ratioText = `${currentRatio.w}:${currentRatio.h}`;
+            const sizeText = `${currentWidth} × ${currentHeight}`;
+            const fontSize = Math.min(currentWidth, currentHeight) / 10;
+
+            fullCtx.fillStyle = textColor;
+            fullCtx.font = `bold ${fontSize}px Arial, sans-serif`;
+            fullCtx.textAlign = 'center';
+            fullCtx.textBaseline = 'middle';
+
+            if (customText) {
+                fullCtx.fillText(customText, currentWidth / 2, currentHeight / 2);
+            } else {
+                fullCtx.fillText(ratioText, currentWidth / 2, currentHeight / 2 - fontSize * 0.6);
+                fullCtx.font = `${fontSize * 0.6}px Arial, sans-serif`;
+                fullCtx.fillText(sizeText, currentWidth / 2, currentHeight / 2 + fontSize * 0.5);
+            }
+
+            // Draw corner markers
+            const size = 20;
+            const offset = 10;
+            fullCtx.strokeStyle = textColor + '60';
+            fullCtx.lineWidth = 2;
+
+            fullCtx.beginPath();
+            fullCtx.moveTo(offset, offset + size);
+            fullCtx.lineTo(offset, offset);
+            fullCtx.lineTo(offset + size, offset);
+            fullCtx.stroke();
+
+            fullCtx.beginPath();
+            fullCtx.moveTo(currentWidth - offset - size, offset);
+            fullCtx.lineTo(currentWidth - offset, offset);
+            fullCtx.lineTo(currentWidth - offset, offset + size);
+            fullCtx.stroke();
+
+            fullCtx.beginPath();
+            fullCtx.moveTo(offset, currentHeight - offset - size);
+            fullCtx.lineTo(offset, currentHeight - offset);
+            fullCtx.lineTo(offset + size, currentHeight - offset);
+            fullCtx.stroke();
+
+            fullCtx.beginPath();
+            fullCtx.moveTo(currentWidth - offset - size, currentHeight - offset);
+            fullCtx.lineTo(currentWidth - offset, currentHeight - offset);
+            fullCtx.lineTo(currentWidth - offset, currentHeight - offset - size);
+            fullCtx.stroke();
+
+            return fullCanvas;
+        }
+
+        function downloadImage(format) {
+            const fullCanvas = getFullCanvas();
+            const mimeType = format === 'jpeg' ? 'image/jpeg' : `image/${format}`;
+            const quality = format === 'jpeg' ? 0.92 : 1.0;
+
+            const link = document.createElement('a');
+            link.download = `placeholder-${currentRatio.w}x${currentRatio.h}-${currentWidth}x${currentHeight}.${format === 'jpeg' ? 'jpg' : format}`;
+            link.href = fullCanvas.toDataURL(mimeType, quality);
+            link.click();
+
+            showToast(`Image downloaded as ${format.toUpperCase()}`);
+        }
+
+        function copyDataUrl() {
+            const fullCanvas = getFullCanvas();
+            navigator.clipboard.writeText(fullCanvas.toDataURL('image/png'));
+            showToast('Data URL copied to clipboard');
+        }
+
+        function copyHtml() {
+            const html = `<img src="placeholder.png" width="${currentWidth}" height="${currentHeight}" alt="${currentRatio.w}:${currentRatio.h} placeholder image">`;
+            navigator.clipboard.writeText(html);
+            showToast('HTML code copied to clipboard');
+        }
+
+        // Initialize
+        calculateFromRatio();
+    </script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Aspect Ratio Placeholder Generator","description":"Generate placeholder images based on aspect ratio with custom dimensions.","url":"https://tools.hardikkanajariya.in/aspect-ratio-placeholder/","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</body>
+
+</html>
