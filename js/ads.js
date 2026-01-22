@@ -170,9 +170,22 @@ const AdManager = {
 
     // Create native ad cards (for footer/content recommendations) - Responsive 4-card layout
     createNativeAds(count = 4) {
+        const isMobile = window.innerWidth < 768;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
         const container = document.createElement('div');
         container.className = 'ad-native-container';
-        // CSS class handles responsive grid via injected styles
+        // Apply inline styles to ensure grid works regardless of CSS loading
+        container.style.cssText = `
+            display: grid !important;
+            grid-template-columns: repeat(${isMobile ? 2 : isTablet ? 2 : 4}, 1fr) !important;
+            gap: ${isMobile ? '12px' : '20px'} !important;
+            width: 100% !important;
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: ${isMobile ? '8px' : '16px'} !important;
+            box-sizing: border-box !important;
+        `;
 
         const categories = ['Technology', 'Business', 'Lifestyle', 'Featured'];
         const colors = ['#6366f1', '#8b5cf6', '#a855f7', '#ec4899'];
@@ -492,6 +505,9 @@ const AdManager = {
         // Fill remaining unfilled ad containers
         document.querySelectorAll('[id^="ad-"]:not(.ad-filled)').forEach(container => {
             if (this.loaded[container.id] || container.querySelector('.ad-placeholder') || container.querySelector('.ad-native-container')) return;
+
+            // Skip native footer - it's handled specially with createNativeAds()
+            if (container.id === 'ad-native-footer') return;
 
             // Skip containers that should be hidden
             if (container.style.display === 'none') return;
